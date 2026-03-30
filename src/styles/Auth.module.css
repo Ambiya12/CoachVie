@@ -1,0 +1,150 @@
+.container {
+  min-height: 100vh;
+  background-color: #FCFAFA;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  color: #1C1C1C;
+}
+
+.header {
+  padding: 2rem 5%;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.brandName {
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1C1C1C;
+  text-decoration: none;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 5%;
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 600px;
+  background: transparent;
+}
+
+.title {
+  font-size: 1.7rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #6B6B6B;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.formRow {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #1C1C1C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.input {
+  background: transparent;
+  border: 1px solid #E5E5E5;
+  padding: 1rem 1rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #1C1C1C;
+  transition: border-color 0.2s ease;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #6B6B6B;
+}
+
+.input:focus {
+  border-color: #1C1C1C;
+}
+
+.submitBtn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #1C1C1C;
+  color: #1C1C1C;
+  padding: 1rem 2rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submitBtn:hover {
+  background: #F5F5F5;
+}
+
+.footerText {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #6B6B6B;
+}
+
+.link {
+  color: #1C1C1C;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid #1C1C1C;
+  padding-bottom: 2px;
+  margin-left: 0.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6B6B6B;
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: #1C1C1C;
+}
