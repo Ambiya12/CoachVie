@@ -14,28 +14,26 @@ export default function Login() {
       <p className={styles.subtitle}>Accédez à votre espace membre.</p>
       
       <form onSubmit={(e) => e.preventDefault()}>
-        <div className={styles.formRow}>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="email">Email</label>
-            <input 
-              className={styles.input} 
-              type="email" 
-              id="email" 
-              placeholder="votre@email.com" 
-              required 
-            />
-          </div>
-          
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="password">Mot de passe</label>
-            <input 
-              className={styles.input} 
-              type="password" 
-              id="password" 
-              placeholder="••••••••" 
-              required 
-            />
-          </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="email">Email</label>
+          <input 
+            className={styles.input} 
+            type="email" 
+            id="email" 
+            placeholder="votre@email.com" 
+            required 
+          />
+        </div>
+        
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="password">Mot de passe</label>
+          <input 
+            className={styles.input} 
+            type="password" 
+            id="password" 
+            placeholder="••••••••" 
+            required 
+          />
         </div>
         
         <button type="submit" className={styles.submitBtn}>
