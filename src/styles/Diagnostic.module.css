@@ -1,0 +1,137 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: var(--color-brand-primary);
+}
+
+.text {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--color-brand-secondary);
+  font-weight: 400;
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.optionsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.optionBtn {
+  background: transparent;
+  border: 1px solid var(--color-brand-border);
+  padding: 1.5rem 2rem;
+  text-align: left;
+  font-size: 1.125rem;
+  color: var(--color-brand-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.optionBtn:hover {
+  background: var(--color-brand-surface);
+  border-color: var(--color-brand-primary);
+}
+
+.primaryBtn {
+  background: transparent;
+  color: var(--color-brand-primary);
+  border: 1px solid var(--color-brand-primary);
+  padding: 1rem 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  margin-top: 2rem;
+}
+
+.primaryBtn:hover {
+  background: var(--color-brand-surface);
+}
+
+.progress {
+  font-size: 0.875rem;
+  color: var(--color-brand-secondary);
+  letter-spacing: 0.05em;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-brand-border);
+  padding-bottom: 1rem;
+}
+
+.fadeEnter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fadeEnterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-brand-border);
+  border-top-color: var(--color-brand-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 2rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .text {
+    font-size: 1.125rem;
+  }
+}

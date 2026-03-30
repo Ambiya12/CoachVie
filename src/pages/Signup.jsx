@@ -1,26 +1,44 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/AuthLayout';
 import styles from '../styles/Auth.module.css';
 
 export default function Signup() {
+  const navigate = useNavigate();
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+    navigate('/diagnostic');
+  };
+
   return (
     <AuthLayout>
       <Link to="/" className={styles.backLink}>
         &larr; Retour
       </Link>
 
-      <h1 className={styles.title}>Inscription</h1>
-      <p className={styles.subtitle}>Démarrez votre coaching dès aujourd'hui.</p>
+      <h1 className={styles.title}>Créez votre espace personnel</h1>
+      <p className={styles.subtitle}>Accédez à un accompagnement sur mesure basé sur votre profil, votre énergie et vos objectifs.</p>
       
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={handleSignup}>
         <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="name">Nom complet</label>
+          <label className={styles.label} htmlFor="name">Nom</label>
           <input 
             className={styles.input} 
             type="text" 
             id="name" 
-            placeholder="John Doe" 
+            placeholder="Nom"
+            required 
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="surname">Prénom</label>
+          <input 
+            className={styles.input} 
+            type="text" 
+            id="surname" 
+            placeholder="Prénom" 
             required 
           />
         </div>
@@ -37,16 +55,6 @@ export default function Signup() {
         </div>
         
         <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="phone">Numéro de téléphone (optionnel)</label>
-          <input 
-            className={styles.input} 
-            type="tel" 
-            id="phone" 
-            placeholder="+33 6 12 34 56 78" 
-          />
-        </div>
-        
-        <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="password">Mot de passe</label>
           <input 
             className={styles.input} 
@@ -56,12 +64,26 @@ export default function Signup() {
             required 
           />
         </div>
+
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="phone">Téléphone (optionnel)</label>
+          <input 
+            className={styles.input} 
+            type="tel" 
+            id="phone" 
+            placeholder="+33 6 12 34 56 78" 
+          />
+        </div>
         
         <button type="submit" className={styles.submitBtn}>
-          Créer mon compte
+          Créer mon espace
         </button>
       </form>
       
+      <p className={styles.footerText} style={{ marginTop: '1rem', fontSize: '0.875rem' }}>
+        Vos informations restent strictement confidentielles.
+      </p>
+
       <p className={styles.footerText}>
         Déjà membre ?
         <Link to="/login" className={styles.link}>

@@ -1,0 +1,197 @@
+.dashboardContainer {
+  min-height: 100vh;
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 2rem 4rem;
+  border-bottom: 1px solid var(--color-brand-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.navLink {
+  color: var(--color-brand-secondary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navLink.active {
+  color: var(--color-brand-primary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-brand-primary);
+  padding-bottom: 0.25rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+  padding: 4rem;
+  flex: 1;
+}
+
+.sidebar {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  border-right: 1px solid var(--color-brand-border);
+  padding-right: 2rem;
+}
+
+.mainContent {
+  grid-column: span 9;
+  padding-left: 2rem;
+}
+
+.metaBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.metaLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-secondary);
+}
+
+.metaValue {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.pill {
+  display: inline-block;
+  border: 1px solid var(--color-brand-primary);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  align-self: flex-start;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.sectionText {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--color-brand-secondary);
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+.moduleCard {
+  border: 1px solid var(--color-brand-border);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: border-color 0.3s ease;
+}
+
+.moduleCard:hover {
+  border-color: var(--color-brand-primary);
+}
+
+.moduleHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.moduleCount {
+  font-size: 0.875rem;
+  color: var(--color-brand-secondary);
+  letter-spacing: 0.05em;
+}
+
+.moduleTitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.moduleContent {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-brand-secondary);
+  margin-bottom: 2rem;
+}
+
+.textAction {
+  background: transparent;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.textAction:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+  
+  .sidebar {
+    grid-column: span 1;
+    border-right: none;
+    border-bottom: 1px solid var(--color-brand-border);
+    padding-right: 0;
+    padding-bottom: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .mainContent {
+    grid-column: span 1;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1.5rem 2rem;
+  }
+}
