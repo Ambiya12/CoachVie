@@ -9,18 +9,6 @@ import styles from '../App.module.css';
 
 const Divider = () => <div className={styles.divider} />;
 
-const Header = () => (
-  <header className={styles.header}>
-    <div className={styles.headerContainer}>
-      <Link to="/" className={styles.brandName} style={{ textDecoration: 'none', color: 'inherit' }}>Franck Chevalier</Link>
-      <Link to="/login" className={styles.headerBtn} style={{ textDecoration: 'none' }}>
-        Mon Compte
-      </Link>
-    </div>
-    <Divider />
-  </header>
-);
-
 const Hero = () => (
   <section className={styles.hero}>
     <div className={styles.heroGrid}>
@@ -200,48 +188,10 @@ const About = () => (
   </section>
 );
 
-const Footer = () => (
-  <footer className={styles.footer}>
-    <Divider />
-    <div className={styles.footerGrid}>
-      <div className={styles.footerBrandCol}>
-        <h2 className={styles.footerBrandTitle}>Franck Chevalier</h2>
-        <p className={styles.footerDesc}>L'expertise d'un accompagnement holistique, conçu pour l'alignement profond de soi.</p>
-      </div>
-      <div className={styles.footerNavCol}>
-        <div className={styles.footerNavTitle}>Navigation</div>
-        <a href="#" className={styles.footerLink}>Accueil</a>
-        <a href="#" className={styles.footerLink}>La Méthode</a>
-        <a href="#" className={styles.footerLink}>Parcours</a>
-        <a href="#" className={styles.footerLink}>À Propos</a>
-      </div>
-      <div className={styles.footerSocialCol}>
-        <div className={styles.footerNavTitle}>Réseaux</div>
-        <a href="#" className={styles.footerLink}>
-          Instagram <ArrowUpRight className={styles.footerLinkIcon} />
-        </a>
-        <a href="#" className={styles.footerLink}>
-          LinkedIn <ArrowUpRight className={styles.footerLinkIcon} />
-        </a>
-        <a href="#" className={styles.footerLink}>
-          Contact <ArrowUpRight className={styles.footerLinkIcon} />
-        </a>
-      </div>
-    </div>
-    
-    <div className={styles.footerBottom}>
-      <div className={styles.footerBottomMobileRow}>
-        <span>© {new Date().getFullYear()} Franck Chevalier. All rights reserved.</span>
-        <span>Designed by Editorial Aesthetic</span>
-      </div>
-    </div>
-  </footer>
-);
 
 export default function Home() {
   return (
     <div className={styles.app}>
-      <Header />
       <main>
         <Hero />
         <Mission />
@@ -249,7 +199,6 @@ export default function Home() {
         <Programs />
         <About />
       </main>
-      <Footer />
     </div>
   );
 }

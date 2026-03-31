@@ -1,9 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/AuthLayout';
+import { useAuth } from '../context/AuthContext';
 import styles from '../styles/Auth.module.css';
 
 export default function Login() {
+  const navigate = useNavigate();
+  const { login, demoCredentials } = useAuth();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const result = login(email, password);
+
+    if (!result.success) {
+      setError(result.error);
+      return;
+    }
+
+    setError('');
+    navigate('/dashboard');
+  };
+
   return (
     <AuthLayout>
       <Link to="/" className={styles.backLink}>
@@ -12,8 +33,12 @@ export default function Login() {
       
       <h1 className={styles.title}>Connexion</h1>
       <p className={styles.subtitle}>Accédez à votre espace membre.</p>
+
+      <p className={styles.helperText}>
+        Compte test: {demoCredentials.email} / {demoCredentials.password}
+      </p>
       
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="email">Email</label>
           <input 
@@ -21,6 +46,8 @@ export default function Login() {
             type="email" 
             id="email" 
             placeholder="votre@email.com" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required 
           />
         </div>
@@ -32,9 +59,13 @@ export default function Login() {
             type="password" 
             id="password" 
             placeholder="••••••••" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required 
           />
         </div>
+
+        {error ? <p className={styles.errorText}>{error}</p> : null}
         
         <button type="submit" className={styles.submitBtn}>
           Se connecter

@@ -50,6 +50,13 @@
   font-weight: 400;
 }
 
+.helperText {
+  margin-top: -1.25rem;
+  margin-bottom: 1.75rem;
+  font-size: 0.8rem;
+  color: #6B6B6B;
+}
+
 .formGroup {
   margin-bottom: 1.5rem;
   display: flex;
@@ -102,6 +109,12 @@
 
 .submitBtn:hover {
   background: #F5F5F5;
+}
+
+.errorText {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.85rem;
+  color: #a12121;
 }
 
 .footerText {
