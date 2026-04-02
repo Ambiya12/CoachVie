@@ -1,43 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDiagnostic } from '../context/DiagnosticContext';
 import styles from '../styles/Diagnostic.module.css'; // Reusing diagnostic styling since it shares the wabi-sabi minimalist full-height page
 
 export default function Results() {
   const navigate = useNavigate();
-  const { calculateProfile } = useDiagnostic();
-  const { priority } = calculateProfile();
+  const { calculateProfile, isDiagnosticComplete } = useDiagnostic();
+  const profile = calculateProfile();
 
-  const getPriorityText = () => {
-    switch(priority) {
-      case 'mental': 
-        return {
-          title: "Votre énergie actuelle est instable avec un déséquilibre marqué sur la charge mentale.",
-          forts: ["Bonne capacité de réflexion", "Potentiel de lâcher-prise rapide"],
-          axes: ["Allègement de la charge mentale", "Travail en profondeur sur la présence"],
-        };
-      case 'alimentation':
-        return {
-          title: "Votre énergie actuelle est freinée par des habitudes alimentaires inadaptées.",
-          forts: ["Bonne capacité d’adaptation", "Organisation modulable"],
-          axes: ["Rééquilibrage alimentaire progressif", "Stabilisation de l'énergie au cours de la journée"],
-        };
-      case 'sport':
-        return {
-          title: "Votre corps manque de mouvement pour générer l'énergie dont vous avez besoin.",
-          forts: ["Bonne base métabolique", "Motivation latente"],
-          axes: ["Remise en mouvement douce", "Mise en place d'une routine d'activité régulière"],
-        };
-      default:
-        return {
-          title: "Votre équilibre d'énergie est globalement sain, mais nécessite des ajustements pour performer.",
-          forts: ["Équilibre général", "Constance"],
-          axes: ["Optimisation générale", "Maintien de la dynamique"],
-        };
+  useEffect(() => {
+    if (!isDiagnosticComplete) {
+      navigate('/diagnostic');
     }
+  }, [isDiagnosticComplete, navigate]);
+
+  const weaknessMap = {
+    volonte: 'Volonte / Engagement',
+    alimentation: 'Alimentation',
+    energie: 'Energie physique',
   };
 
-  const resultsData = getPriorityText();
+  const strengths = Object.entries(profile.scores)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 2)
+    .map(([key]) => weaknessMap[key]);
+
+  const priorities = [
+    `Parcours attribue: ${profile.pathwayName}`,
+    `Faiblesse dominante: ${weaknessMap[profile.dominantWeakness]}`,
+    'Progression sur 4 mois avec ajustement automatique',
+  ];
 
   return (
     <div className={styles.container}>
@@ -46,8 +38,23 @@ export default function Results() {
         
         <h1 className={styles.title}>Votre profil</h1>
         <p className={styles.text} style={{ fontSize: '1.5rem', color: 'var(--color-brand-primary)' }}>
-          {resultsData.title}
+          Votre parcours personnalise est pret. Nous avons identifie votre point faible principal pour construire un plan adapte.
         </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+          <div style={{ border: '1px solid var(--color-brand-border)', padding: '0.85rem' }}>
+            <strong>Volonte</strong>
+            <p style={{ margin: '0.35rem 0 0' }}>{profile.scores.volonte}/15 ({profile.bands.volonte})</p>
+          </div>
+          <div style={{ border: '1px solid var(--color-brand-border)', padding: '0.85rem' }}>
+            <strong>Alimentation</strong>
+            <p style={{ margin: '0.35rem 0 0' }}>{profile.scores.alimentation}/15 ({profile.bands.alimentation})</p>
+          </div>
+          <div style={{ border: '1px solid var(--color-brand-border)', padding: '0.85rem' }}>
+            <strong>Energie</strong>
+            <p style={{ margin: '0.35rem 0 0' }}>{profile.scores.energie}/15 ({profile.bands.energie})</p>
+          </div>
+        </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginBottom: '3rem' }}>
           
@@ -56,7 +63,7 @@ export default function Results() {
               Points forts
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, borderLeft: '1px solid var(--color-brand-border)', paddingLeft: '1.5rem' }}>
-              {resultsData.forts.map((item, idx) => (
+              {strengths.map((item, idx) => (
                 <li key={idx} style={{ paddingBottom: '0.5rem', color: 'var(--color-brand-secondary)' }}>— {item}</li>
               ))}
             </ul>
@@ -67,7 +74,7 @@ export default function Results() {
               Axes prioritaires
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, borderLeft: '1px solid var(--color-brand-border)', paddingLeft: '1.5rem' }}>
-              {resultsData.axes.map((item, idx) => (
+              {priorities.map((item, idx) => (
                 <li key={idx} style={{ paddingBottom: '0.5rem', color: 'var(--color-brand-primary)' }}>— {item}</li>
               ))}
             </ul>

@@ -1,34 +1,52 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDiagnostic } from '../context/DiagnosticContext';
-import { DIAGNOSTIC_STEPS, ALIMENTATION_QUESTIONS, SPORT_QUESTIONS, MENTAL_QUESTIONS } from '../data/diagnosticData';
+import {
+  ALIMENTATION_QUESTIONS,
+  DIAGNOSTIC_STEPS,
+  ENERGIE_QUESTIONS,
+  VOLONTE_QUESTIONS,
+} from '../data/diagnosticData';
 import styles from '../styles/Diagnostic.module.css';
 
 export default function Diagnostic() {
   const navigate = useNavigate();
-  const { saveAnswer } = useDiagnostic();
+  const { resetDiagnostic, saveAnswer } = useDiagnostic();
   const [step, setStep] = useState(DIAGNOSTIC_STEPS.INTRO);
   const [qIndex, setQIndex] = useState(0);
 
-  // Transitions
-  const handleStart = () => setStep(DIAGNOSTIC_STEPS.TRANSITION_ALIMENTATION);
-  const handleStartAlimentation = () => { setQIndex(0); setStep(DIAGNOSTIC_STEPS.Q_ALIMENTATION); };
-  const handleStartSport = () => { setQIndex(0); setStep(DIAGNOSTIC_STEPS.Q_SPORT); };
-  const handleStartMental = () => { setQIndex(0); setStep(DIAGNOSTIC_STEPS.Q_MENTAL); };
+  const handleStart = () => {
+    resetDiagnostic();
+    setStep(DIAGNOSTIC_STEPS.TRANSITION_VOLONTE);
+  };
 
-  const handleAnswer = (category, questionsArray, nextStep, val) => {
+  const handleStartVolonte = () => {
+    setQIndex(0);
+    setStep(DIAGNOSTIC_STEPS.Q_VOLONTE);
+  };
+
+  const handleStartAlimentation = () => {
+    setQIndex(0);
+    setStep(DIAGNOSTIC_STEPS.Q_ALIMENTATION);
+  };
+
+  const handleStartEnergie = () => {
+    setQIndex(0);
+    setStep(DIAGNOSTIC_STEPS.Q_ENERGIE);
+  };
+
+  const handleAnswer = (category, questionsArray, nextStep, value) => {
     const question = questionsArray[qIndex];
-    saveAnswer(category, question.id, val);
+    saveAnswer(category, question.id, value);
 
     if (qIndex < questionsArray.length - 1) {
-      setQIndex(prev => prev + 1);
+      setQIndex((prev) => prev + 1);
     } else {
       setStep(nextStep);
-      // If we're entering analysis, mock a loading delay
       if (nextStep === DIAGNOSTIC_STEPS.ANALYSIS) {
         setTimeout(() => {
           navigate('/diagnostic/results');
-        }, 2000);
+        }, 1800);
       }
     }
   };
@@ -37,8 +55,9 @@ export default function Diagnostic() {
     <div className={`${styles.content} ${styles.fadeEnterActive}`}>
       <h1 className={styles.title}>Faisons le point sur vous</h1>
       <p className={styles.text}>
-        En moins de 2 minutes, nous allons analyser votre alimentation, votre niveau d’activité et votre état mental. 
-        Cela nous permettra de vous proposer un plan parfaitement adapté.
+        En moins de 2 minutes, nous allons evaluer votre volonte de changement,
+        votre hygiene alimentaire et votre niveau d energie physique.
+        Cela nous permettra de generer votre parcours automatiquement.
       </p>
       <button className={styles.primaryBtn} onClick={handleStart}>Commencer</button>
     </div>
@@ -52,12 +71,9 @@ export default function Diagnostic() {
     </div>
   );
 
-  const renderQuestion = (categoryStr, questionsArray, onAnswer, moduleIndex) => {
+  const renderQuestion = (questionsArray, onAnswer, moduleIndex) => {
     const question = questionsArray[qIndex];
-    // Calculate overall approx progress. 
-    // Modules: 1 (Alim), 2 (Sport), 3 (Mental) -> each is 33% 
-    // Plus a bit per question inside the module.
-    const baseProgress = (moduleIndex * 33);
+    const baseProgress = moduleIndex * 33;
     const qProgress = Math.floor((qIndex / questionsArray.length) * 33);
     const progressText = `${baseProgress + qProgress}%`;
 
@@ -66,13 +82,13 @@ export default function Diagnostic() {
         <div className={styles.progress}>Progression : {progressText}</div>
         <h2 className={styles.title}>{question.question}</h2>
         <div className={styles.optionsGrid}>
-          {question.options.map((opt, idx) => (
-            <button 
-              key={idx} 
+          {question.options.map((option) => (
+            <button
+              key={`${question.id}-${option.label}`}
               className={styles.optionBtn}
-              onClick={() => onAnswer(opt.value)}
+              onClick={() => onAnswer(option.value)}
             >
-              <span>{opt.label}</span>
+              <span>{option.label}</span>
               <span>→</span>
             </button>
           ))}
@@ -84,41 +100,42 @@ export default function Diagnostic() {
   const renderAnalysis = () => (
     <div className={`${styles.content} ${styles.loader} ${styles.fadeEnterActive}`}>
       <div className={styles.spinner}></div>
-      <h2 className={styles.title}>Analyse en cours…</h2>
-      <p className={styles.text}>Nous analysons vos réponses pour construire votre plan personnalisé.</p>
+      <h2 className={styles.title}>Analyse en cours...</h2>
+      <p className={styles.text}>Nous analysons vos reponses pour construire votre parcours personnalise.</p>
     </div>
   );
 
   return (
     <div className={styles.container}>
       {step === DIAGNOSTIC_STEPS.INTRO && renderIntro()}
-      
-      {step === DIAGNOSTIC_STEPS.TRANSITION_ALIMENTATION && 
+
+      {step === DIAGNOSTIC_STEPS.TRANSITION_VOLONTE &&
        renderTransition(
-         'Votre alimentation', 
-         'Votre alimentation est la base de votre énergie. Elle nourrit vos organes, et vos organes sont ce qui vous permet de vivre, penser et agir.', 
+         'Votre volonte de changement',
+         'Ce premier bloc mesure votre engagement psychologique et votre capacite a tenir dans la duree.',
+         handleStartVolonte
+       )}
+
+      {step === DIAGNOSTIC_STEPS.Q_VOLONTE &&
+       renderQuestion(VOLONTE_QUESTIONS, (val) => handleAnswer('volonte', VOLONTE_QUESTIONS, DIAGNOSTIC_STEPS.TRANSITION_ALIMENTATION, val), 0)}
+
+      {step === DIAGNOSTIC_STEPS.TRANSITION_ALIMENTATION &&
+       renderTransition(
+         'Votre alimentation',
+         'Ce bloc identifie la qualite de votre carburant quotidien et ce qui freine votre energie.',
          handleStartAlimentation
        )}
-      {step === DIAGNOSTIC_STEPS.Q_ALIMENTATION && 
-       renderQuestion('alimentation', ALIMENTATION_QUESTIONS, (val) => handleAnswer('alimentation', ALIMENTATION_QUESTIONS, DIAGNOSTIC_STEPS.TRANSITION_SPORT, val), 0)}
+      {step === DIAGNOSTIC_STEPS.Q_ALIMENTATION &&
+       renderQuestion(ALIMENTATION_QUESTIONS, (val) => handleAnswer('alimentation', ALIMENTATION_QUESTIONS, DIAGNOSTIC_STEPS.TRANSITION_ENERGIE, val), 1)}
 
-      {step === DIAGNOSTIC_STEPS.TRANSITION_SPORT && 
+      {step === DIAGNOSTIC_STEPS.TRANSITION_ENERGIE &&
        renderTransition(
-         'Votre niveau d’activité', 
-         'Le mouvement crée l’énergie. Un corps actif est plus résistant, plus dynamique et plus performant.', 
-         handleStartSport
+         'Votre energie physique',
+         'Ce bloc mesure votre niveau d energie actuel et votre relation au mouvement.',
+         handleStartEnergie
        )}
-      {step === DIAGNOSTIC_STEPS.Q_SPORT && 
-       renderQuestion('sport', SPORT_QUESTIONS, (val) => handleAnswer('sport', SPORT_QUESTIONS, DIAGNOSTIC_STEPS.TRANSITION_MENTAL, val), 1)}
-
-      {step === DIAGNOSTIC_STEPS.TRANSITION_MENTAL && 
-       renderTransition(
-         'Votre état mental', 
-         'Vos résultats dépendent aussi de vos blocages invisibles. Apaiser le mental permet de retrouver clarté, présence et maîtrise.', 
-         handleStartMental
-       )}
-      {step === DIAGNOSTIC_STEPS.Q_MENTAL && 
-       renderQuestion('mental', MENTAL_QUESTIONS, (val) => handleAnswer('mental', MENTAL_QUESTIONS, DIAGNOSTIC_STEPS.ANALYSIS, val), 2)}
+      {step === DIAGNOSTIC_STEPS.Q_ENERGIE &&
+       renderQuestion(ENERGIE_QUESTIONS, (val) => handleAnswer('energie', ENERGIE_QUESTIONS, DIAGNOSTIC_STEPS.ANALYSIS, val), 2)}
 
       {step === DIAGNOSTIC_STEPS.ANALYSIS && renderAnalysis()}
     </div>

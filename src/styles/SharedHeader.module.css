@@ -6,7 +6,7 @@
 .inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 1.25rem 2rem;
+  padding: calc(1.25 * var(--space-md)) var(--space-xl);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,7 +14,7 @@
 }
 
 .brand {
-  font-size: 0.875rem;
+  font-size: var(--font-ui-md);
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -24,8 +24,8 @@
 
 .accountLink {
   border: 1px solid #1c1c1c;
-  padding: 0.6rem 1.5rem;
-  font-size: 0.75rem;
+  padding: calc(0.6 * var(--space-md)) calc(1.5 * var(--space-md));
+  font-size: var(--font-ui-sm);
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: #1c1c1c;
@@ -41,18 +41,18 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: calc(1.25 * var(--space-md));
 }
 
 .authNavGroup {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .navLink,
 .logoutButton {
-  font-size: 0.75rem;
+  font-size: var(--font-ui-sm);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -86,8 +86,9 @@
   border: 1px solid #e5e5e5;
   background: #fcfafa;
   color: #1c1c1c;
-  padding: 0.4rem 0.6rem;
+  padding: calc(0.4 * var(--space-md)) calc(0.6 * var(--space-md));
   cursor: pointer;
+  min-height: var(--control-min-hit);
 }
 
 .profileTrigger:hover {
@@ -115,9 +116,9 @@
 .profileMenuItem {
   border: none;
   background: transparent;
-  padding: 0.65rem 0.7rem;
+  padding: calc(0.65 * var(--space-md)) calc(0.7 * var(--space-md));
   text-align: left;
-  font-size: 0.72rem;
+  font-size: var(--font-ui-xs);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: #1c1c1c;
@@ -135,7 +136,7 @@
 
 @media (max-width: 768px) {
   .inner {
-    padding: 1rem;
+    padding: var(--space-md);
     flex-wrap: wrap;
   }
 

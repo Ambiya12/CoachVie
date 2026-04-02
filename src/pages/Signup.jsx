@@ -8,7 +8,7 @@ export default function Signup() {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    navigate('/dashboard');
+    navigate('/diagnostic');
   };
 
   return (

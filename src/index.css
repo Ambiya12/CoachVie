@@ -4,10 +4,63 @@
   --color-brand-bg: #FCFAFA;
   --color-brand-surface: #F5F5F5;
   --color-brand-primary: #1C1C1C;
-  --color-brand-secondary: #6B6B6B;
+  --color-brand-secondary: #555555;
   --color-brand-border: #E5E5E5;
 
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", sans-serif;
+}
+
+:root {
+  /* Global visual scale: subtle compactness across the app. */
+  --ui-scale: 1;
+
+  --font-display-xl: calc(3.5rem * var(--ui-scale));
+  --font-display-lg: calc(3rem * var(--ui-scale));
+  --font-display-md: calc(2.5rem * var(--ui-scale));
+  --font-heading-xl: calc(2rem * var(--ui-scale));
+  --font-heading-lg: calc(1.7rem * var(--ui-scale));
+  --font-heading-md: calc(1.25rem * var(--ui-scale));
+  --font-heading-sm: calc(1.1rem * var(--ui-scale));
+
+  --font-body-lg: calc(1.125rem * var(--ui-scale));
+  --font-body-md: calc(1rem * var(--ui-scale));
+  --font-body-sm: calc(0.98rem * var(--ui-scale));
+
+  --font-ui-md: calc(0.875rem * var(--ui-scale));
+  --font-ui-sm: calc(0.8rem * var(--ui-scale));
+  --font-ui-xs: calc(0.78rem * var(--ui-scale));
+  --font-ui-2xs: calc(0.68rem * var(--ui-scale));
+
+  --space-2xs: calc(0.25rem * var(--ui-scale));
+  --space-xs: calc(0.5rem * var(--ui-scale));
+  --space-sm: calc(0.75rem * var(--ui-scale));
+  --space-md: calc(1rem * var(--ui-scale));
+  --space-lg: calc(1.5rem * var(--ui-scale));
+  --space-xl: calc(2rem * var(--ui-scale));
+  --space-2xl: calc(3rem * var(--ui-scale));
+  --space-3xl: calc(4rem * var(--ui-scale));
+
+  --input-padding-y: calc(1rem * var(--ui-scale));
+  --input-padding-x: calc(0.95rem * var(--ui-scale));
+  --button-padding-y: calc(0.95rem * var(--ui-scale));
+  --button-padding-x: calc(2.2rem * var(--ui-scale));
+  --control-min-hit: 44px;
+
+  --calendar-day-min-height: calc(6.7rem * var(--ui-scale));
+
+  /* Shared shell spacing to keep pages airy but not oversized. */
+  --page-pad-y: calc(2.2rem * var(--ui-scale));
+  --page-pad-x: calc(1.5rem * var(--ui-scale));
+  --section-pad-y: calc(3rem * var(--ui-scale));
+}
+
+@media (max-width: 768px) {
+  :root {
+    --ui-scale: 0.99;
+    --page-pad-y: calc(1.6rem * var(--ui-scale));
+    --page-pad-x: calc(1rem * var(--ui-scale));
+    --section-pad-y: calc(2.2rem * var(--ui-scale));
+  }
 }
 
 @layer utilities {

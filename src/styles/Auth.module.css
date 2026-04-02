@@ -1,23 +1,23 @@
 .container {
   min-height: 100vh;
-  background-color: #FCFAFA;
+  background-color: var(--color-brand-bg);
   display: flex;
   flex-direction: column;
-  font-family: 'Inter', sans-serif;
-  color: #1C1C1C;
+  font-family: var(--font-sans);
+  color: var(--color-brand-primary);
 }
 
 .header {
-  padding: 2rem 5%;
-  border-bottom: 1px solid #E5E5E5;
+  padding: var(--page-pad-y) 5%;
+  border-bottom: 1px solid var(--color-brand-border);
 }
 
 .brandName {
-  font-size: 1.1rem;
+  font-size: var(--font-heading-sm);
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #1C1C1C;
+  color: var(--color-brand-primary);
   text-decoration: none;
 }
 
@@ -26,111 +26,113 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 5%;
+  padding: var(--section-pad-y) 5%;
 }
 
 .formWrapper {
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   background: transparent;
 }
 
 .title {
-  font-size: 1.8rem;
+  font-size: var(--font-heading-lg);
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-xs);
 }
 
 .subtitle {
-  font-size: 0.95rem;
-  color: #6B6B6B;
-  margin-bottom: 2.5rem;
+  font-size: var(--font-body-sm);
+  color: var(--color-brand-secondary);
+  margin-bottom: var(--space-xl);
   font-weight: 400;
 }
 
 .helperText {
-  margin-top: -1.25rem;
-  margin-bottom: 1.75rem;
-  font-size: 0.8rem;
-  color: #6B6B6B;
+  margin-top: calc(-1 * var(--space-md));
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-ui-sm);
+  color: var(--color-brand-secondary);
 }
 
 .formGroup {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-lg);
   display: flex;
   flex-direction: column;
 }
 
 .label {
-  font-size: 0.8rem;
+  font-size: var(--font-ui-sm);
   font-weight: 500;
-  margin-bottom: 0.6rem;
-  color: #1C1C1C;
+  margin-bottom: calc(0.6 * var(--space-md));
+  color: var(--color-brand-primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .input {
   background: transparent;
-  border: 1px solid #E5E5E5;
-  padding: 1.15rem 1rem;
+  border: 1px solid var(--color-brand-border);
+  padding: var(--input-padding-y) var(--input-padding-x);
   font-family: inherit;
-  font-size: 0.95rem;
-  color: #1C1C1C;
+  font-size: var(--font-body-sm);
+  color: var(--color-brand-primary);
   transition: border-color 0.2s ease;
   outline: none;
+  min-height: var(--control-min-hit);
 }
 
 .input::placeholder {
-  color: #6B6B6B;
+  color: var(--color-brand-secondary);
 }
 
 .input:focus {
-  border-color: #1C1C1C;
+  border-color: var(--color-brand-primary);
 }
 
 .submitBtn {
   width: 100%;
   background: transparent;
-  border: 1px solid #1C1C1C;
-  color: #1C1C1C;
-  padding: 1.15rem 2rem;
+  border: 1px solid var(--color-brand-primary);
+  color: var(--color-brand-primary);
+  padding: var(--button-padding-y) var(--button-padding-x);
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: var(--font-ui-md);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 1rem;
+  margin-top: var(--space-md);
+  min-height: var(--control-min-hit);
 }
 
 .submitBtn:hover {
-  background: #F5F5F5;
+  background: var(--color-brand-surface);
 }
 
 .errorText {
-  margin: 0.25rem 0 0.75rem;
-  font-size: 0.85rem;
+  margin: var(--space-2xs) 0 var(--space-sm);
+  font-size: var(--font-ui-md);
   color: #a12121;
 }
 
 .footerText {
-  margin-top: 2rem;
+  margin-top: var(--space-lg);
   text-align: center;
-  font-size: 0.95rem;
-  color: #6B6B6B;
+  font-size: var(--font-body-sm);
+  color: var(--color-brand-secondary);
 }
 
 .link {
-  color: #1C1C1C;
+  color: var(--color-brand-primary);
   font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid #1C1C1C;
+  border-bottom: 1px solid var(--color-brand-primary);
   padding-bottom: 2px;
-  margin-left: 0.5rem;
+  margin-left: var(--space-xs);
   transition: opacity 0.2s ease;
 }
 
@@ -141,16 +143,16 @@
 .backLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #6B6B6B;
+  gap: var(--space-xs);
+  color: var(--color-brand-secondary);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: var(--font-ui-md);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--space-xl);
   transition: color 0.2s ease;
 }
 
 .backLink:hover {
-  color: #1C1C1C;
+  color: var(--color-brand-primary);
 }

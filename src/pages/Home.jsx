@@ -126,7 +126,7 @@ const Programs = () => (
           
           <div className={styles.programAction}>
             <div className={styles.programPrice}>1080€</div>
-            <button className={`${styles.linkBtn} ${styles.linkBtnLight}`}>
+            <button className={`${styles.solidBtn} ${styles.solidBtnLight}`}>
               Sélectionner cette offre
               <ArrowUpRight className={styles.linkBtnIcon} />
             </button>
@@ -149,7 +149,7 @@ const Programs = () => (
           
           <div className={styles.programAction}>
             <div className={styles.programPrice}>1700€</div>
-            <button className={`${styles.linkBtn} ${styles.linkBtnLight}`}>
+            <button className={`${styles.solidBtn} ${styles.solidBtnLight}`}>
               Sélectionner cette offre
               <ArrowUpRight className={styles.linkBtnIcon} />
             </button>
@@ -172,7 +172,7 @@ const About = () => (
         <p className={styles.aboutText}>
           Ensemble, nous déconstruisons vos croyances limitantes pour bâtir un socle solide. Aucune demi-mesure: l'objectif est une vie pleinement vécue, sans regrets.
         </p>
-        <button className={styles.linkBtn}>
+        <button className={styles.solidBtn}>
           Réserver ma séance (15 min)
           <ArrowUpRight className={styles.linkBtnIcon} />
         </button>
@@ -192,7 +192,7 @@ const About = () => (
 export default function Home() {
   return (
     <div className={styles.app}>
-      <main>
+      <main className={styles.mainFlow}>
         <Hero />
         <Mission />
         <Methodology />

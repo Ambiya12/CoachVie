@@ -1,155 +1,119 @@
 export const DIAGNOSTIC_STEPS = {
   INTRO: 'intro',
+  TRANSITION_VOLONTE: 'transition_volonte',
+  Q_VOLONTE: 'q_volonte',
   TRANSITION_ALIMENTATION: 'transition_alimentation',
   Q_ALIMENTATION: 'q_alimentation',
-  TRANSITION_SPORT: 'transition_sport',
-  Q_SPORT: 'q_sport',
-  TRANSITION_MENTAL: 'transition_mental',
-  Q_MENTAL: 'q_mental',
+  TRANSITION_ENERGIE: 'transition_energie',
+  Q_ENERGIE: 'q_energie',
   ANALYSIS: 'analysis',
-  RESULTS: 'results'
+  RESULTS: 'results',
 };
+
+export const VOLONTE_QUESTIONS = [
+  {
+    id: 'v1',
+    question: 'A quel point veux-tu vraiment changer aujourd hui ?',
+    options: [
+      { label: 'Je ne sais pas vraiment', value: 1 },
+      { label: 'J y pense, sans plus', value: 2 },
+      { label: 'J en ai envie', value: 3 },
+      { label: 'Je suis motive', value: 4 },
+      { label: 'Je suis pret a m engager serieusement', value: 5 },
+    ],
+  },
+  {
+    id: 'v2',
+    question: 'Quand tu commences quelque chose pour toi, tiens-tu dans la duree ?',
+    options: [
+      { label: 'Presque jamais', value: 1 },
+      { label: 'Rarement', value: 2 },
+      { label: 'Parfois', value: 3 },
+      { label: 'Souvent', value: 4 },
+      { label: 'Presque toujours', value: 5 },
+    ],
+  },
+  {
+    id: 'v3',
+    question: 'Te sens-tu pret a sortir de tes habitudes, meme si cela demande un effort ?',
+    options: [
+      { label: 'Pas du tout', value: 1 },
+      { label: 'Peu', value: 2 },
+      { label: 'Moyennement', value: 3 },
+      { label: 'Oui', value: 4 },
+      { label: 'Totalement', value: 5 },
+    ],
+  },
+];
 
 export const ALIMENTATION_QUESTIONS = [
   {
-    id: 'a1',
-    question: 'Combien de repas prenez-vous par jour ?',
-    options: [
-      { label: '1 à 2', value: 0 },
-      { label: '3', value: 1 },
-      { label: '4 et plus', value: 2 },
-    ]
-  },
-  {
-    id: 'a2',
-    question: 'Votre alimentation est plutôt :',
-    options: [
-      { label: 'Industrielle', value: 0 },
-      { label: 'Mixte', value: 1 },
-      { label: 'Maison et équilibrée', value: 2 },
-    ]
-  },
-  {
-    id: 'a3',
-    question: 'Consommez-vous régulièrement des produits sucrés ou transformés ?',
-    options: [
-      { label: 'Souvent', value: 0 },
-      { label: 'Parfois', value: 1 },
-      { label: 'Rarement', value: 2 },
-    ]
-  },
-  {
     id: 'a4',
-    question: 'Votre niveau d’énergie dans la journée est :',
+    question: 'Comment decrirais-tu ton alimentation actuelle ?',
     options: [
-      { label: 'Faible', value: 0 },
-      { label: 'Variable', value: 1 },
-      { label: 'Stable', value: 2 },
-    ]
+      { label: 'Tres mauvaise', value: 1 },
+      { label: 'Plutot mauvaise', value: 2 },
+      { label: 'Moyenne', value: 3 },
+      { label: 'Plutot bonne', value: 4 },
+      { label: 'Tres bonne', value: 5 },
+    ],
   },
   {
     id: 'a5',
-    question: 'Avez-vous des troubles digestifs ?',
+    question: 'A quelle frequence manges-tu des aliments industriels, sucres ou de la malbouffe ?',
     options: [
-      { label: 'Souvent', value: 0 },
-      { label: 'Parfois', value: 1 },
-      { label: 'Jamais', value: 2 },
-    ]
-  }
+      { label: 'Tres souvent', value: 1 },
+      { label: 'Souvent', value: 2 },
+      { label: 'Parfois', value: 3 },
+      { label: 'Rarement', value: 4 },
+      { label: 'Presque jamais', value: 5 },
+    ],
+  },
+  {
+    id: 'a6',
+    question: 'Apres avoir mange, te sens-tu leger et bien, ou lourd et fatigue ?',
+    options: [
+      { label: 'Tres lourd / fatigue', value: 1 },
+      { label: 'Souvent lourd', value: 2 },
+      { label: 'Variable', value: 3 },
+      { label: 'Plutot bien', value: 4 },
+      { label: 'Leger et en forme', value: 5 },
+    ],
+  },
 ];
 
-export const SPORT_QUESTIONS = [
+export const ENERGIE_QUESTIONS = [
   {
-    id: 's1',
-    question: 'Votre activité physique est :',
+    id: 'e7',
+    question: 'Quel est ton niveau d energie au quotidien ?',
     options: [
-      { label: 'Inexistante', value: 0 },
-      { label: 'Occasionnelle', value: 1 },
-      { label: 'Régulière', value: 2 },
-    ]
+      { label: 'Tres faible', value: 1 },
+      { label: 'Faible', value: 2 },
+      { label: 'Moyen', value: 3 },
+      { label: 'Bon', value: 4 },
+      { label: 'Tres bon', value: 5 },
+    ],
   },
   {
-    id: 's2',
-    question: 'Votre mode de vie est :',
+    id: 'e8',
+    question: 'Combien de fois bouges-tu ou fais-tu du sport par semaine ?',
     options: [
-      { label: 'Sédentaire', value: 0 },
-      { label: 'Modérément actif', value: 1 },
-      { label: 'Très actif', value: 2 },
-    ]
+      { label: 'Jamais', value: 1 },
+      { label: '1 fois', value: 2 },
+      { label: '2 fois', value: 3 },
+      { label: '3 a 4 fois', value: 4 },
+      { label: '5 fois ou plus', value: 5 },
+    ],
   },
   {
-    id: 's3',
-    question: 'Combien de fois par semaine êtes-vous réellement actif ?',
+    id: 'e9',
+    question: 'Comment te sens-tu physiquement dans ton corps aujourd hui ?',
     options: [
-      { label: '0', value: 0 },
-      { label: '1 à 2 fois', value: 1 },
-      { label: '3 fois ou plus', value: 2 },
-    ]
+      { label: 'Tres mal', value: 1 },
+      { label: 'Pas bien', value: 2 },
+      { label: 'Moyen', value: 3 },
+      { label: 'Bien', value: 4 },
+      { label: 'Tres bien', value: 5 },
+    ],
   },
-  {
-    id: 's4',
-    question: 'Votre motivation pour le sport est :',
-    options: [
-      { label: 'Faible', value: 0 },
-      { label: 'Moyenne', value: 1 },
-      { label: 'Forte', value: 2 },
-    ]
-  },
-  {
-    id: 's5',
-    question: 'Quel type d’activité vous attire le plus ?',
-    options: [
-      { label: 'Activité douce (yoga, marche)', value: 1 },
-      { label: 'Activité dynamique (course, fitness)', value: 2 },
-      { label: 'Activité aquatique (natation)', value: 1 },
-    ]
-  }
-];
-
-export const MENTAL_QUESTIONS = [
-  {
-    id: 'm1',
-    question: 'Vous sentez-vous souvent stressé ?',
-    options: [
-      { label: 'Oui', value: 0 },
-      { label: 'Parfois', value: 1 },
-      { label: 'Non', value: 2 },
-    ]
-  },
-  {
-    id: 'm2',
-    question: 'Avez-vous du mal à lâcher prise ?',
-    options: [
-      { label: 'Oui', value: 0 },
-      { label: 'Un peu', value: 1 },
-      { label: 'Non', value: 2 },
-    ]
-  },
-  {
-    id: 'm3',
-    question: 'Vous sentez-vous fatigué mentalement ?',
-    options: [
-      { label: 'Oui', value: 0 },
-      { label: 'Parfois', value: 1 },
-      { label: 'Non', value: 2 },
-    ]
-  },
-  {
-    id: 'm4',
-    question: 'Avez-vous tendance à trop réfléchir ?',
-    options: [
-      { label: 'Oui', value: 0 },
-      { label: 'Un peu', value: 1 },
-      { label: 'Non', value: 2 },
-    ]
-  },
-  {
-    id: 'm5',
-    question: 'Votre capacité à être présent dans l’instant est :',
-    options: [
-      { label: 'Faible', value: 0 },
-      { label: 'Moyenne', value: 1 },
-      { label: 'Bonne', value: 2 },
-    ]
-  }
 ];

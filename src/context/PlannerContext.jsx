@@ -1,4 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import {
+  MENTAL_EXERCISE_SEQUENCE,
+  getPathwayMeta,
+  getPathwayPlan,
+} from '../data/pathwayPlansData';
 
 const SESSION_KEY = 'coachvie-planner-events';
 
@@ -72,6 +77,9 @@ function normalizeEvent(eventData) {
       start,
       end,
       exerciseId: eventData.exerciseId ?? null,
+      source: eventData.source ?? 'manual',
+      pathwayId: eventData.pathwayId ?? null,
+      monthIndex: eventData.monthIndex ?? null,
     };
   }
 
@@ -85,6 +93,9 @@ function normalizeEvent(eventData) {
       start,
       end,
       exerciseId: eventData.exerciseId ?? null,
+      source: eventData.source ?? 'manual',
+      pathwayId: eventData.pathwayId ?? null,
+      monthIndex: eventData.monthIndex ?? null,
     };
   }
 
@@ -129,10 +140,7 @@ export function PlannerProvider({ children }) {
       return storedEvents;
     }
 
-    return [
-      normalizeEvent({ id: '1', type: 'mental', title: 'Rappel: Responsabilite', day: 'Lundi', time: '11:00' }),
-      normalizeEvent({ id: '2', type: 'alimentation', title: 'Graines de chia', day: 'Mardi', time: '08:00' }),
-    ].filter(Boolean);
+    return [];
   });
 
   useEffect(() => {
@@ -163,8 +171,109 @@ export function PlannerProvider({ children }) {
     setEvents((prev) => prev.filter((event) => event.id !== id));
   };
 
+  const populateCalendarForPathway = (pathwayId, startDate = new Date()) => {
+    const plan = getPathwayPlan(pathwayId);
+    const pathway = getPathwayMeta(pathwayId);
+    const normalizedStart = new Date(startDate);
+    normalizedStart.setHours(0, 0, 0, 0);
+
+    if (Number.isNaN(normalizedStart.getTime())) {
+      return;
+    }
+
+    const frequencyMap = {
+      2: [1, 4],
+      3: [1, 3, 5],
+      4: [1, 2, 4, 6],
+      5: [0, 1, 3, 4, 6],
+      6: [0, 1, 2, 3, 4, 6],
+    };
+
+    const generatedEvents = [];
+
+    plan.months.forEach((monthPlan, monthOffset) => {
+      const monthBase = new Date(normalizedStart);
+      monthBase.setDate(monthBase.getDate() + monthOffset * 30);
+
+      const sportSlots = frequencyMap[monthPlan.sportFrequency] ?? frequencyMap[3];
+      const activities = monthPlan.sportActivities;
+
+      for (let week = 0; week < 4; week += 1) {
+        sportSlots.forEach((dayOffset, index) => {
+          const start = new Date(monthBase);
+          start.setDate(start.getDate() + week * 7 + dayOffset);
+          start.setHours(18, 0, 0, 0);
+
+          const end = new Date(start);
+          end.setMinutes(end.getMinutes() + monthPlan.sportDurationMin);
+
+          generatedEvents.push({
+            id: `auto-sport-${pathwayId}-${monthOffset}-${week}-${index}`,
+            type: 'sport',
+            title: `${activities[index % activities.length]} (${pathway.name})`,
+            start,
+            end,
+            source: 'auto-pathway',
+            pathwayId,
+            monthIndex: monthPlan.monthIndex,
+          });
+        });
+
+        [0, 2, 4].forEach((alimentationDay, index) => {
+          const start = new Date(monthBase);
+          start.setDate(start.getDate() + week * 7 + alimentationDay);
+          start.setHours(8, 0, 0, 0);
+
+          const end = new Date(start);
+          end.setMinutes(end.getMinutes() + 30);
+
+          generatedEvents.push({
+            id: `auto-food-${pathwayId}-${monthOffset}-${week}-${index}`,
+            type: 'alimentation',
+            title: `Nutrition: ${monthPlan.alimentationFocus}`,
+            start,
+            end,
+            source: 'auto-pathway',
+            pathwayId,
+            monthIndex: monthPlan.monthIndex,
+          });
+        });
+      }
+    });
+
+    MENTAL_EXERCISE_SEQUENCE.forEach((exercise, index) => {
+      const start = new Date(normalizedStart);
+      start.setDate(start.getDate() + index * 15);
+      start.setHours(11, 0, 0, 0);
+
+      const end = new Date(start);
+      end.setMinutes(end.getMinutes() + 45);
+
+      generatedEvents.push({
+        id: `auto-mental-${pathwayId}-${index}`,
+        type: 'mental',
+        title: `Mental: ${exercise.title}`,
+        start,
+        end,
+        exerciseId: exercise.id,
+        source: 'auto-pathway',
+        pathwayId,
+        monthIndex: Math.min(4, Math.floor((index * 15) / 30) + 1),
+      });
+    });
+
+    setEvents((prev) => {
+      const manualEvents = prev.filter((event) => event.source !== 'auto-pathway');
+      const normalizedGenerated = generatedEvents
+        .map((eventData) => normalizeEvent(eventData))
+        .filter(Boolean);
+
+      return [...manualEvents, ...normalizedGenerated];
+    });
+  };
+
   return (
-    <PlannerContext.Provider value={{ events, addEvent, removeEvent }}>
+    <PlannerContext.Provider value={{ events, addEvent, removeEvent, populateCalendarForPathway }}>
       {children}
     </PlannerContext.Provider>
   );

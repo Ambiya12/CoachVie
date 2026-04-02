@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-// import Diagnostic from './pages/Diagnostic';
-// import Results from './pages/Results';
-// import Plan from './pages/Plan';
+import Diagnostic from './pages/Diagnostic';
+import Results from './pages/Results';
+import Plan from './pages/Plan';
 import Dashboard from './pages/Dashboard';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -32,9 +32,9 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
-                  {/* <Route path="/diagnostic" element={<Diagnostic />} /> */}
-                  {/* <Route path="/diagnostic/results" element={<Results />} /> */}
-                  {/* <Route path="/diagnostic/plan" element={<Plan />} /> */}
+                  <Route path="/diagnostic" element={<Diagnostic />} />
+                  <Route path="/diagnostic/results" element={<Results />} />
+                  <Route path="/diagnostic/plan" element={<Plan />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
               </div>

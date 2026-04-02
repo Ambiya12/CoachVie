@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDiagnostic } from '../context/DiagnosticContext';
+import { usePlanner } from '../context/PlannerContext';
 import styles from '../styles/Diagnostic.module.css';
 
 export default function Plan() {
   const navigate = useNavigate();
+  const { calculateProfile, isDiagnosticComplete } = useDiagnostic();
+  const { populateCalendarForPathway } = usePlanner();
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  useEffect(() => {
+    if (!isDiagnosticComplete) {
+      navigate('/diagnostic');
+    }
+  }, [isDiagnosticComplete, navigate]);
+
+  const profile = calculateProfile();
+
+  const handleGoToProgram = () => {
+    setIsGenerating(true);
+    populateCalendarForPathway(profile.pathwayId, new Date());
+    navigate('/dashboard?tab=espace');
+  };
 
   return (
     <div className={styles.container}>
@@ -48,9 +67,10 @@ export default function Plan() {
 
         <button 
           className={styles.primaryBtn} 
-          onClick={() => navigate('/dashboard')}
+          onClick={handleGoToProgram}
+          disabled={isGenerating}
         >
-          Accéder à mon programme
+          {isGenerating ? 'Generation du planning...' : 'Accéder à mon programme'}
         </button>
       </div>
     </div>

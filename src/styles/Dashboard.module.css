@@ -7,7 +7,7 @@
 }
 
 .header {
-  padding: 2rem 4rem;
+  padding: var(--page-pad-y) var(--space-2xl);
   border-bottom: 1px solid var(--color-brand-border);
   display: flex;
   justify-content: space-between;
@@ -15,16 +15,16 @@
 }
 
 .logo {
-  font-size: 1.25rem;
+  font-size: var(--font-heading-md);
   font-weight: 300;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .nav {
   display: flex;
-  gap: 2rem;
-  font-size: 0.875rem;
+  gap: var(--space-xl);
+  font-size: var(--font-ui-md);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -39,12 +39,12 @@
   color: var(--color-brand-primary);
   font-weight: 500;
   border-bottom: 1px solid var(--color-brand-primary);
-  padding-bottom: 0.25rem;
+  padding-bottom: var(--space-2xs);
 }
 
 .grid {
   display: block;
-  padding: 4rem;
+  padding: var(--section-pad-y);
   flex: 1;
 }
 
@@ -54,12 +54,20 @@
 
 @media (max-width: 1024px) {
   .grid {
-    padding: 2rem;
+    padding: var(--space-xl);
   }
 }
 
 @media (max-width: 768px) {
+  .header {
+    padding: var(--page-pad-y) var(--page-pad-x);
+  }
+
+  .nav {
+    gap: var(--space-md);
+  }
+
   .grid {
-    padding: 1.25rem;
+    padding: var(--space-md);
   }
 }
