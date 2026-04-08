@@ -7,17 +7,18 @@
 }
 
 .header {
-  padding: var(--page-pad-y) var(--space-2xl);
-  border-bottom: 1px solid var(--color-brand-border);
+  padding: calc(2 * var(--space-xl)) var(--space-2xl);
+  background-color: var(--color-brand-primary);
+  color: var(--color-brand-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  font-size: var(--font-heading-md);
-  font-weight: 300;
-  letter-spacing: 0.08em;
+  font-size: var(--font-heading-xl);
+  font-weight: 700;
+  letter-spacing: -0.04em;
   text-transform: uppercase;
 }
 
@@ -30,15 +31,20 @@
 }
 
 .navLink {
-  color: var(--color-brand-secondary);
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: var(--color-brand-bg);
 }
 
 .navLink.active {
-  color: var(--color-brand-primary);
+  color: var(--color-brand-bg);
   font-weight: 500;
-  border-bottom: 1px solid var(--color-brand-primary);
+  border-bottom: 2px solid var(--color-brand-accent);
   padding-bottom: var(--space-2xs);
 }
 
@@ -46,6 +52,9 @@
   display: block;
   padding: var(--page-pad-y) var(--section-pad-y);
   flex: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .mainContent {
