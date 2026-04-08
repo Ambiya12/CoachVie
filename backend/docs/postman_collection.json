@@ -1,0 +1,305 @@
+{
+  "info": {
+    "name": "CoachVie Backend POC",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection for CoachVie POC APIs: auth, diagnostic, plan, content, admin."
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:4010" },
+    { "key": "sessionId", "value": "" },
+    { "key": "planItemId", "value": "" },
+    { "key": "contentId", "value": "" },
+    { "key": "mappingRuleId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          }
+        },
+        {
+          "name": "GET /docs/openapi.yaml",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/docs/openapi.yaml"
+          }
+        },
+        {
+          "name": "GET /docs",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/docs"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST /api/auth/signup",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"member@example.com\",\n  \"password\": \"StrongPass1\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auth/signup"
+          }
+        },
+        {
+          "name": "POST /api/auth/login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"member@example.com\",\n  \"password\": \"StrongPass1\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auth/login"
+          }
+        },
+        {
+          "name": "GET /api/auth/me",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/auth/me"
+          }
+        },
+        {
+          "name": "POST /api/auth/logout",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/logout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Diagnostic",
+      "item": [
+        {
+          "name": "POST /api/diagnostic/start",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/diagnostic/start"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const json = pm.response.json();",
+                  "  pm.collectionVariables.set('sessionId', String(json.data.sessionId));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /api/diagnostic/step/1",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": {{sessionId}},\n  \"answers\": [\n    {\"questionCode\": \"N1\", \"value\": 4},\n    {\"questionCode\": \"N2\", \"value\": 5},\n    {\"questionCode\": \"N3\", \"value\": 3}\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/api/diagnostic/step/1"
+          }
+        },
+        {
+          "name": "POST /api/diagnostic/step/2",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": {{sessionId}},\n  \"answers\": [\n    {\"questionCode\": \"S1\", \"value\": 2},\n    {\"questionCode\": \"S2\", \"value\": 3},\n    {\"questionCode\": \"S3\", \"value\": 4}\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/api/diagnostic/step/2"
+          }
+        },
+        {
+          "name": "POST /api/diagnostic/step/3",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": {{sessionId}},\n  \"answers\": [\n    {\"questionCode\": \"M1\", \"value\": 4},\n    {\"questionCode\": \"M2\", \"value\": 3},\n    {\"questionCode\": \"M3\", \"value\": 5}\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/api/diagnostic/step/3"
+          }
+        },
+        {
+          "name": "POST /api/diagnostic/submit",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": {{sessionId}}\n}"
+            },
+            "url": "{{baseUrl}}/api/diagnostic/submit"
+          }
+        },
+        {
+          "name": "GET /api/diagnostic/history",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/diagnostic/history"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plan",
+      "item": [
+        {
+          "name": "GET /api/plan/current",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/plan/current"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const json = pm.response.json();",
+                  "  const first = json.data.items && json.data.items[0];",
+                  "  if (first) {",
+                  "    pm.collectionVariables.set('planItemId', String(first.id));",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/plan/{date}/items",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/plan/2026-04-08/items"
+          }
+        },
+        {
+          "name": "PATCH /api/plan/item/{id}/status",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"done\"\n}"
+            },
+            "url": "{{baseUrl}}/api/plan/item/{{planItemId}}/status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Content",
+      "item": [
+        {
+          "name": "GET /api/content/pillar/nutrition",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/content/pillar/nutrition"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const json = pm.response.json();",
+                  "  const first = json.data && json.data[0];",
+                  "  if (first) {",
+                  "    pm.collectionVariables.set('contentId', String(first.id));",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/content/{id}",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/content/{{contentId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "GET /api/admin/mapping-rules",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/mapping-rules"
+          }
+        },
+        {
+          "name": "PATCH /api/admin/mapping-rules/{id}",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"minScore\": 0,\n  \"maxScore\": 39,\n  \"contentId\": {{contentId}},\n  \"priority\": 1,\n  \"isActive\": true\n}"
+            },
+            "url": "{{baseUrl}}/api/admin/mapping-rules/{{mappingRuleId}}"
+          }
+        },
+        {
+          "name": "POST /api/admin/content",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pillar\": \"mind\",\n  \"title\": \"Scan corporel guide\",\n  \"description\": \"Pratique guidee de relaxation progressive sur 10 minutes.\",\n  \"durationMinutes\": 10,\n  \"externalLink\": null\n}"
+            },
+            "url": "{{baseUrl}}/api/admin/content"
+          }
+        },
+        {
+          "name": "PATCH /api/admin/content/{id}/activation",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": false\n}"
+            },
+            "url": "{{baseUrl}}/api/admin/content/{{contentId}}/activation"
+          }
+        },
+        {
+          "name": "GET /api/admin/audit-logs",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/audit-logs?limit=20"
+          }
+        }
+      ]
+    }
+  ]
+}
