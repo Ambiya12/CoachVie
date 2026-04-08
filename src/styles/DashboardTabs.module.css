@@ -1,0 +1,633 @@
+.tabsContainer {
+  display: flex;
+  gap: var(--space-2xl);
+  border-bottom: 1px solid var(--color-brand-border);
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  font-size: var(--font-ui-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-secondary);
+  cursor: pointer;
+  padding: 0;
+  padding-bottom: var(--space-2xs);
+  transition: all 0.3s ease;
+}
+
+.tabBtn:hover {
+  color: var(--color-brand-primary);
+}
+
+.tabActive {
+  color: var(--color-brand-primary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-brand-primary);
+}
+
+/* Calendar View */
+.calendarSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.plannerFeedback {
+  margin: var(--space-xs) 0 0;
+  padding: calc(0.65 * var(--space-md)) calc(0.8 * var(--space-md));
+  border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-bg);
+  color: var(--color-brand-primary);
+  font-size: var(--font-ui-sm);
+  letter-spacing: 0.03em;
+}
+
+.calendarIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.calendarTitle {
+  margin: 0;
+  font-size: var(--font-heading-lg);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-brand-primary);
+}
+
+.calendarHint {
+  margin: 0;
+  font-size: var(--font-ui-md);
+  color: var(--color-brand-secondary);
+}
+
+.calendarContainer {
+  border: 1px solid var(--color-brand-border);
+  background: #fff;
+  padding: 0;
+}
+
+.emptyPlannerMessage {
+  margin: 0;
+  font-size: var(--font-ui-md);
+  color: var(--color-brand-secondary);
+}
+
+.dayDetailsPanel {
+  border: 1px solid var(--color-brand-border);
+  background: #fff;
+  padding: calc(1.1 * var(--space-md));
+  display: flex;
+  flex-direction: column;
+  gap: calc(0.8 * var(--space-md));
+}
+
+.dayDetailsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-brand-border);
+  padding-bottom: 0.7rem;
+}
+
+.dayDetailsTitle {
+  margin: 0;
+  font-size: var(--font-body-md);
+  font-weight: 400;
+  text-transform: capitalize;
+  color: var(--color-brand-primary);
+}
+
+.dayDetailsCloseBtn {
+  border: 1px solid var(--color-brand-border);
+  background: #fff;
+  color: var(--color-brand-primary);
+  font-size: var(--font-ui-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: calc(0.4 * var(--space-md)) calc(0.6 * var(--space-md));
+  cursor: pointer;
+  min-height: var(--control-min-hit);
+}
+
+.dayDetailsCloseBtn:hover {
+  background: var(--color-brand-surface);
+}
+
+.dayDetailsEmpty {
+  margin: 0;
+  font-size: var(--font-body-sm);
+  color: var(--color-brand-secondary);
+}
+
+.dayDetailsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: calc(0.7 * var(--space-md));
+}
+
+.dayDetailsItem {
+  border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-bg);
+  padding: var(--space-sm);
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+
+.dayDetailsTime {
+  font-size: var(--font-ui-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand-secondary);
+}
+
+.dayDetailsEventTitle {
+  margin: var(--space-2xs) 0 0;
+  font-size: var(--font-body-sm);
+  color: var(--color-brand-primary);
+}
+
+.dayDetailsType {
+  display: inline-block;
+  margin-top: calc(0.35 * var(--space-md));
+  font-size: var(--font-ui-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-secondary);
+}
+
+.dayDetailsRemoveBtn {
+  border: none;
+  background: transparent;
+  color: var(--color-brand-secondary);
+  font-size: var(--font-ui-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dayDetailsRemoveBtn:hover {
+  color: var(--color-brand-primary);
+}
+
+/* Options List (Common to Alimentation/Sport) */
+.optionList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.optionCard {
+  border: 1px solid var(--color-brand-border);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.optionCard:hover {
+  border-color: var(--color-brand-primary);
+  background-color: var(--color-brand-surface);
+}
+
+.optionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.optionTitle {
+  font-size: var(--font-heading-md);
+  font-weight: 400;
+}
+
+.recommendationBox {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-brand-border);
+  animation: fadeEnter 0.3s ease;
+}
+
+.recList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.recItem {
+  border: 1px solid var(--color-brand-border);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recItemTitle {
+  font-weight: 500;
+  font-size: var(--font-body-md);
+}
+
+/* Inline Add Planner Form */
+.plannerForm {
+  margin-top: var(--space-lg);
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.formInput {
+  background: transparent;
+  border: 1px solid var(--color-brand-border);
+  padding: calc(0.65 * var(--space-md)) calc(0.9 * var(--space-md));
+  color: var(--color-brand-primary);
+  font-family: inherit;
+  font-size: var(--font-body-sm);
+  min-height: 44px;
+}
+
+.plannerDateInput {
+  min-width: 195px;
+}
+
+.plannerTimeInput {
+  min-width: 132px;
+}
+
+.mentalPlannerBar {
+  display: flex;
+  align-items: center;
+  gap: calc(0.7 * var(--space-md));
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.mentalPlannerAction {
+  background: transparent;
+  color: var(--color-brand-primary);
+  border: 1px solid var(--color-brand-primary);
+  padding: var(--button-padding-y) calc(1.5 * var(--space-md));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: var(--font-ui-md);
+  cursor: pointer;
+  min-height: var(--control-min-hit);
+}
+
+.mentalPlannerAction:disabled {
+  background: var(--color-brand-surface);
+  cursor: default;
+  opacity: 0.5;
+}
+
+.mentalLayout {
+  display: flex;
+  flex-direction: column;
+  gap: calc(1.35 * var(--space-md));
+}
+
+.mentalIntroBlock,
+.mentalPlanningBlock,
+.mentalMonthCard,
+.mentalDetailCard {
+  border: 1px solid var(--color-brand-border);
+  background: #fff;
+}
+
+.mentalIntroBlock,
+.mentalPlanningBlock {
+  padding: calc(1.2 * var(--space-md));
+}
+
+.mentalMainTitle {
+  margin: 0;
+  font-size: var(--font-heading-lg);
+  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+.mentalIntroTitle {
+  margin: calc(0.9 * var(--space-md)) 0 calc(0.35 * var(--space-md));
+  font-size: var(--font-heading-sm);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.mentalIntroText {
+  margin: 0.35rem 0;
+  color: var(--color-brand-secondary);
+  line-height: 1.55;
+}
+
+.mentalThreeKeys {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.mentalKeyCard {
+  border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-bg);
+  padding: 0.8rem;
+}
+
+.mentalKeyCard h4 {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.mentalKeyCard p {
+  margin: 0.45rem 0 0;
+  color: var(--color-brand-secondary);
+  font-size: 0.88rem;
+}
+
+.mentalPlanningHeader {
+  margin-bottom: 0.8rem;
+}
+
+.mentalSectionHeading {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1rem;
+}
+
+.mentalPlanningHint {
+  margin: calc(0.4 * var(--space-md)) 0 0;
+  color: var(--color-brand-secondary);
+  font-size: var(--font-body-sm);
+}
+
+.mentalExercisePicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.mentalExerciseChip {
+  border: 1px solid var(--color-brand-border);
+  background: transparent;
+  color: var(--color-brand-secondary);
+  padding: 0.42rem 0.68rem;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.mentalExerciseChipActive {
+  color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  background: var(--color-brand-surface);
+}
+
+.mentalTrack {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.mentalMonthCard {
+  padding: 1rem 1.1rem;
+  border-left: 3px solid var(--color-brand-primary);
+}
+
+.mentalMonthLocked {
+  opacity: 0.55;
+  border-left-color: var(--color-brand-border);
+}
+
+.mentalMonthLabel {
+  font-size: var(--font-ui-sm);
+  letter-spacing: 0.05em;
+  color: var(--color-brand-secondary);
+}
+
+.mentalMonthTitle {
+  margin: var(--space-xs) 0 calc(0.35 * var(--space-md));
+  font-size: var(--font-heading-md);
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.mentalMonthDesc {
+  margin: 0;
+  color: var(--color-brand-secondary);
+}
+
+.mentalMonthActions {
+  margin-top: 0.85rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.inlineLinkButton,
+.inlineSubtleButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.inlineLinkButton {
+  color: var(--color-brand-primary);
+  border-bottom: 1px solid var(--color-brand-primary);
+}
+
+.inlineSubtleButton {
+  color: var(--color-brand-secondary);
+  border-bottom: 1px solid var(--color-brand-border);
+}
+
+.inlineMuted {
+  color: var(--color-brand-secondary);
+  font-size: var(--font-body-sm);
+}
+
+.mentalTrackFootnote {
+  color: var(--color-brand-secondary);
+  font-style: italic;
+  font-size: var(--font-ui-md);
+}
+
+.mentalDetailRoot {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.mentalDetailTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mentalBadge {
+  border: 1px solid var(--color-brand-border);
+  padding: calc(0.3 * var(--space-md)) calc(0.55 * var(--space-md));
+  color: var(--color-brand-secondary);
+  font-size: var(--font-ui-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mentalDetailCard {
+  padding: calc(1.2 * var(--space-md));
+}
+
+.mentalDetailHeader {
+  border-bottom: 1px solid var(--color-brand-border);
+  padding-bottom: 0.8rem;
+}
+
+.mentalDetailTitle {
+  margin: 0;
+  font-size: var(--font-heading-md);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 400;
+}
+
+.mentalDetailSubtitle {
+  margin: 0.45rem 0 0;
+  color: var(--color-brand-secondary);
+}
+
+.mentalSection {
+  margin-top: 1rem;
+}
+
+.mentalSectionTitle {
+  margin: 0 0 0.45rem;
+  text-transform: uppercase;
+  font-size: var(--font-body-sm);
+  letter-spacing: 0.04em;
+}
+
+.mentalDetailText {
+  margin: 0;
+  color: var(--color-brand-secondary);
+  line-height: 1.55;
+}
+
+.mentalStepList {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.45rem;
+  color: var(--color-brand-secondary);
+}
+
+.mentalStepItem {
+  line-height: 1.45;
+}
+
+.mentalSectionGrid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.mentalInfoCard {
+  border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-bg);
+  padding: 0.85rem;
+}
+
+.mentalInfoTitle {
+  margin: 0 0 0.45rem;
+  text-transform: uppercase;
+  font-size: var(--font-ui-sm);
+  letter-spacing: 0.05em;
+}
+
+.mentalBenefitList {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.4rem;
+  color: var(--color-brand-secondary);
+}
+
+.mentalDetailFooter {
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-brand-border);
+  padding-top: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.inlineActionLink {
+  color: var(--color-brand-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-brand-border);
+}
+
+.addBtn {
+  background: transparent;
+  border: 1px solid var(--color-brand-primary);
+  color: var(--color-brand-primary);
+  padding: calc(0.5 * var(--space-md)) calc(1.5 * var(--space-md));
+  text-transform: uppercase;
+  font-size: var(--font-ui-sm);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: var(--control-min-hit);
+}
+
+.addBtn:hover {
+  background: var(--color-brand-surface);
+}
+
+@media (max-width: 768px) {
+  .mentalPlannerBar {
+    justify-content: flex-start;
+  }
+
+  .mentalThreeKeys,
+  .mentalSectionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mentalPlannerAction {
+    width: 100%;
+  }
+
+  .mentalDetailTitle {
+    font-size: 1.25rem;
+  }
+
+  .dayDetailsPanel {
+    padding: 0.85rem;
+  }
+
+  .dayDetailsList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes fadeEnter {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
