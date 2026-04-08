@@ -62,9 +62,6 @@ export default function CalendarView() {
     <section className={styles.calendarSection}>
       <div className={styles.calendarIntro}>
         <h2 className={styles.calendarTitle}>Mon planning</h2>
-        <p className={styles.calendarHint}>
-          Cliquez sur un evenement pour le supprimer.
-        </p>
       </div>
 
       <div className={styles.calendarContainer}>

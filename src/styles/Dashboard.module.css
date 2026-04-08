@@ -44,7 +44,7 @@
 
 .grid {
   display: block;
-  padding: var(--section-pad-y);
+  padding: var(--page-pad-y) var(--section-pad-y);
   flex: 1;
 }
 

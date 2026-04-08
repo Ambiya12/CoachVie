@@ -51,7 +51,8 @@
   /* Shared shell spacing to keep pages airy but components perfectly proportioned. */
   --page-pad-y: calc(2.2rem * var(--ui-scale));
   --page-pad-x: calc(1.5rem * var(--ui-scale));
-  --section-pad-y: calc(4.5rem * var(--ui-scale)); /* Balanced vertical whitespace */
+  --section-pad-y: calc(4.5rem * var(--ui-scale));
+  /* Balanced vertical whitespace */
 }
 
 @media (max-width: 768px) {
