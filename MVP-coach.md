@@ -301,23 +301,70 @@ Livrables:
 
 ## 15) Journal des decisions
 
-1. Decision: prioriser la boucle coeur en POC (diagnostic -> dashboard) avant extension marketing.
-    Raison: valider la valeur produit principale au plus vite.
-2. Decision: utiliser une barre laterale droite pour le detail journalier.
-    Raison: garder le contexte calendrier sans navigation lourde.
-3. Decision: admin unique en POC/MVP initial.
-    Raison: reduire la complexite organisationnelle et technique.
-4. Decision: inclure frontend et backend des le POC.
-    Raison: valider le systeme complet et la faisabilite operationnelle.
-5. Decision: gerer les paiements au niveau MVP (pas prioritaire POC).
-    Raison: separer validation valeur produit et validation monetisation.
-
+1.  **Decision:** Prioriser la boucle coeur en POC (diagnostic -> dashboard) avant extension marketing.
+    
+2.  **Decision:** Utiliser une barre laterale droite pour le detail journalier.
+    
+3.  **Decision:** Admin unique en POC/MVP initial.
+    
+4.  **Decision:** **Architecture "Lean" sans librairies tierces superflues.**
+    
+    *   _Raison:_ Garder un contrôle total sur le code, minimiser le poids de l'application et éviter la dépendance à des écosystèmes complexes (Type TanStack ou Tailwind) pour la phase de lancement.
+        
+5.  **Decision:** Utiliser du **SQL Pur** plutôt qu'un ORM.
+    
+    *   _Raison:_ Performance maximale pour le moteur de scoring et simplicité de maintenance des requêtes relationnelles.
+        
 
 ## 16) Prochaine etape documentaire
 
 A partir de ce document, produire 4 annexes de travail:
 
-1. Matrice de scoring detaillee (questions, poids, seuils).
-2. Catalogue initial de contenus/exercices par pilier.
-3. Contrat API (endpoints + schemas).
-4. Plan de tests d'acceptation (cas nominaux + erreurs + securite).
+1.  Matrice de scoring detaillee (questions, poids, seuils).
+    
+2.  Catalogue initial de contenus/exercices par pilier.
+    
+3.  Contrat API (endpoints + schemas).
+    
+4.  Plan de tests d'acceptation.
+    
+
+## 17) Stack Technique Detaillee (Validation MVP)
+
+### 17.1 Frontend (Le choix de la simplicité)
+
+*   **Framework:** **React 19** via **Vite** (pour la rapidité au démarrage).
+    
+*   **Styling:** **CSS Modules** (\*.module.css).
+    
+    *   Isolation des styles par composant sans surcharge de framework CSS.
+        
+    *   Utilisation de variables CSS natives pour la charte graphique (couleurs des 3 piliers).
+        
+*   **Data Fetching:** **API Fetch native** (JavaScript window.fetch).
+    
+    *   Gestion manuelle des états loading, error, et data via des Hooks personnalisés (useFetch).
+        
+*   **State Management:** **React Context API** & **useState**.
+    
+    *   Context pour l'authentification et les résultats globaux du diagnostic.
+        
+*   **Routing:** **React Router** (Navigation entre pages).
+    
+
+### 17.2 Backend (Le choix de la robustesse)
+
+*   **Runtime:** **Node.js** avec **Express.js**.
+    
+*   **Langage:** **JavaScript (ES6+)/TypeScript**.
+    
+*   **Base de donnees:** **PostgreSQL**.
+    
+*   **Acces aux donnees:** **SQL Brut** (via le driver pg).
+    
+    *   Ecriture manuelle des requêtes pour les entités User, Plan et Diagnostic.
+        
+*   **Authentification:** **JWT (JSON Web Tokens)** stockés de manière sécurisée (Cookies HttpOnly).
+    
+*   **Validation:** Logique de validation manuelle des entrées pour garantir la cohérence du diagnostic.
+    
