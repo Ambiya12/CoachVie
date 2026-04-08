@@ -11,55 +11,55 @@
 }
 
 :root {
-  /* Global visual scale: subtle compactness across the app. */
+  /* Global visual scale: elegant and proportional typography, compact components against generous whitespace. */
   --ui-scale: 1;
 
-  --font-display-xl: calc(3.5rem * var(--ui-scale));
-  --font-display-lg: calc(3rem * var(--ui-scale));
-  --font-display-md: calc(2.5rem * var(--ui-scale));
-  --font-heading-xl: calc(2rem * var(--ui-scale));
-  --font-heading-lg: calc(1.7rem * var(--ui-scale));
-  --font-heading-md: calc(1.25rem * var(--ui-scale));
-  --font-heading-sm: calc(1.1rem * var(--ui-scale));
+  --font-display-xl: calc(2.75rem * var(--ui-scale));
+  --font-display-lg: calc(2.25rem * var(--ui-scale));
+  --font-display-md: calc(1.875rem * var(--ui-scale));
+  --font-heading-xl: calc(1.5rem * var(--ui-scale));
+  --font-heading-lg: calc(1.25rem * var(--ui-scale));
+  --font-heading-md: calc(1.125rem * var(--ui-scale));
+  --font-heading-sm: calc(1rem * var(--ui-scale));
 
-  --font-body-lg: calc(1.125rem * var(--ui-scale));
-  --font-body-md: calc(1rem * var(--ui-scale));
-  --font-body-sm: calc(0.98rem * var(--ui-scale));
+  --font-body-lg: calc(1.0625rem * var(--ui-scale));
+  --font-body-md: calc(0.9375rem * var(--ui-scale));
+  --font-body-sm: calc(0.875rem * var(--ui-scale));
 
-  --font-ui-md: calc(0.875rem * var(--ui-scale));
-  --font-ui-sm: calc(0.8rem * var(--ui-scale));
-  --font-ui-xs: calc(0.78rem * var(--ui-scale));
-  --font-ui-2xs: calc(0.68rem * var(--ui-scale));
+  --font-ui-md: calc(0.8125rem * var(--ui-scale));
+  --font-ui-sm: calc(0.75rem * var(--ui-scale));
+  --font-ui-xs: calc(0.6875rem * var(--ui-scale));
+  --font-ui-2xs: calc(0.625rem * var(--ui-scale));
 
-  --space-2xs: calc(0.25rem * var(--ui-scale));
-  --space-xs: calc(0.5rem * var(--ui-scale));
-  --space-sm: calc(0.75rem * var(--ui-scale));
-  --space-md: calc(1rem * var(--ui-scale));
-  --space-lg: calc(1.5rem * var(--ui-scale));
-  --space-xl: calc(2rem * var(--ui-scale));
-  --space-2xl: calc(3rem * var(--ui-scale));
-  --space-3xl: calc(4rem * var(--ui-scale));
+  --space-2xs: calc(0.125rem * var(--ui-scale));
+  --space-xs: calc(0.375rem * var(--ui-scale));
+  --space-sm: calc(0.625rem * var(--ui-scale));
+  --space-md: calc(0.875rem * var(--ui-scale));
+  --space-lg: calc(1.25rem * var(--ui-scale));
+  --space-xl: calc(1.75rem * var(--ui-scale));
+  --space-2xl: calc(2.5rem * var(--ui-scale));
+  --space-3xl: calc(3.5rem * var(--ui-scale));
 
-  --input-padding-y: calc(1rem * var(--ui-scale));
-  --input-padding-x: calc(0.95rem * var(--ui-scale));
-  --button-padding-y: calc(0.95rem * var(--ui-scale));
-  --button-padding-x: calc(2.2rem * var(--ui-scale));
+  --input-padding-y: calc(0.75rem * var(--ui-scale));
+  --input-padding-x: calc(0.85rem * var(--ui-scale));
+  --button-padding-y: calc(0.65rem * var(--ui-scale));
+  --button-padding-x: calc(1.75rem * var(--ui-scale));
   --control-min-hit: 44px;
 
-  --calendar-day-min-height: calc(6.7rem * var(--ui-scale));
+  --calendar-day-min-height: calc(5.5rem * var(--ui-scale));
 
-  /* Shared shell spacing to keep pages airy but not oversized. */
+  /* Shared shell spacing to keep pages airy but components perfectly proportioned. */
   --page-pad-y: calc(2.2rem * var(--ui-scale));
   --page-pad-x: calc(1.5rem * var(--ui-scale));
-  --section-pad-y: calc(3rem * var(--ui-scale));
+  --section-pad-y: calc(4.5rem * var(--ui-scale)); /* Balanced vertical whitespace */
 }
 
 @media (max-width: 768px) {
   :root {
-    --ui-scale: 0.99;
+    --ui-scale: 0.95;
     --page-pad-y: calc(1.6rem * var(--ui-scale));
     --page-pad-x: calc(1rem * var(--ui-scale));
-    --section-pad-y: calc(2.2rem * var(--ui-scale));
+    --section-pad-y: calc(4rem * var(--ui-scale));
   }
 }
 

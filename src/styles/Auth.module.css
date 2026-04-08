@@ -1,10 +1,10 @@
 .container {
-  min-height: 100vh;
   background-color: var(--color-brand-bg);
   display: flex;
   flex-direction: column;
   font-family: var(--font-sans);
   color: var(--color-brand-primary);
+  flex: 1; /* take up available space from AppShell */
 }
 
 .header {
@@ -26,7 +26,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--section-pad-y) 5%;
+  padding: var(--space-2xl) 5%; /* Replaced extreme section pad with normal spacer */
 }
 
 .formWrapper {

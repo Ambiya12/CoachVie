@@ -1,11 +1,11 @@
 .container {
-  min-height: 100vh;
   background-color: var(--color-brand-bg);
   color: var(--color-brand-primary);
   display: flex;
   flex-direction: column;
-  padding: var(--page-pad-y) var(--page-pad-x);
+  padding: var(--space-2xl) var(--page-pad-x);
   box-sizing: border-box;
+  flex: 1;
 }
 
 .content {

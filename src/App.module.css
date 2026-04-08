@@ -11,7 +11,7 @@
 .mainFlow {
   display: flex;
   flex-direction: column;
-  gap: calc(5 * var(--space-md));
+  gap: calc(2 * var(--space-md));
 }
 
 .divider {
