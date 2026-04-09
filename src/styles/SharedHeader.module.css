@@ -1,5 +1,5 @@
 .header {
-  background-color: #0c0c0c;
+  background-color: rgba(12, 12, 12, 0.85); backdrop-filter: blur(10px);
   border-bottom: 1px solid #333333;
   position: sticky;
   top: 0;
@@ -115,7 +115,7 @@
   right: 0;
   min-width: 160px;
   border: 1px solid #333333;
-  background-color: #0c0c0c;
+  background-color: rgba(12, 12, 12, 0.85); backdrop-filter: blur(10px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   padding: 0.35rem;
   display: flex;
