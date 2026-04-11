@@ -82,14 +82,14 @@ const Mission = () => {
 
   return (
     <section className={overrides.missionMinimalistSection} style={{ backgroundColor: '#fff', fontFamily: 'Inter, sans-serif' }}>
-      <div style={{ backgroundColor: '#000', padding: 'clamp(3rem, 6vw, 6rem) 2rem', borderRadius: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ backgroundColor: '#000', padding: 'clamp(3rem, 6vw, 6rem) 2rem', borderRadius: '16px', maxWidth: '1200px', margin: '0 auto' }}>
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           variants={fadeUp}
         >
-          <h2 className={overrides.missionMinimalistTitle} style={{ color: '#fff', fontFamily: 'Inter, sans-serif', fontWeight: '800' }}>
+          <h2 className={overrides.missionMinimalistTitle} style={{ color: '#fff', fontFamily: 'Inter, sans-serif', fontWeight: '600' }}>
             On ne change rien, <br />
             on va supprimer le personnage <br />
             que vous avez créé.
@@ -143,7 +143,7 @@ const Methodology = () => {
 
   return (
     <section className={overrides.darkerSection} style={{ backgroundColor: '#fff', color: '#000', borderTop: 'none', fontFamily: 'Inter, sans-serif' }}>
-      <div className={overrides.container} style={{ backgroundColor: '#000', padding: 'clamp(3rem, 6vw, 6rem) 2rem', borderRadius: '24px' }}>
+      <div className={overrides.container} style={{ backgroundColor: '#000', padding: 'clamp(3rem, 6vw, 6rem) 2rem', borderRadius: '16px' }}>
         <motion.div 
           style={{ textAlign: 'center', marginBottom: '3rem' }}
           initial="hidden"
