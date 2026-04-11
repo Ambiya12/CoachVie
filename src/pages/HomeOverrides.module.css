@@ -1,16 +1,16 @@
 /* HomeOverrides.module.css */
 /* Consistent vertical padding & softer backgrounds */
 .standardSection {
-  padding: clamp(60px, 10vw, 100px) 20px;
-  background-color: var(--color-brand-bg); /* #FCFAFA soften white */
-  color: var(--color-brand-primary);
+  padding: clamp(40px, 6vw, 80px) 20px;
+  background-color: #fff;
+  color: #000;
   width: 100%;
 }
 
 .darkerSection {
-  padding: clamp(60px, 10vw, 100px) 20px;
-  background-color: #F7F7F7; /* light gray for softer transition */
-  color: var(--color-brand-primary);
+  padding: clamp(40px, 6vw, 80px) 20px;
+  background-color: #f7f7f7;
+  color: #000;
   width: 100%;
   position: relative;
 }
@@ -20,266 +20,140 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 3;
 }
 
 /* --- Typography Scaling --- */
 .heroTitleAnimated {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.05;
   text-transform: uppercase;
-  margin-bottom: 2rem;
-  color: var(--color-brand-primary);
+  margin-bottom: 1.5rem;
+  color: #000;
 }
 
 .sectionTitleAnimated {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   line-height: 1.1;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-.metallicGoldText {
-  background: linear-gradient(to right, #D4AF37, #F9E498, #D4AF37);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent; /* Fallback */
-  display: inline-block;
-  background-size: 200% auto;
+  margin-bottom: 1.2rem;
 }
 
 /* --- Hero --- */
 .hero {
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
-  padding: 80px 20px;
+  padding: 0 20px;
   position: relative;
   overflow: hidden;
-  background-color: var(--color-brand-bg);
+  background-color: #000;
   width: 100%;
 }
 
-@media (max-width: 900px) {
-  .hero {
-    align-items: flex-start;
-    padding-top: 120px;
-  }
-}
-
-/* --- Parallax Video --- */
-.missionParallax {
-  position: relative;
-  padding: 100px 20px;
-  min-height: 100vh; /* Changed for more impact */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  clip-path: inset(0 0 0 0); /* CSS native parallax container trick */
-  color: #fff;
-  background-color: #2A2A2A; 
-}
-
-.missionVideoFixed {
-  position: fixed;
+.heroVideoBg {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: -2;
-  will-change: transform;
+  z-index: 1;
 }
 
-.missionOverlayFixed {
-  position: fixed;
+.heroOverlayBg {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(12, 12, 12, 0.6); /* Slightly darker for better text read */
-  z-index: -1;
-  will-change: transform;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
 }
 
-@supports (-webkit-touch-callout: none) {
-  /* Safari fix */
-  .missionVideoFixed, .missionOverlayFixed {
-    position: absolute;
-    height: 100%;
-  }
-}
-
-.missionContentCentered {
-  max-width: 1000px;
-  position: relative;
-  z-index: 10;
-  padding: 40px 20px;
-}
-
-/* --- Testimonials --- */
-.testimonialsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 4rem;
-}
-
-.testimonialCard {
-  background: #fff;
-  padding: 3rem 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-  position: relative;
-}
-
-.testimonialQuoteMark {
-  font-size: 6rem;
-  line-height: 0;
-  color: rgba(212, 175, 55, 0.2); /* Faded Gold */
-  position: absolute;
-  top: 40px;
-  left: 20px;
-  font-family: serif;
-}
-
-.testimonialText {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  font-weight: 500;
-  color: var(--color-brand-primary);
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 1;
-}
-
-.testimonialAuthor {
-  font-size: 0.9rem;
+.heroTitleSmall {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 700;
-  color: var(--color-brand-secondary);
+  margin-bottom: 1rem;
+  color: #fff;
+  max-width: 800px;
 }
 
-/* --- Packages Pricing Grid --- */
-.pricingGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+.heroSubtitleAccent {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #f0f0f0;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  max-width: 650px;
+}
+
+/* --- Responsive fixes --- */
+@media (max-width: 900px) {
+  .hero {
+    align-items: flex-start;
+    padding-top: 100px;
+  }
+}
+
+/* --- New Minimalist Mission Section --- */
+.missionMinimalistSection {
+  padding: clamp(60px, 8vw, 100px) 20px;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  position: relative;
   width: 100%;
-  margin-top: 3rem;
 }
 
-.packCard {
-  background-color: #fff;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 1rem;
-  padding: 3rem 2.5rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.missionMinimalistTitle {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 3rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: -0.02em;
+}
+
+.missionMinimalistGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.missionCard {
+  border-radius: 12px;
+  overflow: hidden;
   position: relative;
 }
 
-.packCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+.missionCardVideo {
+  aspect-ratio: 4/5;
+  transition: transform 0.3s ease;
 }
 
-.packDark {
-  background-color: #111; /* Deeper black/charcoal */
-  color: #fff;
-}
-
-.packDark p, .packDark span, .packDark h3 {
-  color: rgba(255, 255, 255, 0.9) !important;
-}
-
-.packDark:hover {
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
-
-.packPrice {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  margin: 1.5rem 0;
-}
-
-.packTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.packDesc {
-  opacity: 0.7;
-  font-size: 0.9rem;
-  min-height: 48px;
-}
-
-.packFeatures {
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-  flex-grow: 1;
-}
-
-.packFeature {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-}
-
-/* High Contrast Button for Immersion */
-.premiumButton {
-  background: linear-gradient(to right, #D4AF37, #F9E498);
-  color: #000 !important; /* Forces black text on gold */
-  border: none !important;
-  font-weight: 800 !important;
-}
-
-.premiumButton:hover {
-  background: linear-gradient(to right, #F9E498, #D4AF37);
-  transform: scale(1.02);
-}
-
-/* --- TikTok Layout --- */
-.tiktokLayout {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 3rem;
-  align-items: center;
-}
-
-.tiktokText {
+.missionCardTitle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  font-size: 1.1rem;
+  font-weight: 600;
   text-align: left;
-}
-
-.tiktokVideoWrapper {
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-  background-color: #f0f0f0;
-}
-
-@media (max-width: 900px) {
-  .pricingGrid {
-    grid-template-columns: 1fr;
-  }
-  .tiktokLayout {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .tiktokText {
-    text-align: center;
-    order: -1;
-  }
+  color: #fff;
 }
