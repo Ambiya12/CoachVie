@@ -39,21 +39,6 @@ const missionCards = [
   },
 ];
 
-const missionProofs = [
-  {
-    title: 'Diagnostic initial clair',
-    text: "Vous identifiez où agir dès la première semaine.",
-  },
-  {
-    title: 'Rythme hebdomadaire concret',
-    text: 'Chaque action est claire, mesurable et tenable.',
-  },
-  {
-    title: 'Suivi humain direct',
-    text: 'Vous avancez avec un cadre réel, jamais générique.',
-  },
-];
-
 const methodologySteps = [
   {
     id: '01',
@@ -189,23 +174,6 @@ function Mission({ shouldReduceMotion }) {
         >
           Cette méthode repose sur des actions réelles: observer, ajuster et agir avec constance.
         </Motion.p>
-
-        <div className={overrides.missionProofRow}>
-          {missionProofs.map((proof, index) => (
-            <Motion.article
-              key={proof.title}
-              className={overrides.missionProofCard}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewConfig}
-              variants={reveal(shouldReduceMotion, index * 0.05)}
-            >
-              <p className={overrides.missionProofTag}>Preuve {index + 1}</p>
-              <h3 className={overrides.missionProofTitle}>{proof.title}</h3>
-              <p className={overrides.missionProofText}>{proof.text}</p>
-            </Motion.article>
-          ))}
-        </div>
 
         <div className={overrides.missionGrid}>
           {missionCards.map((card, index) => (
