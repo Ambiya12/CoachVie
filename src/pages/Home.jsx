@@ -133,30 +133,34 @@ const viewConfig = { once: true, amount: 0.22 };
 function Hero({ shouldReduceMotion }) {
   return (
     <section className={overrides.hero}>
-      <video autoPlay loop muted playsInline className={overrides.heroVideoBg}>
-        <source src={heroVideo} type="video/mp4" />
-      </video>
-      <div className={overrides.heroOverlayBg} aria-hidden="true" />
+      <div className={`${overrides.container} ${overrides.heroShell}`}>
+        <div className={overrides.heroFrame}>
+          <video autoPlay loop muted playsInline className={overrides.heroVideoBg}>
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+          <div className={overrides.heroOverlayBg} aria-hidden="true" />
 
-      <div className={`${overrides.container} ${overrides.heroLayout}`}>
-        <Motion.div
-          className={overrides.heroContent}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewConfig}
-          variants={reveal(shouldReduceMotion)}
-        >
-          <h1 className={overrides.heroTitle}>Tu es prêt à transformer ta vie ?</h1>
-          <p className={overrides.heroSubtitle}>
-            Un cadre direct pour sortir des scénarios limitants et reprendre la main sur votre trajectoire.
-          </p>
-          <div className={overrides.ctaRow}>
-            <Link to="/signup" className={`${overrides.cta} ${overrides.ctaPrimary}`}>
-              Démarrez le coaching
-              <ArrowUpRight size={16} />
-            </Link>
+          <div className={overrides.heroLayout}>
+            <Motion.div
+              className={overrides.heroContent}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewConfig}
+              variants={reveal(shouldReduceMotion)}
+            >
+              <h1 className={overrides.heroTitle}>Tu es prêt à transformer ta vie ?</h1>
+              <p className={overrides.heroSubtitle}>
+                Un cadre direct pour sortir des scénarios limitants et reprendre la main sur votre trajectoire.
+              </p>
+              <div className={`${overrides.ctaRow} ${overrides.heroCtaRow}`}>
+                <Link to="/signup" className={`${overrides.cta} ${overrides.ctaPrimary} ${overrides.heroCta}`}>
+                  Démarrez le coaching
+                  <ArrowUpRight size={16} />
+                </Link>
+              </div>
+            </Motion.div>
           </div>
-        </Motion.div>
+        </div>
       </div>
     </section>
   );
@@ -164,7 +168,7 @@ function Hero({ shouldReduceMotion }) {
 
 function Mission({ shouldReduceMotion }) {
   return (
-    <section className={`${overrides.sectionLight} ${overrides.sectionRhythmTight}`}>
+    <section className={`${overrides.sectionDark} ${overrides.sectionRhythmTight}`}>
       <div className={`${overrides.container} ${overrides.missionShell}`}>
         <Motion.h2
           className={overrides.sectionTitleDark}
