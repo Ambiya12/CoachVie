@@ -54,13 +54,19 @@
 
   --calendar-day-min-height: calc(6rem * var(--ui-scale));
   
-  --header-height: 80px;
+  --header-height: 56px;
 
   /* Shared shell spacing to keep pages airy but components perfectly proportioned. */
   --page-pad-y: calc(3rem * var(--ui-scale));
   --page-pad-x: calc(2rem * var(--ui-scale));
   --section-pad-y: calc(6rem * var(--ui-scale));
   /* Balanced vertical whitespace */
+}
+
+@media (min-width: 769px) {
+  :root {
+    --header-height: 72px;
+  }
 }
 
 @media (max-width: 768px) {
