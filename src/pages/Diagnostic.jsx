@@ -7,16 +7,26 @@ import {
   ENERGIE_QUESTIONS,
   VOLONTE_QUESTIONS,
 } from '../data/diagnosticData';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import styles from '../styles/Diagnostic.module.css';
 
 export default function Diagnostic() {
   const navigate = useNavigate();
-  const { resetDiagnostic, saveAnswer } = useDiagnostic();
+  const { resetDiagnostic, saveAnswer, startSession, submitDiagnostic, isSubmitting, submitError } = useDiagnostic();
   const [step, setStep] = useState(DIAGNOSTIC_STEPS.INTRO);
   const [qIndex, setQIndex] = useState(0);
+  const [apiError, setApiError] = useState(null);
 
-  const handleStart = () => {
+  const handleStart = async () => {
     resetDiagnostic();
+    setApiError(null);
+    try {
+      await startSession();
+    } catch (err) {
+      // Non-fatal: session will be created lazily if missing
+      console.warn('Could not start session early:', err?.message);
+    }
     setStep(DIAGNOSTIC_STEPS.TRANSITION_VOLONTE);
   };
 
@@ -35,7 +45,7 @@ export default function Diagnostic() {
     setStep(DIAGNOSTIC_STEPS.Q_ENERGIE);
   };
 
-  const handleAnswer = (category, questionsArray, nextStep, value) => {
+  const handleAnswer = async (category, questionsArray, nextStep, value) => {
     const question = questionsArray[qIndex];
     saveAnswer(category, question.id, value);
 
@@ -44,9 +54,15 @@ export default function Diagnostic() {
     } else {
       setStep(nextStep);
       if (nextStep === DIAGNOSTIC_STEPS.ANALYSIS) {
-        setTimeout(() => {
+        setApiError(null);
+        try {
+          await submitDiagnostic();
           navigate('/diagnostic/results');
-        }, 1800);
+        } catch (err) {
+          setApiError(err?.message ?? 'Une erreur est survenue. Veuillez réessayer.');
+          setQIndex(0); // restart energy block from the first question
+          setStep(DIAGNOSTIC_STEPS.Q_ENERGIE);
+        }
       }
     }
   };
@@ -59,7 +75,7 @@ export default function Diagnostic() {
         votre hygiene alimentaire et votre niveau d energie physique.
         Cela nous permettra de generer votre parcours automatiquement.
       </p>
-      <button className={styles.primaryBtn} onClick={handleStart}>Commencer</button>
+      <Button className={styles.primaryBtn} onClick={handleStart}>Commencer</Button>
     </div>
   );
 
@@ -67,7 +83,7 @@ export default function Diagnostic() {
     <div className={`${styles.content} ${styles.fadeEnterActive}`}>
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.text}>{text}</p>
-      <button className={styles.primaryBtn} onClick={onNext}>Continuer</button>
+      <Button className={styles.primaryBtn} onClick={onNext}>Continuer</Button>
     </div>
   );
 
@@ -75,22 +91,25 @@ export default function Diagnostic() {
     const question = questionsArray[qIndex];
     const baseProgress = moduleIndex * 33;
     const qProgress = Math.floor((qIndex / questionsArray.length) * 33);
-    const progressText = `${baseProgress + qProgress}%`;
+    const progressValue = baseProgress + qProgress;
 
     return (
       <div className={`${styles.content} ${styles.fadeEnterActive}`}>
-        <div className={styles.progress}>Progression : {progressText}</div>
+        <div className={styles.progress}>Progression : {progressValue}%</div>
+        <Progress value={progressValue} className="mb-4" />
         <h2 className={styles.title}>{question.question}</h2>
+        {apiError ? <p style={{ color: 'red', marginBottom: '1rem' }}>{apiError}</p> : null}
         <div className={styles.optionsGrid}>
           {question.options.map((option) => (
-            <button
+            <Button
               key={`${question.id}-${option.label}`}
+              variant="outline"
               className={styles.optionBtn}
               onClick={() => onAnswer(option.value)}
             >
               <span>{option.label}</span>
               <span>→</span>
-            </button>
+            </Button>
           ))}
         </div>
       </div>
@@ -100,7 +119,9 @@ export default function Diagnostic() {
   const renderAnalysis = () => (
     <div className={`${styles.content} ${styles.loader} ${styles.fadeEnterActive}`}>
       <div className={styles.spinner}></div>
-      <h2 className={styles.title}>Analyse en cours...</h2>
+      <h2 className={styles.title}>
+        {isSubmitting ? 'Analyse en cours...' : 'Traitement...'}
+      </h2>
       <p className={styles.text}>Nous analysons vos reponses pour construire votre parcours personnalise.</p>
     </div>
   );

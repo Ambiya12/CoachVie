@@ -20,7 +20,7 @@ function toDayLabel(date) {
 }
 
 export default function CalendarView() {
-  const { events, removeEvent } = usePlanner();
+  const { events, removeEvent, markDone, markTodo } = usePlanner();
   const [selectedDate, setSelectedDate] = useState(null);
 
   const sortedEvents = useMemo(
@@ -40,6 +40,14 @@ export default function CalendarView() {
 
     if (shouldRemove) {
       removeEvent(event.id);
+    }
+  };
+
+  const handleToggleDone = (event) => {
+    if (event.status === 'done') {
+      markTodo(event.id);
+    } else {
+      markDone(event.id);
     }
   };
 
@@ -92,7 +100,10 @@ export default function CalendarView() {
           ) : (
             <div className={styles.dayDetailsList}>
               {selectedDateEvents.map((event) => (
-                <article key={event.id} className={styles.dayDetailsItem}>
+                <article
+                  key={event.id}
+                  className={`${styles.dayDetailsItem} ${event.status === 'done' ? styles.dayDetailsItemDone : ''}`}
+                >
                   <div>
                     <span className={styles.dayDetailsTime}>
                       {event.start.toLocaleTimeString('fr-FR', {
@@ -100,19 +111,33 @@ export default function CalendarView() {
                         minute: '2-digit',
                       })}
                     </span>
-                    <p className={styles.dayDetailsEventTitle}>{event.title}</p>
+                    <p className={`${styles.dayDetailsEventTitle} ${event.status === 'done' ? styles.dayDetailsEventTitleDone : ''}`}>
+                      {event.status === 'done' ? '✓ ' : ''}{event.title}
+                    </p>
                     <span className={styles.dayDetailsType}>{event.type}</span>
                     {event.exerciseId ? (
                       <span className={styles.dayDetailsType}>Exercice: {event.exerciseId}</span>
                     ) : null}
                   </div>
-                  <button
-                    type="button"
-                    className={styles.dayDetailsRemoveBtn}
-                    onClick={() => handleRemoveEvent(event.id)}
-                  >
-                    Supprimer
-                  </button>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    {event.source !== 'manual' ? (
+                      <button
+                        type="button"
+                        className={event.status === 'done' ? styles.dayDetailsUndoBtn : styles.dayDetailsDoneBtn}
+                        onClick={() => handleToggleDone(event)}
+                      >
+                        {event.status === 'done' ? 'À faire' : 'Fait ✓'}
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className={styles.dayDetailsRemoveBtn}
+                        onClick={() => handleRemoveEvent(event.id)}
+                      >
+                        Supprimer
+                      </button>
+                    )}
+                  </div>
                 </article>
               ))}
             </div>
@@ -122,7 +147,7 @@ export default function CalendarView() {
 
       {events.length === 0 ? (
         <p className={styles.emptyPlannerMessage}>
-          Votre planning est vide. Ajoutez des rappels depuis Alimentation, Sport ou Liberation esprit.
+          Votre planning est vide. Completez le diagnostic pour generer votre programme personnalise.
         </p>
       ) : null}
     </section>

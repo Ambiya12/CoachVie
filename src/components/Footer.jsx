@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Send } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import styles from '../styles/SharedFooter.module.css';
 
 export default function Footer() {
@@ -15,10 +17,12 @@ export default function Footer() {
         <section className={styles.brandCol} aria-labelledby="footer-brand-title">
           <h2 id="footer-brand-title" className={styles.brandTitle}>Franck Chevalier</h2>
           <p className={styles.description}>Un cadre simple pour agir avec constance, clarté et résultats.</p>
-          <Link to="/signup" className={styles.primaryAction}>
-            Commencer mon diagnostic
-            <ArrowUpRight size={16} className={styles.icon} />
-          </Link>
+          <Button asChild className={styles.primaryAction} variant="secondary">
+            <Link to="/signup">
+              Commencer mon diagnostic
+              <ArrowUpRight size={16} className={styles.icon} />
+            </Link>
+          </Button>
         </section>
 
         <section className={styles.newsletterCol} aria-labelledby="footer-newsletter-title">
@@ -30,7 +34,7 @@ export default function Footer() {
             <label className={styles.srOnly} htmlFor="footer-newsletter-email">
               Votre adresse email
             </label>
-            <input
+            <Input
               id="footer-newsletter-email"
               name="email"
               type="email"
@@ -40,10 +44,10 @@ export default function Footer() {
               className={styles.newsletterInput}
               aria-describedby="footer-newsletter-help"
             />
-            <button type="submit" className={styles.newsletterBtn} aria-label="Rejoindre la newsletter">
+            <Button type="submit" className={styles.newsletterBtn} aria-label="Rejoindre la newsletter">
               Rejoindre
               <Send size={14} />
-            </button>
+            </Button>
           </form>
         </section>
 

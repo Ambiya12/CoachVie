@@ -2,28 +2,26 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Brain, Activity, Flame, CheckCircle2, ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { motion as Motion, useReducedMotion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import heroVideo from '../assets/calm.mp4';
 import franckPhoto from '../assets/Franck.jpg';
-import franckVideo from '../assets/Franck.mp4';
-import forestVideo from '../assets/forest.mp4';
 import overrides from './HomeOverrides.module.css';
 
 const missionCards = [
   {
     id: 'calme-interieur',
     title: 'Retrouver le calme intérieur',
-    mediaType: 'video',
-    src: forestVideo,
-    poster: franckPhoto,
+    mediaType: 'image',
+    src: 'https://picsum.photos/seed/forest-calm/800/600',
     posterAlt: 'Aperçu vidéo sur la clarté intérieure',
     objectPosition: '50% 35%',
   },
   {
     id: 'passage-action',
     title: "Passer à l'action",
-    mediaType: 'video',
-    src: franckVideo,
-    poster: franckPhoto,
+    mediaType: 'image',
+    src: 'https://picsum.photos/seed/action-move/800/600',
     posterAlt: 'Aperçu vidéo sur la mise en action',
     objectPosition: '50% 25%',
   },
@@ -31,17 +29,17 @@ const missionCards = [
     id: 'socle-solide',
     title: 'Construire un socle solide',
     mediaType: 'image',
-    src: franckPhoto,
-    posterAlt: 'Franck souriant devant un mur de briques',
+    src: 'https://picsum.photos/seed/foundation-build/800/600',
+    posterAlt: 'Construire un socle solide',
     objectPosition: '50% 20%',
   },
   {
     id: 'tenir-duree',
     title: 'Tenir dans la durée',
     mediaType: 'image',
-    src: franckPhoto,
-    posterAlt: 'Franck en posture stable et confiante',
-    objectPosition: '50% 75%',
+    src: 'https://picsum.photos/seed/endurance-time/800/600',
+    posterAlt: 'Tenir dans la durée avec constance',
+    objectPosition: '50% 50%',
   },
 ];
 
@@ -150,10 +148,16 @@ const viewConfig = { once: true, amount: 0.22 };
 
 function VideoTrigger({ onClick, label, className = '' }) {
   return (
-    <button type="button" className={`${overrides.mediaTrigger} ${className}`.trim()} onClick={onClick}>
+    <Button
+      type="button"
+      variant="ghost"
+      size="sm"
+      className={`${overrides.mediaTrigger} ${className}`.trim()}
+      onClick={onClick}
+    >
       <Play size={15} />
       {label}
-    </button>
+    </Button>
   );
 }
 
@@ -180,10 +184,11 @@ function Hero({ shouldReduceMotion }) {
                 Un cadre direct pour sortir des scénarios limitants et reprendre la main sur votre trajectoire.
               </p>
               <div className={`${overrides.ctaRow} ${overrides.heroCtaRow}`}>
-                <Link to="/signup" className={`${overrides.cta} ${overrides.ctaPrimary} ${overrides.heroCta}`}>
-                  Démarrez le coaching
-                  <ArrowUpRight size={16} />
-                </Link>
+                <Button asChild className={`${overrides.cta} ${overrides.ctaPrimary} ${overrides.heroCta}`}>
+                  <Link to="/signup">
+                    Démarrez le coaching
+                  </Link>
+                </Button>
               </div>
             </Motion.div>
           </div>
@@ -347,7 +352,7 @@ function Programs({ shouldReduceMotion }) {
               viewport={viewConfig}
               variants={reveal(shouldReduceMotion, index * 0.06)}
             >
-              {plan.badge ? <span className={overrides.programBadge}>{plan.badge}</span> : null}
+              {plan.badge ? <Badge className={overrides.programBadge} variant="secondary">{plan.badge}</Badge> : null}
               <h3 className={overrides.programTitle}>{plan.name}</h3>
               <p className={overrides.programSubtitle}>{plan.subtitle}</p>
               <p className={overrides.programFit}>{plan.decisionFit}</p>
@@ -365,13 +370,14 @@ function Programs({ shouldReduceMotion }) {
                 </ul>
               </details>
 
-              <Link
-                to="/signup"
+              <Button
+                asChild
                 className={`${overrides.cta} ${plan.cardType === 'light' ? overrides.ctaDark : overrides.ctaPrimary} ${overrides.ctaFull}`}
               >
-                Choisir ce format
-                <ArrowUpRight size={16} />
-              </Link>
+                <Link to="/signup">
+                  Choisir ce format
+                </Link>
+              </Button>
             </Motion.article>
           ))}
         </div>
@@ -450,25 +456,29 @@ function SocialMedia({ shouldReduceMotion }) {
           </div>
 
           <div className={overrides.socialNavGroup}>
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon"
               aria-label="Voir les clips précédents"
               className={overrides.socialNavButton}
               onClick={() => scrollCarousel(-1)}
               disabled={!canScrollPrev}
             >
               <ChevronLeft size={20} />
-            </button>
+            </Button>
 
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon"
               aria-label="Voir les clips suivants"
               className={overrides.socialNavButton}
               onClick={() => scrollCarousel(1)}
               disabled={!canScrollNext}
             >
               <ChevronRight size={20} />
-            </button>
+            </Button>
           </div>
         </Motion.div>
 
@@ -546,10 +556,11 @@ function About({ shouldReduceMotion }) {
             <cite>Méthode Franck Chevalier</cite>
           </blockquote>
 
-          <Link to="/signup" className={`${overrides.cta} ${overrides.ctaDark}`}>
-            Réserver ma séance (15 min)
-            <ArrowUpRight size={16} />
-          </Link>
+          <Button asChild className={`${overrides.cta} ${overrides.ctaDark}`}>
+            <Link to="/signup">
+              Réserver ma séance (15 min)
+            </Link>
+          </Button>
         </Motion.div>
 
         <Motion.figure

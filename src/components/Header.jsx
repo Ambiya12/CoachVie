@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown, User } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -8,61 +8,14 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const profileMenuRef = useRef(null);
-  const profileTriggerRef = useRef(null);
-  const firstProfileItemRef = useRef(null);
-  const secondProfileItemRef = useRef(null);
-
-  const closeProfileMenu = useCallback((restoreFocus = false) => {
-    setIsProfileOpen(false);
-
-    if (restoreFocus) {
-      requestAnimationFrame(() => {
-        profileTriggerRef.current?.focus();
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!isProfileOpen) {
-      return undefined;
-    }
-
-    const handleOutsideClick = (event) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
-        closeProfileMenu();
-      }
-    };
-
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        closeProfileMenu(true);
-      }
-    };
-
-    document.addEventListener('mousedown', handleOutsideClick);
-    document.addEventListener('keydown', handleEscape);
-
-    requestAnimationFrame(() => {
-      firstProfileItemRef.current?.focus();
-    });
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [isProfileOpen, closeProfileMenu]);
 
   const isDashboardTabActive = (tab) => {
-    if (location.pathname !== '/dashboard') {
-      return false;
-    }
-
+    if (location.pathname !== '/dashboard') return false;
     const params = new URLSearchParams(location.search);
-    const currentTab = params.get('tab') || 'espace';
-    return currentTab === tab;
+    return (params.get('tab') || 'espace') === tab;
   };
 
   const getTabClassName = (tab) =>
@@ -70,46 +23,52 @@ export default function Header() {
 
   const getTabAriaCurrent = (tab) => (isDashboardTabActive(tab) ? 'page' : undefined);
 
-  const handleLogout = () => {
-    closeProfileMenu();
-    logout();
-    navigate('/');
-  };
+  useEffect(() => {
+    if (!isProfileMenuOpen) {
+      return undefined;
+    }
 
-  const handleGoToProfile = () => {
-    closeProfileMenu();
+    const handlePointerDown = (event) => {
+      if (!profileMenuRef.current?.contains(event.target)) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isProfileMenuOpen]);
+
+  const handleOpenProfile = () => {
+    setIsProfileMenuOpen(false);
     navigate('/dashboard?tab=espace');
   };
 
-  const handleProfileTriggerKeyDown = (event) => {
-    if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {
-      event.preventDefault();
-      setIsProfileOpen(true);
-    }
-  };
-
-  const handleProfileMenuKeyDown = (event) => {
-    if (event.key === 'Tab') {
-      closeProfileMenu();
+  const handleLogout = async () => {
+    if (isLoggingOut) {
       return;
     }
 
-    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
-      return;
+    setIsLoggingOut(true);
+
+    try {
+      await logout();
+      setIsProfileMenuOpen(false);
+      navigate('/login', { replace: true });
+      window.location.replace('/login');
+    } finally {
+      setIsLoggingOut(false);
     }
-
-    event.preventDefault();
-
-    const menuItems = [firstProfileItemRef.current, secondProfileItemRef.current].filter(Boolean);
-
-    if (!menuItems.length) {
-      return;
-    }
-
-    const activeIndex = menuItems.findIndex((item) => item === document.activeElement);
-    const delta = event.key === 'ArrowDown' ? 1 : -1;
-    const nextIndex = activeIndex === -1 ? 0 : (activeIndex + delta + menuItems.length) % menuItems.length;
-    menuItems[nextIndex]?.focus();
   };
 
   return (
@@ -157,35 +116,24 @@ export default function Header() {
             </nav>
 
             <div className={styles.profileMenuContainer} ref={profileMenuRef}>
-              <button
-                type="button"
-                ref={profileTriggerRef}
-                className={styles.profileTrigger}
-                onClick={() => setIsProfileOpen((prevState) => !prevState)}
-                onKeyDown={handleProfileTriggerKeyDown}
-                aria-expanded={isProfileOpen}
-                aria-haspopup="menu"
-                aria-controls="header-profile-menu"
-                aria-label="Ouvrir le menu profil"
-              >
-                <User size={16} />
-                <ChevronDown size={14} className={isProfileOpen ? styles.chevronOpen : ''} />
-              </button>
-
-              {isProfileOpen ? (
-                <div
-                  id="header-profile-menu"
-                  className={styles.profileMenu}
-                  role="menu"
-                  aria-label="Actions du profil"
-                  onKeyDown={handleProfileMenuKeyDown}
+                <button
+                  type="button"
+                  className={styles.profileTrigger}
+                  aria-label="Ouvrir le menu profil"
+                  aria-expanded={isProfileMenuOpen}
+                  aria-haspopup="menu"
+                  onClick={() => setIsProfileMenuOpen((prev) => !prev)}
                 >
+                  <User size={16} />
+                  <ChevronDown size={14} className={isProfileMenuOpen ? styles.chevronOpen : ''} />
+                </button>
+              {isProfileMenuOpen ? (
+                <div className={styles.profileMenu} role="menu" aria-label="Menu profil">
                   <button
                     type="button"
                     className={styles.profileMenuItem}
                     role="menuitem"
-                    ref={firstProfileItemRef}
-                    onClick={handleGoToProfile}
+                    onClick={handleOpenProfile}
                   >
                     Profil
                   </button>
@@ -193,10 +141,10 @@ export default function Header() {
                     type="button"
                     className={styles.profileMenuItem}
                     role="menuitem"
-                    ref={secondProfileItemRef}
                     onClick={handleLogout}
+                    disabled={isLoggingOut}
                   >
-                    Deconnexion
+                    {isLoggingOut ? 'Déconnexion...' : 'Déconnexion'}
                   </button>
                 </div>
               ) : null}

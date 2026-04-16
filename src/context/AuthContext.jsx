@@ -1,64 +1,54 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
-
-const MOCK_EMAIL = 'test@gmail.com';
-const MOCK_PASSWORD = 'test';
-const SESSION_KEY = 'coachvie-auth-user';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { apiGetMe, apiLogin, apiLogout, apiSignup } from '../api/auth';
 
 const AuthContext = createContext(null);
 
-function readStoredUser() {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  try {
-    const raw = window.sessionStorage.getItem(SESSION_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
-}
-
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => readStoredUser());
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = useCallback((email, password) => {
-    const normalizedEmail = email.trim().toLowerCase();
-
-    if (normalizedEmail === MOCK_EMAIL && password === MOCK_PASSWORD) {
-      const nextUser = {
-        email: MOCK_EMAIL,
-        displayName: 'Test User',
-      };
-
-      setUser(nextUser);
-      window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(nextUser));
-      return { success: true };
-    }
-
-    return {
-      success: false,
-      error: 'Identifiants invalides. Utilisez test@gmail.com / test.',
-    };
+  // Restore session from HTTP-only cookie on mount
+  useEffect(() => {
+    apiGetMe()
+      .then((data) => setUser(data?.user ?? data ?? null))
+      .catch(() => setUser(null))
+      .finally(() => setIsLoading(false));
   }, []);
 
-  const logout = useCallback(() => {
-    setUser(null);
-    window.sessionStorage.removeItem(SESSION_KEY);
+  const login = useCallback(async (email, password) => {
+    const data = await apiLogin(email.trim().toLowerCase(), password);
+    const nextUser = data?.user ?? data ?? null;
+    setUser(nextUser);
+    return { success: true };
+  }, []);
+
+  const signup = useCallback(async (email, password) => {
+    const data = await apiSignup(email.trim().toLowerCase(), password);
+    const nextUser = data?.user ?? data ?? null;
+    setUser(nextUser);
+    return { success: true };
+  }, []);
+
+  const logout = useCallback(async () => {
+    try {
+      await apiLogout();
+    } catch {
+      // swallow — cookie will be cleared server-side
+    } finally {
+      setUser(null);
+    }
   }, []);
 
   const value = useMemo(
     () => ({
       user,
       isAuthenticated: Boolean(user),
+      isLoading,
       login,
+      signup,
       logout,
-      demoCredentials: {
-        email: MOCK_EMAIL,
-        password: MOCK_PASSWORD,
-      },
     }),
-    [login, logout, user]
+    [isLoading, login, logout, signup, user]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,83 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/AuthLayout';
+import { useAuth } from '../context/AuthContext';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import styles from '../styles/Auth.module.css';
+
+function validatePassword(password) {
+  if (password.length < 8) return 'Le mot de passe doit contenir au moins 8 caractères.';
+  if (!/[A-Z]/.test(password)) return 'Le mot de passe doit contenir au moins une majuscule.';
+  if (!/[0-9]/.test(password)) return 'Le mot de passe doit contenir au moins un chiffre.';
+  return null;
+}
 
 export default function Signup() {
   const navigate = useNavigate();
+  const { signup } = useAuth();
 
-  const handleSignup = (e) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSignup = async (e) => {
     e.preventDefault();
-    navigate('/diagnostic');
+    setError('');
+
+    const validationError = validatePassword(password);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await signup(email, password);
+      navigate('/diagnostic');
+    } catch (err) {
+      setError(err?.message ?? 'Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <AuthLayout>
-      <Link to="/" className={styles.backLink}>
-        &larr; Retour
-      </Link>
+      <Button asChild variant="ghost" className={styles.backLink}>
+        <Link to="/">&larr; Retour</Link>
+      </Button>
 
       <h1 className={styles.title}>Créez votre espace personnel</h1>
       <p className={styles.subtitle}>Accédez à un accompagnement sur mesure basé sur votre profil, votre énergie et vos objectifs.</p>
       
       <form onSubmit={handleSignup}>
         <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="name">Nom</label>
-          <input 
-            className={styles.input} 
-            type="text" 
-            id="name" 
-            placeholder="Nom"
-            required 
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="surname">Prénom</label>
-          <input 
-            className={styles.input} 
-            type="text" 
-            id="surname" 
-            placeholder="Prénom" 
-            required 
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="email">Email</label>
-          <input 
-            className={styles.input} 
-            type="email" 
-            id="email" 
-            placeholder="votre@email.com" 
-            required 
+          <Label className={styles.label} htmlFor="email">Email</Label>
+          <Input
+            className={styles.input}
+            type="email"
+            id="email"
+            placeholder="votre@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            required
           />
         </div>
         
         <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="password">Mot de passe</label>
-          <input 
-            className={styles.input} 
-            type="password" 
-            id="password" 
-            placeholder="••••••••" 
-            required 
+          <Label className={styles.label} htmlFor="password">Mot de passe</Label>
+          <Input
+            className={styles.input}
+            type="password"
+            id="password"
+            placeholder="Min. 8 caractères, 1 majuscule, 1 chiffre"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="new-password"
+            required
           />
         </div>
 
-        <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="phone">Téléphone (optionnel)</label>
-          <input 
-            className={styles.input} 
-            type="tel" 
-            id="phone" 
-            placeholder="+33 6 12 34 56 78" 
-          />
-        </div>
+        {error ? <p className={styles.errorText}>{error}</p> : null}
         
-        <button type="submit" className={styles.submitBtn}>
-          Créer mon espace
-        </button>
+        <Button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+          {isSubmitting ? 'Création...' : 'Créer mon espace'}
+        </Button>
       </form>
       
       <p className={styles.footerText} style={{ marginTop: '1rem', fontSize: '0.875rem' }}>

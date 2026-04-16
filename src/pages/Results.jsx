@@ -1,34 +1,47 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDiagnostic } from '../context/DiagnosticContext';
-import styles from '../styles/Diagnostic.module.css'; // Reusing diagnostic styling since it shares the wabi-sabi minimalist full-height page
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import styles from '../styles/Diagnostic.module.css';
+
+const PILLAR_LABELS = {
+  nutrition: 'Alimentation',
+  sport: 'Énergie physique',
+  mind: 'Volonté / Mental',
+};
 
 export default function Results() {
   const navigate = useNavigate();
-  const { calculateProfile, isDiagnosticComplete } = useDiagnostic();
-  const profile = calculateProfile();
+  const { getProfile, isDiagnosticComplete } = useDiagnostic();
+  const profile = getProfile();
 
   useEffect(() => {
-    if (!isDiagnosticComplete) {
+    if (!isDiagnosticComplete || !profile) {
       navigate('/diagnostic');
     }
-  }, [isDiagnosticComplete, navigate]);
+  }, [isDiagnosticComplete, navigate, profile]);
 
-  const weaknessMap = {
-    volonte: 'Volonte / Engagement',
-    alimentation: 'Alimentation',
-    energie: 'Energie physique',
-  };
+  if (!profile) return null;
 
-  const strengths = Object.entries(profile.scores)
-    .sort((a, b) => b[1] - a[1])
+  const { nutritionScore, sportScore, mindScore, bands, dominantWeakness } = profile;
+
+  const scoreCards = [
+    { pillar: 'nutrition', label: PILLAR_LABELS.nutrition, score: nutritionScore, band: bands.nutrition },
+    { pillar: 'sport', label: PILLAR_LABELS.sport, score: sportScore, band: bands.sport },
+    { pillar: 'mind', label: PILLAR_LABELS.mind, score: mindScore, band: bands.mind },
+  ];
+
+  const strengths = [...scoreCards]
+    .sort((a, b) => b.score - a.score)
     .slice(0, 2)
-    .map(([key]) => weaknessMap[key]);
+    .map((c) => c.label);
 
   const priorities = [
-    `Parcours attribue: ${profile.pathwayName}`,
-    `Faiblesse dominante: ${weaknessMap[profile.dominantWeakness]}`,
-    'Progression sur 4 mois avec ajustement automatique',
+    `Faiblesse dominante : ${PILLAR_LABELS[dominantWeakness] ?? dominantWeakness}`,
+    'Progression sur 4 semaines avec ajustement automatique',
+    'Plan personnalisé généré selon vos résultats',
   ];
 
   return (
@@ -42,29 +55,27 @@ export default function Results() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
-          <div style={{ border: '1px solid var(--color-brand-border)', padding: '0.85rem' }}>
-            <strong>Volonte</strong>
-            <p style={{ margin: '0.35rem 0 0' }}>{profile.scores.volonte}/15 ({profile.bands.volonte})</p>
-          </div>
-          <div style={{ border: '1px solid var(--color-brand-border)', padding: '0.85rem' }}>
-            <strong>Alimentation</strong>
-            <p style={{ margin: '0.35rem 0 0' }}>{profile.scores.alimentation}/15 ({profile.bands.alimentation})</p>
-          </div>
-          <div style={{ border: '1px solid var(--color-brand-border)', padding: '0.85rem' }}>
-            <strong>Energie</strong>
-            <p style={{ margin: '0.35rem 0 0' }}>{profile.scores.energie}/15 ({profile.bands.energie})</p>
-          </div>
+          {scoreCards.map(({ pillar, label, score, band }) => (
+            <Card key={pillar}>
+              <CardHeader className="pb-2 pt-4 px-4">
+                <strong style={{ fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</strong>
+              </CardHeader>
+              <CardContent className="px-4 pb-4">
+                <p style={{ margin: '0 0 0.5rem', fontWeight: 600 }}>{Math.round(score)}/100</p>
+                <Badge variant="outline">{band}</Badge>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginBottom: '3rem' }}>
-          
           <div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 500, marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Points forts
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, borderLeft: '1px solid var(--color-brand-border)', paddingLeft: '1.5rem' }}>
-              {strengths.map((item, idx) => (
-                <li key={idx} style={{ paddingBottom: '0.5rem', color: 'var(--color-brand-secondary)' }}>— {item}</li>
+              {strengths.map((item) => (
+                <li key={item} style={{ paddingBottom: '0.5rem', color: 'var(--color-brand-secondary)' }}>— {item}</li>
               ))}
             </ul>
           </div>
@@ -74,20 +85,19 @@ export default function Results() {
               Axes prioritaires
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, borderLeft: '1px solid var(--color-brand-border)', paddingLeft: '1.5rem' }}>
-              {priorities.map((item, idx) => (
-                <li key={idx} style={{ paddingBottom: '0.5rem', color: 'var(--color-brand-primary)' }}>— {item}</li>
+              {priorities.map((item) => (
+                <li key={item} style={{ paddingBottom: '0.5rem', color: 'var(--color-brand-primary)' }}>— {item}</li>
               ))}
             </ul>
           </div>
-
         </div>
 
-        <button 
-          className={styles.primaryBtn} 
+        <Button
+          className={styles.primaryBtn}
           onClick={() => navigate('/diagnostic/plan')}
         >
           Découvrir mon plan
-        </button>
+        </Button>
       </div>
     </div>
   );

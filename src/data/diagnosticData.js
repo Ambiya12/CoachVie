@@ -117,3 +117,19 @@ export const ENERGIE_QUESTIONS = [
     ],
   },
 ];
+
+// Maps frontend question IDs → backend question codes
+// Volonté (v1-v3) → mind pillar (M1-M3), step 3
+// Alimentation (a4-a6) → nutrition pillar (N1-N3), step 1
+// Énergie (e7-e9) → sport pillar (S1-S3), step 2
+export const QUESTION_CODE_MAP = {
+  v1: 'M1',
+  v2: 'M2',
+  v3: 'M3',
+  a4: 'N1',
+  a5: 'N2',
+  a6: 'N3',
+  e7: 'S1',
+  e8: 'S2',
+  e9: 'S3',
+};

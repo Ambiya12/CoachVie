@@ -1,73 +1,14 @@
-import React, { createContext, useContext, useState } from 'react';
-import { getPathwayMeta } from '../data/pathwayPlansData';
+import React, { createContext, useCallback, useContext, useState } from 'react';
+import { QUESTION_CODE_MAP } from '../data/diagnosticData';
+import { apiSaveStep, apiStartDiagnostic, apiSubmitDiagnostic } from '../api/diagnostic';
 
 const DiagnosticContext = createContext();
 
-const EMPTY_SCORES = {
-  volonte: 0,
-  alimentation: 0,
-  energie: 0,
-};
-
+// Backend thresholds: 0-100 normalised score
 function getBand(score) {
-  if (score <= 6) {
-    return 'faible';
-  }
-
-  if (score <= 11) {
-    return 'moyen';
-  }
-
+  if (score <= 39) return 'faible';
+  if (score <= 69) return 'moyen';
   return 'bon';
-}
-
-function computeScores(answers) {
-  return Object.values(answers).reduce((acc, answer) => {
-    const category = answer.category;
-    const value = Number.parseInt(answer.value, 10);
-
-    if (!Object.hasOwn(acc, category)) {
-      return acc;
-    }
-
-    return {
-      ...acc,
-      [category]: acc[category] + (Number.isNaN(value) ? 0 : value),
-    };
-  }, EMPTY_SCORES);
-}
-
-function classifyPathway(scores) {
-  const values = Object.values(scores);
-  const min = Math.min(...values);
-
-  if (min >= 12) {
-    return 5;
-  }
-
-  if (min >= 10) {
-    return 4;
-  }
-
-  if (scores.alimentation <= scores.volonte && scores.alimentation <= scores.energie) {
-    if (scores.volonte >= 10 && scores.energie >= 7) {
-      return 3;
-    }
-
-    if (scores.volonte >= 7 && scores.energie >= 7) {
-      return 2;
-    }
-  }
-
-  if (scores.volonte <= scores.alimentation && scores.volonte <= scores.energie) {
-    return 1;
-  }
-
-  if (scores.energie <= scores.volonte && scores.energie <= scores.alimentation) {
-    return 1;
-  }
-
-  return 2;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -76,62 +17,127 @@ export function useDiagnostic() {
 }
 
 export function DiagnosticProvider({ children }) {
-  const [scores, setScores] = useState(EMPTY_SCORES);
-
   const [answers, setAnswers] = useState({});
+  const [sessionId, setSessionId] = useState(null);
+  const [profileScores, setProfileScores] = useState(null); // { nutritionScore, sportScore, mindScore }
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
-  const saveAnswer = (category, questionId, value) => {
-    setAnswers((prev) => {
-      const nextAnswers = {
-        ...prev,
-        [questionId]: {
-          category,
-          value,
-        },
-      };
+  const saveAnswer = useCallback((category, questionId, value) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [questionId]: { category, value },
+    }));
+  }, []);
 
-      setScores(computeScores(nextAnswers));
-      return nextAnswers;
-    });
-  };
+  const startSession = useCallback(async () => {
+    setSubmitError(null);
+    const data = await apiStartDiagnostic();
+    setSessionId(data?.sessionId ?? data?.session_id ?? null);
+    return data;
+  }, []);
 
-  const resetDiagnostic = () => {
+  const submitDiagnostic = useCallback(async () => {
+    // Lazy session creation — recover if startSession() failed earlier
+    let activeSessionId = sessionId;
+    if (!activeSessionId) {
+      try {
+        const data = await apiStartDiagnostic();
+        activeSessionId = data?.sessionId ?? data?.session_id ?? null;
+        if (activeSessionId) setSessionId(activeSessionId);
+      } catch {
+        // will throw below
+      }
+    }
+
+    if (!activeSessionId) {
+      const err = new Error('Impossible de créer une session. Veuillez vous reconnecter.');
+      setSubmitError(err.message);
+      throw err;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Map local answer IDs to backend question codes
+      const buildStepAnswers = (ids) =>
+        ids.map((id) => ({
+          questionCode: QUESTION_CODE_MAP[id],
+          value: Number(answers[id]?.value ?? 3),
+        }));
+
+      // step 1 = nutrition (a4, a5, a6)
+      await apiSaveStep(1, activeSessionId, buildStepAnswers(['a4', 'a5', 'a6']));
+      // step 2 = sport (e7, e8, e9)
+      await apiSaveStep(2, activeSessionId, buildStepAnswers(['e7', 'e8', 'e9']));
+      // step 3 = mind (v1, v2, v3)
+      await apiSaveStep(3, activeSessionId, buildStepAnswers(['v1', 'v2', 'v3']));
+
+      const result = await apiSubmitDiagnostic(activeSessionId);
+      const scores = result?.profileScores ?? result?.scores ?? result;
+      setProfileScores(scores);
+      return scores;
+    } catch (err) {
+      setSubmitError(err?.message ?? 'Erreur lors de la soumission.');
+      throw err;
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [answers, sessionId]);
+
+  const resetDiagnostic = useCallback(() => {
     setAnswers({});
-    setScores(EMPTY_SCORES);
-  };
-
-  const calculateProfile = () => {
-    const dominantWeakness = Object.entries(scores).sort((a, b) => a[1] - b[1])[0]?.[0] ?? 'volonte';
-    const bands = {
-      volonte: getBand(scores.volonte),
-      alimentation: getBand(scores.alimentation),
-      energie: getBand(scores.energie),
-    };
-    const pathwayId = classifyPathway(scores);
-    const pathway = getPathwayMeta(pathwayId);
-
-    return {
-      scores,
-      answers,
-      bands,
-      dominantWeakness,
-      pathwayId,
-      pathwayName: pathway.name,
-      pathwayLabel: pathway.marketingLabel,
-    };
-  };
+    setSessionId(null);
+    setProfileScores(null);
+    setSubmitError(null);
+  }, []);
 
   const isDiagnosticComplete = Object.keys(answers).length >= 9;
+
+  // Computed display profile from backend scores (0-100 normalised)
+  const getProfile = useCallback(() => {
+    if (!profileScores) return null;
+
+    const { nutritionScore = 0, sportScore = 0, mindScore = 0 } = profileScores;
+
+    const bands = {
+      nutrition: getBand(nutritionScore),
+      sport: getBand(sportScore),
+      mind: getBand(mindScore),
+    };
+
+    const scoreEntries = [
+      ['nutrition', nutritionScore],
+      ['sport', sportScore],
+      ['mind', mindScore],
+    ];
+
+    const dominantWeakness = scoreEntries.sort((a, b) => a[1] - b[1])[0]?.[0] ?? 'mind';
+
+    return {
+      nutritionScore,
+      sportScore,
+      mindScore,
+      bands,
+      dominantWeakness,
+    };
+  }, [profileScores]);
 
   return (
     <DiagnosticContext.Provider
       value={{
-        scores,
         answers,
+        sessionId,
+        profileScores,
+        isSubmitting,
+        submitError,
         saveAnswer,
-        calculateProfile,
+        startSession,
+        submitDiagnostic,
         resetDiagnostic,
         isDiagnosticComplete,
+        getProfile,
       }}
     >
       {children}

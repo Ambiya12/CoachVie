@@ -192,6 +192,47 @@
   color: var(--color-brand-primary);
 }
 
+.dayDetailsDoneBtn {
+  border: none;
+  background: transparent;
+  color: var(--color-brand-secondary);
+  font-size: var(--font-ui-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dayDetailsDoneBtn:hover {
+  color: var(--color-brand-primary);
+}
+
+.dayDetailsUndoBtn {
+  border: none;
+  background: transparent;
+  color: var(--color-brand-secondary);
+  font-size: var(--font-ui-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.6;
+}
+
+.dayDetailsUndoBtn:hover {
+  opacity: 1;
+  color: var(--color-brand-primary);
+}
+
+.dayDetailsItemDone {
+  opacity: 0.6;
+}
+
+.dayDetailsEventTitleDone {
+  text-decoration: line-through;
+  color: var(--color-brand-secondary);
+}
+
 /* Options List (Common to Alimentation/Sport) */
 .optionList {
   display: flex;
