@@ -14,9 +14,9 @@ import { DiagnosticProvider } from './context/DiagnosticContext';
 import { PlannerProvider } from './context/PlannerContext';
 import shellStyles from './styles/AppShell.module.css';
 
-import '@fontsource/inter/300.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
+import '@fontsource/inter/700.css';
 import './index.css';
 
 export default function App() {

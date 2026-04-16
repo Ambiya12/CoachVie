@@ -1,40 +1,46 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Brain, Activity, Flame, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, Brain, Activity, Flame, CheckCircle2, ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { motion as Motion, useReducedMotion } from 'framer-motion';
 import heroVideo from '../assets/calm.mp4';
-import tiktokVideo from '../assets/tiktok.mp4';
 import franckPhoto from '../assets/Franck.jpg';
 import franckVideo from '../assets/Franck.mp4';
 import forestVideo from '../assets/forest.mp4';
-import '@fontsource/inter/300.css';
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/700.css';
-import '@fontsource/inter/900.css';
 import overrides from './HomeOverrides.module.css';
 
 const missionCards = [
   {
+    id: 'calme-interieur',
     title: 'Retrouver le calme intérieur',
     mediaType: 'video',
     src: forestVideo,
+    poster: franckPhoto,
+    posterAlt: 'Aperçu vidéo sur la clarté intérieure',
+    objectPosition: '50% 35%',
   },
   {
+    id: 'passage-action',
     title: "Passer à l'action",
     mediaType: 'video',
     src: franckVideo,
+    poster: franckPhoto,
+    posterAlt: 'Aperçu vidéo sur la mise en action',
+    objectPosition: '50% 25%',
   },
   {
+    id: 'socle-solide',
     title: 'Construire un socle solide',
     mediaType: 'image',
     src: franckPhoto,
+    posterAlt: 'Franck souriant devant un mur de briques',
     objectPosition: '50% 20%',
   },
   {
+    id: 'tenir-duree',
     title: 'Tenir dans la durée',
     mediaType: 'image',
     src: franckPhoto,
+    posterAlt: 'Franck en posture stable et confiante',
     objectPosition: '50% 75%',
   },
 ];
@@ -91,6 +97,33 @@ const aboutProofs = [
   "Cadre clair pour transformer l'intention en résultats concrets.",
 ];
 
+const socialVideoCards = [
+  {
+    id: 'tiktok-1',
+    videoId: '7571516270735084822',
+  },
+  {
+    id: 'tiktok-2',
+    videoId: '7175584701506211078',
+  },
+  {
+    id: 'tiktok-3',
+    videoId: '7174829068246961414',
+  },
+  {
+    id: 'tiktok-4',
+    videoId: '7175202916528082182',
+  },
+  {
+    id: 'tiktok-5',
+    videoId: '7173723936369315078',
+  },
+  {
+    id: 'tiktok-6',
+    videoId: '7537020888399498518',
+  },
+];
+
 function reveal(shouldReduceMotion, delay = 0) {
   if (shouldReduceMotion) {
     return {
@@ -115,12 +148,21 @@ function reveal(shouldReduceMotion, delay = 0) {
 
 const viewConfig = { once: true, amount: 0.22 };
 
+function VideoTrigger({ onClick, label, className = '' }) {
+  return (
+    <button type="button" className={`${overrides.mediaTrigger} ${className}`.trim()} onClick={onClick}>
+      <Play size={15} />
+      {label}
+    </button>
+  );
+}
+
 function Hero({ shouldReduceMotion }) {
   return (
     <section className={overrides.hero}>
       <div className={`${overrides.container} ${overrides.heroShell}`}>
         <div className={overrides.heroFrame}>
-          <video autoPlay loop muted playsInline className={overrides.heroVideoBg}>
+          <video autoPlay muted loop playsInline preload="metadata" className={overrides.heroVideoBg}>
             <source src={heroVideo} type="video/mp4" />
           </video>
           <div className={overrides.heroOverlayBg} aria-hidden="true" />
@@ -151,7 +193,7 @@ function Hero({ shouldReduceMotion }) {
   );
 }
 
-function Mission({ shouldReduceMotion }) {
+function Mission({ shouldReduceMotion, activeMissionVideoId, onActivateMissionVideo }) {
   return (
     <section className={`${overrides.sectionDark} ${overrides.sectionRhythmTight}`}>
       <div className={`${overrides.container} ${overrides.missionShell}`}>
@@ -178,26 +220,35 @@ function Mission({ shouldReduceMotion }) {
         <div className={overrides.missionGrid}>
           {missionCards.map((card, index) => (
             <Motion.article
-              key={card.title}
+              key={card.id}
               className={overrides.missionCard}
               initial="hidden"
               whileInView="visible"
               viewport={viewConfig}
               variants={reveal(shouldReduceMotion, index * 0.06)}
             >
-              {card.mediaType === 'video' ? (
-                <video className={overrides.missionImage} autoPlay loop muted playsInline preload="metadata">
+              {card.mediaType === 'video' && activeMissionVideoId === card.id ? (
+                <video className={overrides.missionImage} controls autoPlay muted playsInline preload="metadata" poster={card.poster}>
                   <source src={card.src} type="video/mp4" />
                 </video>
               ) : (
                 <img
-                  src={card.src}
-                  alt={card.title}
+                  src={card.mediaType === 'video' ? card.poster : card.src}
+                  alt={card.posterAlt}
                   className={overrides.missionImage}
                   loading="lazy"
                   style={card.objectPosition ? { objectPosition: card.objectPosition } : undefined}
                 />
               )}
+
+              {card.mediaType === 'video' && activeMissionVideoId !== card.id ? (
+                <VideoTrigger
+                  onClick={() => onActivateMissionVideo(card.id)}
+                  label="Lire la vidéo"
+                  className={overrides.missionVideoTrigger}
+                />
+              ) : null}
+
               <h3 className={overrides.missionCardTitle}>{card.title}</h3>
             </Motion.article>
           ))}
@@ -212,6 +263,7 @@ function Methodology({ shouldReduceMotion }) {
     <section className={`${overrides.sectionDark} ${overrides.sectionRhythmWide}`}>
       <div className={overrides.container}>
         <Motion.div
+          className={overrides.aboutContent}
           initial="hidden"
           whileInView="visible"
           viewport={viewConfig}
@@ -329,42 +381,130 @@ function Programs({ shouldReduceMotion }) {
 }
 
 function SocialMedia({ shouldReduceMotion }) {
+  const trackRef = useRef(null);
+  const [activeDot, setActiveDot] = useState(0);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
+
+  const updateCarouselState = useCallback(() => {
+    const trackElement = trackRef.current;
+
+    if (!trackElement) {
+      return;
+    }
+
+    const maxScrollLeft = trackElement.scrollWidth - trackElement.clientWidth;
+    const progress = maxScrollLeft > 0 ? trackElement.scrollLeft / maxScrollLeft : 0;
+    const safeProgress = Number.isFinite(progress) ? progress : 0;
+
+    setCanScrollPrev(trackElement.scrollLeft > 8);
+    setCanScrollNext(trackElement.scrollLeft < maxScrollLeft - 8);
+    setActiveDot(Math.min(3, Math.round(safeProgress * 3)));
+  }, []);
+
+  useEffect(() => {
+    updateCarouselState();
+    window.addEventListener('resize', updateCarouselState);
+
+    return () => {
+      window.removeEventListener('resize', updateCarouselState);
+    };
+  }, [updateCarouselState]);
+
+  const scrollCarousel = (direction) => {
+    const trackElement = trackRef.current;
+
+    if (!trackElement) {
+      return;
+    }
+
+    const scrollDistance = trackElement.clientWidth * 0.72;
+
+    trackElement.scrollBy({
+      left: direction * scrollDistance,
+      behavior: 'smooth',
+    });
+  };
+
   return (
-    <section className={`${overrides.sectionDarkSoft} ${overrides.sectionRhythmTight}`}>
-      <div className={`${overrides.container} ${overrides.socialLayout}`}>
+    <section className={`${overrides.sectionLight} ${overrides.sectionRhythmTight} ${overrides.socialSection}`}>
+      <div className={`${overrides.container} ${overrides.socialContainer}`}>
         <Motion.div
+          className={overrides.socialHeaderRow}
           initial="hidden"
           whileInView="visible"
           viewport={viewConfig}
           variants={reveal(shouldReduceMotion)}
         >
-          <p className={overrides.kicker}>Psychologie et mindset</p>
-          <h2 className={overrides.sectionTitleLight}>Suivez-moi sur TikTok</h2>
-          <p className={overrides.sectionLeadLight}>
-            Des analyses courtes et utiles pour renforcer votre posture mentale chaque semaine.
-          </p>
-          <a
-            href="https://www.tiktok.com/@franck.chevalier"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${overrides.cta} ${overrides.ctaPrimary}`}
-          >
-            @franck.chevalier
-            <ArrowUpRight size={16} />
-          </a>
+          <div className={overrides.socialHeadingGroup}>
+            <h2 className={overrides.socialShelfTitle}>Suivez-moi sur TikTok</h2>
+            <a
+              href="https://www.tiktok.com/@franck.chevalier"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={overrides.socialDiscover}
+            >
+              Voir le profil TikTok
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
+
+          <div className={overrides.socialNavGroup}>
+            <button
+              type="button"
+              aria-label="Voir les clips précédents"
+              className={overrides.socialNavButton}
+              onClick={() => scrollCarousel(-1)}
+              disabled={!canScrollPrev}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            <button
+              type="button"
+              aria-label="Voir les clips suivants"
+              className={overrides.socialNavButton}
+              onClick={() => scrollCarousel(1)}
+              disabled={!canScrollNext}
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </Motion.div>
 
         <Motion.div
-          className={overrides.socialVideoWrap}
+          className={overrides.socialCarousel}
           initial="hidden"
           whileInView="visible"
           viewport={viewConfig}
           variants={reveal(shouldReduceMotion, 0.08)}
         >
-          <video autoPlay loop muted playsInline controls className={overrides.socialVideo}>
-            <source src={tiktokVideo} type="video/mp4" />
-          </video>
+          <div className={overrides.socialTrack} ref={trackRef} onScroll={updateCarouselState}>
+            {socialVideoCards.map((card) => (
+              <article key={card.id} className={overrides.socialCard}>
+                <div className={overrides.socialEmbedFrame}>
+                  <iframe
+                    src={`https://www.tiktok.com/player/v1/${card.videoId}?description=0&music_info=0&controls=1&play_button=1&fullscreen_button=1`}
+                    title={`Video TikTok ${card.videoId}`}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              </article>
+            ))}
+          </div>
         </Motion.div>
+
+        <div className={overrides.socialDots} aria-hidden="true">
+          {[0, 1, 2, 3].map((dot) => (
+            <span
+              key={dot}
+              className={`${overrides.socialDot} ${dot === activeDot ? overrides.socialDotActive : ''}`.trim()}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -372,7 +512,7 @@ function SocialMedia({ shouldReduceMotion }) {
 
 function About({ shouldReduceMotion }) {
   return (
-    <section className={`${overrides.sectionLight} ${overrides.sectionRhythmFinal}`}>
+    <section className={`${overrides.sectionLight} ${overrides.sectionRhythmFinal} ${overrides.aboutSection}`}>
       <div className={`${overrides.container} ${overrides.aboutLayout}`}>
         <Motion.div
           initial="hidden"
@@ -428,14 +568,20 @@ function About({ shouldReduceMotion }) {
 
 export default function Home() {
   const shouldReduceMotion = useReducedMotion();
+  const [activeMissionVideoId, setActiveMissionVideoId] = useState(null);
 
   return (
     <main className={overrides.page}>
       <Hero shouldReduceMotion={shouldReduceMotion} />
-      <Mission shouldReduceMotion={shouldReduceMotion} />
+      <Mission
+        shouldReduceMotion={shouldReduceMotion}
+        activeMissionVideoId={activeMissionVideoId}
+        onActivateMissionVideo={setActiveMissionVideoId}
+      />
       <Methodology shouldReduceMotion={shouldReduceMotion} />
-      <Programs shouldReduceMotion={shouldReduceMotion} />
-      <SocialMedia shouldReduceMotion={shouldReduceMotion} />
+      <SocialMedia
+        shouldReduceMotion={shouldReduceMotion}
+      />
       <About shouldReduceMotion={shouldReduceMotion} />
     </main>
   );

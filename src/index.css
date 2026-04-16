@@ -10,6 +10,9 @@
   --color-brand-inverted-bg: #0C0C0C;
   --color-brand-inverted-text: #FFFFFF;
   --color-brand-inverted-secondary: #A0A0A0;
+  --color-brand-inverted-border: #2F2F2F;
+  --color-brand-muted: #696969;
+  --color-brand-muted-soft: #8B8B8B;
 
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", sans-serif;
   --font-serif: "Playfair Display", serif;
@@ -36,6 +39,22 @@
   --font-ui-xs: calc(0.6875rem * var(--ui-scale));
   --font-ui-2xs: calc(0.625rem * var(--ui-scale));
 
+  --font-label: var(--font-ui-sm);
+  --font-button: var(--font-ui-md);
+  --font-body: var(--font-body-md);
+  --font-lead: var(--font-body-lg);
+  --font-heading: var(--font-heading-lg);
+  --font-display: var(--font-display-md);
+
+  --tracking-tight: -0.035em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.12em;
+  --tracking-wider: 0.15em;
+
+  --leading-tight: 1.05;
+  --leading-body: 1.6;
+  --leading-relaxed: 1.7;
+
   --space-2xs: calc(0.125rem * var(--ui-scale));
   --space-xs: calc(0.375rem * var(--ui-scale));
   --space-sm: calc(0.625rem * var(--ui-scale));
@@ -52,9 +71,43 @@
   --button-padding-x: calc(2.25rem * var(--ui-scale));
   --control-min-hit: 48px;
 
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 9999px;
+
+  --color-surface-page: var(--color-brand-bg);
+  --color-surface-card: var(--color-brand-surface);
+  --color-surface-elevated: #FBFBFB;
+  --color-surface-inverted: var(--color-brand-inverted-bg);
+  --color-surface-inverted-elevated: #171717;
+
+  --color-text-primary: var(--color-brand-primary);
+  --color-text-secondary: #2D2D2D;
+  --color-text-muted: var(--color-brand-muted);
+  --color-text-inverted: var(--color-brand-inverted-text);
+  --color-text-inverted-muted: #D1D1D1;
+  --color-text-inverted-subtle: var(--color-brand-inverted-secondary);
+
+  --color-border-default: var(--color-brand-border);
+  --color-border-strong: #D9D9D9;
+  --color-border-inverted: #E6E6E6;
+  --color-border-inverted-soft: var(--color-brand-inverted-border);
+
+  --color-focus-ring: var(--color-brand-accent);
+  --color-focus-ring-contrast: var(--color-brand-inverted-text);
+
+  --color-overlay-dark: rgba(12, 12, 12, 0.66);
+  --color-overlay-dark-strong: rgba(12, 12, 12, 0.84);
+
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1200px;
+
   --calendar-day-min-height: calc(6rem * var(--ui-scale));
   
-  --header-height: 56px;
+  --header-height: 48px;
 
   /* Shared shell spacing to keep pages airy but components perfectly proportioned. */
   --page-pad-y: calc(3rem * var(--ui-scale));
@@ -65,7 +118,7 @@
 
 @media (min-width: 769px) {
   :root {
-    --header-height: 72px;
+    --header-height: 58px;
   }
 }
 
@@ -86,20 +139,26 @@
 }
 
 body {
-  background-color: var(--color-brand-bg);
-  color: var(--color-brand-primary);
+  background-color: var(--color-surface-page);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.05em;
+  letter-spacing: var(--tracking-tight);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: var(--leading-tight);
 }
 
 button {
-  border-radius: 9999px; /* Pill-shaped buttons */
+  border-radius: var(--radius-pill);
+}
+
+:where(a, button, input, select, textarea, summary, [role="menuitem"]):focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }

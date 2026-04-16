@@ -1,87 +1,109 @@
 .header {
-  background-color: #000000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--color-surface-inverted);
+  border-bottom: 1px solid var(--color-border-inverted);
   position: sticky;
   top: 0;
   z-index: 1000;
-  height: var(--header-height);
+  min-height: var(--header-height);
   display: flex;
   align-items: center;
 }
 
 .inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 var(--space-xl);
+  width: min(1200px, calc(100% - 1.5rem));
+  margin-inline: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
+  gap: var(--space-sm);
+  padding: 0.2rem 0;
 }
 
 .brand {
-  font-size: var(--font-heading-sm);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: clamp(0.98rem, 0.56vw + 0.86rem, 1.1rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--color-text-inverted);
   text-decoration: none;
 }
 
 .accountLink {
-  border: 1px solid #ffffff;
-  padding: calc(0.5 * var(--space-md)) calc(1.5 * var(--space-md));
-  font-size: var(--font-ui-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid var(--color-border-inverted);
+  padding: 0.45rem 1rem;
+  font-size: var(--font-label);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: #ffffff;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-inverted);
   text-decoration: none;
-  transition: all 0.25s ease;
-  border-radius: 9999px;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  border-radius: var(--radius-pill);
 }
 
-.accountLink:hover {
-  background-color: #ffffff;
-  color: #0c0c0c;
+.accountLink:hover,
+.accountLink:focus-visible {
+  background-color: var(--color-text-inverted);
+  color: var(--color-surface-inverted);
+  border-color: var(--color-text-inverted);
+  outline: none;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: calc(1.5 * var(--space-md));
+  justify-content: flex-end;
+  gap: 0.35rem;
+  flex-wrap: wrap;
 }
 
 .authNavGroup {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .navLink,
 .logoutButton {
-  font-size: var(--font-ui-xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 0.7rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-label);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-inverted-muted);
   text-decoration: none;
   background: transparent;
-  border: none;
-  padding: 0;
+  border: 1px solid transparent;
   cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.navLink:hover,
+.logoutButton:hover,
+.navLink:focus-visible,
+.logoutButton:focus-visible {
+  color: var(--color-text-inverted);
+  border-color: var(--color-border-inverted-soft);
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
 }
 
 .active {
-  color: #ffffff;
-  border-bottom: 2px solid var(--color-brand-accent);
-  padding-bottom: 0.2rem;
-}
-
-.logoutButton:hover,
-.navLink:hover {
-  color: #ffffff;
+  color: var(--color-text-inverted);
+  border-color: var(--color-brand-accent);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .profileMenuContainer {
@@ -91,18 +113,24 @@
 .profileTrigger {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.25rem;
-  border: 1px solid #333333;
-  background: #0c0c0c;
-  color: #ffffff;
-  padding: calc(0.4 * var(--space-md)) calc(0.6 * var(--space-md));
+  border: 1px solid var(--color-border-inverted-soft);
+  background: var(--color-surface-inverted);
+  color: var(--color-text-inverted);
+  padding: 0.35rem 0.75rem;
   cursor: pointer;
-  min-height: var(--control-min-hit);
-  border-radius: 9999px;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: var(--radius-pill);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.profileTrigger:hover {
-  border-color: #ffffff;
+.profileTrigger:hover,
+.profileTrigger:focus-visible {
+  border-color: var(--color-border-inverted);
+  background: rgba(255, 255, 255, 0.05);
+  outline: none;
 }
 
 .chevronOpen {
@@ -111,62 +139,85 @@
 
 .profileMenu {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 0.4rem);
   right: 0;
-  min-width: 160px;
-  border: 1px solid #333333;
-  background-color: rgba(12, 12, 12, 0.85); backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  padding: 0.35rem;
+  min-width: 188px;
+  border: 1px solid var(--color-border-inverted-soft);
+  background-color: var(--color-surface-inverted-elevated);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  padding: 0.3rem;
   display: flex;
   flex-direction: column;
   z-index: 20;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
 }
 
 .profileMenuItem {
   border: none;
   background: transparent;
-  padding: calc(0.65 * var(--space-md)) calc(0.7 * var(--space-md));
+  padding: 0.45rem 0.7rem;
+  min-height: 44px;
   text-align: left;
-  font-size: var(--font-ui-xs);
-  font-weight: 500;
+  font-size: var(--font-label);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #ffffff;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-inverted);
   cursor: pointer;
-  border-radius: 0.25rem;
+  border-radius: 0.35rem;
 }
 
-.profileMenuItem:hover {
-  background-color: #1a1a1a;
+.profileMenuItem:hover,
+.profileMenuItem:focus-visible {
+  background-color: rgba(255, 255, 255, 0.08);
+  outline: none;
 }
 
-.divider {
-  height: 1px;
-  background-color: #333333;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .inner {
-    padding: 0 var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .nav {
-    width: 100%;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    row-gap: 0.5rem;
+    width: min(1200px, calc(100% - 1.2rem));
   }
 
   .authNavGroup {
     width: 100%;
     justify-content: space-between;
   }
+}
+
+@media (max-width: 768px) {
+  .inner {
+    flex-wrap: wrap;
+    width: min(1200px, calc(100% - 1rem));
+  }
+
+  .authNavGroup {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
 
   .profileMenu {
     right: auto;
     left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .brand {
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+  }
+
+  .nav {
+    row-gap: 0.25rem;
+  }
+
+  .navLink,
+  .logoutButton {
+    padding-inline: 0.6rem;
   }
 }
