@@ -7,13 +7,12 @@ import Diagnostic from './pages/Diagnostic';
 import Results from './pages/Results';
 import Plan from './pages/Plan';
 import Dashboard from './pages/Dashboard';
-import Header from './components/Header';
-import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
+import MainLayout from './layouts/MainLayout';
+import ExperienceX from './pages/ExperienceX';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { DiagnosticProvider } from './context/DiagnosticContext';
 import { PlannerProvider } from './context/PlannerContext';
-import shellStyles from './styles/AppShell.module.css';
 import ErrorBoundary from './components/ErrorBoundary';
 
 import '@fontsource/inter/400.css';
@@ -47,10 +46,12 @@ export default function App() {
           <BrowserRouter>
             <AuthExpiryWatcher />
             <ErrorBoundary>
-            <div className={shellStyles.shell}>
-              <Header />
-              <div className={shellStyles.routes}>
-                <Routes>
+              <Routes>
+                {/* Isolated route — no global Header/Footer */}
+                <Route path="/link" element={<ExperienceX />} />
+
+                {/* Main shell — all other routes inherit Header + Footer */}
+                <Route element={<MainLayout />}>
                   <Route path="/" element={<Home />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
@@ -62,10 +63,8 @@ export default function App() {
                     <Route path="/diagnostic/plan" element={<Plan />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                   </Route>
-                </Routes>
-              </div>
-              <Footer />
-            </div>
+                </Route>
+              </Routes>
             </ErrorBoundary>
           </BrowserRouter>
         </PlannerProvider>

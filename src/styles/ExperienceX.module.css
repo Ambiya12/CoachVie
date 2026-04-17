@@ -1,0 +1,296 @@
+/* ══════════════════════════════════════════════
+   ExperienceX — Digital Business Card
+   Uses the site's global design tokens for
+   full visual consistency with the landing page.
+══════════════════════════════════════════════ */
+
+.page {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-brand-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-brand-surface);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── Header — mirrors SharedHeader exactly ── */
+.header {
+  background-color: var(--color-surface-inverted);
+  border-bottom: 1px solid var(--color-border-inverted-soft);
+  min-height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  flex-shrink: 0;
+}
+
+.brand {
+  font-size: clamp(0.98rem, 0.56vw + 0.86rem, 1.1rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-inverted);
+  text-decoration: none;
+  font-family: var(--font-sans);
+}
+
+/* ── Hero ── */
+.heroWrap {
+  background-color: var(--color-brand-surface);
+  padding: clamp(1.75rem, 3.5vh, 2.5rem) 2rem clamp(0.75rem, 1.8vh, 1.1rem);
+  text-align: center;
+}
+
+.heroInner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.heroHeading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin: 0 0 0.7rem;
+}
+
+.heroSubtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(0.875rem, 0.85vw + 0.72rem, 0.95rem);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ── Cards ── */
+.cardsSection {
+  background-color: var(--color-brand-surface);
+  padding: 0 2rem 1.25rem;
+}
+
+.cardsDivider {
+  width: min(1080px, 100%);
+  margin: 0 auto 1.15rem;
+  border: none;
+  border-top: 1px solid var(--color-border-default);
+}
+
+.cards {
+  max-width: 1020px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: var(--color-brand-bg);
+  border: 1px solid var(--color-border-default);
+  box-shadow: 0 1px 3px rgba(12, 12, 12, 0.04);
+  min-height: 182px;
+  padding: 1.35rem 1.25rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(12, 12, 12, 0.08);
+}
+
+.cardIcon {
+  color: var(--color-brand-accent);
+  margin-bottom: 0.85rem;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-family: var(--font-sans);
+  font-size: var(--font-ui-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin: 0 0 0.45rem;
+}
+
+.cardDesc {
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+  margin-top: 0.85rem;
+  font-family: var(--font-sans);
+  font-size: var(--font-ui-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.cardLink:hover {
+  color: var(--color-brand-accent);
+}
+
+/* ── CTA band — dark, matches landing page dark sections ── */
+.ctaOuter {
+  background-color: var(--color-surface-inverted);
+  margin-top: auto;
+}
+
+.cta {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ctaHeading {
+  font-family: var(--font-sans);
+  font-size: clamp(0.74rem, 0.65vw + 0.62rem, 0.875rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-inverted);
+  margin: 0;
+  line-height: var(--leading-body);
+}
+
+.ctaActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+/* Pill button — exact match to landing page .accountLink */
+.ctaBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.45rem 1.375rem;
+  background: var(--color-text-inverted);
+  color: var(--color-surface-inverted);
+  font-family: var(--font-sans);
+  font-size: var(--font-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--color-text-inverted);
+  border-radius: var(--radius-pill);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.ctaBtnPrimary:hover {
+  background: var(--color-brand-accent);
+  border-color: var(--color-brand-accent);
+  color: var(--color-surface-inverted);
+}
+
+/* Ghost outline pill — matches landing page secondary button style */
+.ctaBtnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.45rem 1.375rem;
+  background: transparent;
+  color: var(--color-text-inverted);
+  font-family: var(--font-sans);
+  font-size: var(--font-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--color-border-inverted-soft);
+  border-radius: var(--radius-pill);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.ctaBtnGhost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-text-inverted);
+}
+
+/* ── Mobile ── */
+@media (max-width: 599px) {
+  .main {
+    min-height: auto;
+  }
+
+  .content {
+    justify-content: flex-start;
+  }
+
+  .header {
+    padding: 0 1.25rem;
+  }
+
+  .heroWrap {
+    padding: 2.25rem 1.25rem 1.25rem;
+  }
+
+  .cardsSection {
+    padding: 0 1.25rem 1.75rem;
+  }
+
+  .cta {
+    padding: 2rem 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.375rem;
+  }
+}
