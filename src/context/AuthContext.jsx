@@ -10,22 +10,20 @@ export function AuthProvider({ children }) {
   // Restore session from HTTP-only cookie on mount
   useEffect(() => {
     apiGetMe()
-      .then((data) => setUser(data?.user ?? data ?? null))
+      .then((data) => setUser(data ?? null))
       .catch(() => setUser(null))
       .finally(() => setIsLoading(false));
   }, []);
 
   const login = useCallback(async (email, password) => {
     const data = await apiLogin(email.trim().toLowerCase(), password);
-    const nextUser = data?.user ?? data ?? null;
-    setUser(nextUser);
+    setUser(data ?? null);
     return { success: true };
   }, []);
 
   const signup = useCallback(async (email, password) => {
     const data = await apiSignup(email.trim().toLowerCase(), password);
-    const nextUser = data?.user ?? data ?? null;
-    setUser(nextUser);
+    setUser(data ?? null);
     return { success: true };
   }, []);
 

@@ -1,80 +1,68 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import styles from '../styles/SharedFooter.module.css';
 
-export default function Footer() {
-  const handleNewsletterSubmit = (event) => {
-    event.preventDefault();
-  };
+function IconInstagram() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4.5" />
+      <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
+function IconLinkedin() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function IconTiktok() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 18V5l12-2v3" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </svg>
+  );
+}
+
+export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={styles.divider} />
-      <div className={styles.grid}>
-        <section className={styles.brandCol} aria-labelledby="footer-brand-title">
-          <h2 id="footer-brand-title" className={styles.brandTitle}>Franck Chevalier</h2>
-          <p className={styles.description}>Un cadre simple pour agir avec constance, clarté et résultats.</p>
-          <Button asChild className={styles.primaryAction} variant="secondary">
-            <Link to="/signup">
-              Commencer mon diagnostic
-              <ArrowUpRight size={16} className={styles.icon} />
-            </Link>
-          </Button>
-        </section>
+      <div className={styles.inner}>
+        <div className={styles.navRow}>
+          <span className={styles.brand}>Franck Chevalier</span>
 
-        <section className={styles.newsletterCol} aria-labelledby="footer-newsletter-title">
-          <h3 id="footer-newsletter-title" className={styles.sectionTitle}>Newsletter</h3>
-          <p id="footer-newsletter-help" className={styles.sectionBody}>
-            Un email hebdomadaire: psychologie, nutrition et actions concrètes.
-          </p>
-          <form className={styles.newsletterForm} onSubmit={handleNewsletterSubmit}>
-            <label className={styles.srOnly} htmlFor="footer-newsletter-email">
-              Votre adresse email
-            </label>
-            <Input
-              id="footer-newsletter-email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              placeholder="Votre adresse email"
-              className={styles.newsletterInput}
-              aria-describedby="footer-newsletter-help"
-            />
-            <Button type="submit" className={styles.newsletterBtn} aria-label="Rejoindre la newsletter">
-              Rejoindre
-              <Send size={14} />
-            </Button>
-          </form>
-        </section>
+          <nav className={styles.nav} aria-label="Navigation principale">
+            <Link to="/" className={styles.navLink}>Accueil</Link>
+            <Link to="/plan" className={styles.navLink}>Programme</Link>
+            <Link to="/diagnostic" className={styles.navLink}>Diagnostic</Link>
+          </nav>
 
-        <nav className={styles.exploreCol} aria-label="Liens utiles">
-          <div className={styles.exploreGroup}>
-            <h3 className={styles.sectionTitle}>Navigation</h3>
-            <Link to="/" className={styles.link}>Accueil</Link>
-            <Link to="/plan" className={styles.link}>Programme</Link>
-            <Link to="/diagnostic" className={styles.link}>Diagnostic</Link>
-          </div>
-          <div className={styles.exploreGroup}>
-            <h3 className={styles.sectionTitle}>Réseaux</h3>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.link}>
-              Instagram <ArrowUpRight size={16} className={styles.icon} />
+          <div className={styles.socials}>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Instagram">
+              <IconInstagram />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={styles.link}>
-              LinkedIn <ArrowUpRight size={16} className={styles.icon} />
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="LinkedIn">
+              <IconLinkedin />
             </a>
-            <a href="https://tiktok.com/@franck.chevalier" target="_blank" rel="noopener noreferrer" className={styles.link}>
-              TikTok <ArrowUpRight size={16} className={styles.icon} />
+            <a href="https://tiktok.com/@franck.chevalier" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="TikTok">
+              <IconTiktok />
             </a>
           </div>
-        </nav>
-      </div>
+        </div>
 
-      <div className={styles.bottom}>
-        <span>© {new Date().getFullYear()} Franck Chevalier. Tous droits réservés.</span>
+        <div className={styles.divider} />
+
+        <div className={styles.bottom}>
+          <span>© {new Date().getFullYear()} Franck Chevalier. Tous droits réservés.</span>
+        </div>
       </div>
     </footer>
   );

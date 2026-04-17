@@ -34,7 +34,11 @@
 .calendarSection {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-lg);
+}
+
+.calendarMain {
+  min-width: 0;
 }
 
 .plannerFeedback {
@@ -45,193 +49,55 @@
   color: var(--color-brand-primary);
   font-size: var(--font-ui-sm);
   letter-spacing: 0.05em;
-  border-radius: 0.5rem;
+  border-radius: 0;
 }
 
 .calendarIntro {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: var(--space-lg);
+  gap: 0.3rem;
+  margin-bottom: var(--space-sm);
+}
+
+.calendarEyebrow {
+  font-size: var(--font-ui-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-brand-secondary);
 }
 
 .calendarTitle {
   margin: 0;
-  font-size: var(--font-display-md);
+  font-size: 1.5rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
   text-transform: uppercase;
   color: var(--color-brand-primary);
 }
 
 .calendarHint {
   margin: 0;
-  font-size: var(--font-body-lg);
+  max-width: 56ch;
+  font-size: var(--font-body-sm);
   color: var(--color-brand-secondary);
-  opacity: 0.8;
 }
 
 .calendarContainer {
   border: 1px solid var(--color-brand-border);
   background: #fff;
   padding: 0;
-  border-radius: 1rem;
+  border-radius: 0;
   overflow: hidden;
 }
 
 .emptyPlannerMessage {
   margin: 0;
-  font-size: var(--font-ui-md);
-  color: var(--color-brand-secondary);
-}
-
-.dayDetailsPanel {
-  border: 1px solid var(--color-brand-border);
-  background: #fff;
-  padding: calc(1.5 * var(--space-md));
-  display: flex;
-  flex-direction: column;
-  gap: calc(1 * var(--space-md));
-  border-radius: 1rem;
-}
-
-.dayDetailsHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  border-bottom: 1px solid var(--color-brand-border);
-  padding-bottom: 1rem;
-}
-
-.dayDetailsTitle {
-  margin: 0;
-  font-size: var(--font-heading-lg);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  color: var(--color-brand-primary);
-}
-
-.dayDetailsCloseBtn {
-  border: 1px solid var(--color-brand-border);
-  background: #fff;
-  color: var(--color-brand-primary);
-  font-size: var(--font-ui-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: calc(0.5 * var(--space-md)) calc(1 * var(--space-md));
-  cursor: pointer;
-  min-height: var(--control-min-hit);
-  border-radius: 9999px;
-  transition: all 0.3s ease;
-}
-
-.dayDetailsCloseBtn:hover {
-  background: var(--color-brand-primary);
-  color: var(--color-brand-bg);
-}
-
-.dayDetailsEmpty {
-  margin: 0;
   font-size: var(--font-body-sm);
   color: var(--color-brand-secondary);
 }
 
-.dayDetailsList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: calc(0.7 * var(--space-md));
-}
-
-.dayDetailsItem {
-  border: 1px solid var(--color-brand-border);
-  background: var(--color-brand-bg);
-  padding: var(--space-sm);
-  display: flex;
-  justify-content: space-between;
-  gap: 0.8rem;
-  align-items: flex-start;
-}
-
-.dayDetailsTime {
-  font-size: var(--font-ui-sm);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-brand-secondary);
-}
-
-.dayDetailsEventTitle {
-  margin: var(--space-2xs) 0 0;
-  font-size: var(--font-body-sm);
-  color: var(--color-brand-primary);
-}
-
-.dayDetailsType {
-  display: inline-block;
-  margin-top: calc(0.35 * var(--space-md));
-  font-size: var(--font-ui-2xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-brand-secondary);
-}
-
-.dayDetailsRemoveBtn {
-  border: none;
-  background: transparent;
-  color: var(--color-brand-secondary);
-  font-size: var(--font-ui-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  padding: 0;
-}
-
-.dayDetailsRemoveBtn:hover {
-  color: var(--color-brand-primary);
-}
-
-.dayDetailsDoneBtn {
-  border: none;
-  background: transparent;
-  color: var(--color-brand-secondary);
-  font-size: var(--font-ui-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  padding: 0;
-}
-
-.dayDetailsDoneBtn:hover {
-  color: var(--color-brand-primary);
-}
-
-.dayDetailsUndoBtn {
-  border: none;
-  background: transparent;
-  color: var(--color-brand-secondary);
-  font-size: var(--font-ui-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  padding: 0;
-  opacity: 0.6;
-}
-
-.dayDetailsUndoBtn:hover {
-  opacity: 1;
-  color: var(--color-brand-primary);
-}
-
-.dayDetailsItemDone {
-  opacity: 0.6;
-}
-
-.dayDetailsEventTitleDone {
-  text-decoration: line-through;
-  color: var(--color-brand-secondary);
-}
+/* ─── Day details — kept for reference, logic moved to DayDetailDrawer ─── */
 
 /* Options List (Common to Alimentation/Sport) */
 .optionList {
@@ -245,7 +111,7 @@
   padding: calc(1.5 * var(--space-md));
   cursor: pointer;
   transition: all 0.2s ease;
-  border-radius: 1rem;
+  border-radius: 0;
 }
 
 .optionCard:hover {

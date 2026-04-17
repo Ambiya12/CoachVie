@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000/api';
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4001/api';
 
 export class ApiError extends Error {
   constructor(status, message, details) {
@@ -44,9 +44,13 @@ export async function apiFetch(path, options = {}) {
 
     throw new ApiError(
       response.status,
-      body?.message ?? body?.error ?? `HTTP ${response.status}`,
-      body?.details ?? null
+      body?.error?.message ?? body?.message ?? body?.error ?? `HTTP ${response.status}`,
+      body?.error?.details ?? body?.details ?? null
     );
+  }
+
+  if (body && typeof body === 'object' && 'success' in body && 'data' in body) {
+    return body.data;
   }
 
   return body;

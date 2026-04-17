@@ -50,20 +50,20 @@
 
 .grid {
   display: block;
-  padding: var(--page-pad-y) var(--section-pad-y);
+  padding: clamp(1.25rem, 2vw, 2rem) 0 clamp(2rem, 3vw, 3rem);
   flex: 1;
-  max-width: 1280px;
+  width: min(1200px, calc(100% - 1.5rem));
+  max-width: 1200px;
   margin: 0 auto;
-  width: 100%;
 }
 
 .mainContent {
-  padding-left: 0;
+  min-width: 0;
 }
 
 @media (max-width: 1024px) {
   .grid {
-    padding: var(--space-xl);
+    width: min(1200px, calc(100% - 1.2rem));
   }
 }
 
@@ -77,6 +77,6 @@
   }
 
   .grid {
-    padding: var(--space-md);
+    width: min(1200px, calc(100% - 1rem));
   }
 }

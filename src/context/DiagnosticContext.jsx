@@ -33,7 +33,14 @@ export function DiagnosticProvider({ children }) {
   const startSession = useCallback(async () => {
     setSubmitError(null);
     const data = await apiStartDiagnostic();
-    setSessionId(data?.sessionId ?? data?.session_id ?? null);
+    const rawSessionId = data?.sessionId ?? data?.session_id ?? null;
+    const nextSessionId = rawSessionId == null ? null : Number(rawSessionId);
+
+    if (!Number.isInteger(nextSessionId) || nextSessionId <= 0) {
+      throw new Error('Réponse invalide lors de la création de session.');
+    }
+
+    setSessionId(nextSessionId);
     return data;
   }, []);
 
@@ -43,14 +50,18 @@ export function DiagnosticProvider({ children }) {
     if (!activeSessionId) {
       try {
         const data = await apiStartDiagnostic();
-        activeSessionId = data?.sessionId ?? data?.session_id ?? null;
-        if (activeSessionId) setSessionId(activeSessionId);
+        const rawSessionId = data?.sessionId ?? data?.session_id ?? null;
+        activeSessionId = rawSessionId == null ? null : Number(rawSessionId);
+
+        if (Number.isInteger(activeSessionId) && activeSessionId > 0) {
+          setSessionId(activeSessionId);
+        }
       } catch {
         // will throw below
       }
     }
 
-    if (!activeSessionId) {
+    if (!Number.isInteger(activeSessionId) || activeSessionId <= 0) {
       const err = new Error('Impossible de créer une session. Veuillez vous reconnecter.');
       setSubmitError(err.message);
       throw err;
@@ -75,7 +86,12 @@ export function DiagnosticProvider({ children }) {
       await apiSaveStep(3, activeSessionId, buildStepAnswers(['v1', 'v2', 'v3']));
 
       const result = await apiSubmitDiagnostic(activeSessionId);
-      const scores = result?.profileScores ?? result?.scores ?? result;
+      const scores = result?.scores ?? result?.profileScores ?? null;
+
+      if (!scores) {
+        throw new Error('Réponse invalide lors de la soumission du diagnostic.');
+      }
+
       setProfileScores(scores);
       return scores;
     } catch (err) {

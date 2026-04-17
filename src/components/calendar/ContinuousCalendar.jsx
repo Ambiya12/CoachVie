@@ -69,7 +69,7 @@ function buildCalendarMonth(year, month) {
 export default function ContinuousCalendar({
   events,
   onDayClick,
-  onRemoveEvent,
+  selectedDateKey,
 }) {
   const today = useMemo(() => new Date(), []);
   const todayKey = toDateKey(today);
@@ -139,7 +139,7 @@ export default function ContinuousCalendar({
   return (
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
-        <div className={styles.toolbarLeft}>
+        <div className={styles.controlsGroup}>
           <select
             aria-label="Aller a un mois"
             className={styles.select}
@@ -156,26 +156,25 @@ export default function ContinuousCalendar({
           <button type="button" className={styles.secondaryBtn} onClick={handleToday}>
             Aujourd'hui
           </button>
-        </div>
-
-        <div className={styles.yearControls}>
-          <button
-            type="button"
-            className={styles.iconBtn}
-            aria-label="Annee precedente"
-            onClick={() => setYear((value) => value - 1)}
-          >
-            ‹
-          </button>
-          <div className={styles.yearLabel}>{year}</div>
-          <button
-            type="button"
-            className={styles.iconBtn}
-            aria-label="Annee suivante"
-            onClick={() => setYear((value) => value + 1)}
-          >
-            ›
-          </button>
+          <div className={styles.yearControls}>
+            <button
+              type="button"
+              className={styles.iconBtn}
+              aria-label="Annee precedente"
+              onClick={() => setYear((value) => value - 1)}
+            >
+              ‹
+            </button>
+            <div className={styles.yearLabel}>{year}</div>
+            <button
+              type="button"
+              className={styles.iconBtn}
+              aria-label="Annee suivante"
+              onClick={() => setYear((value) => value + 1)}
+            >
+              ›
+            </button>
+          </div>
         </div>
       </div>
 
@@ -196,14 +195,19 @@ export default function ContinuousCalendar({
 
             const dayEvents = eventsByDate.get(cell.key) ?? [];
             const isToday = cell.key === todayKey;
+            const isSelected = cell.key === selectedDateKey;
 
             return (
               <button
                 key={cell.key}
                 type="button"
-                className={styles.dayCell}
+                className={[
+                  styles.dayCell,
+                  isSelected ? styles.dayCellSelected : '',
+                ].filter(Boolean).join(' ')}
                 onClick={() => handleDayClick(cell)}
                 aria-label={`Voir le detail du ${cell.day} ${MONTH_NAMES[cell.month]} ${cell.year}`}
+                aria-pressed={isSelected}
               >
                 <span className={`${styles.dayNumber} ${isToday ? styles.dayNumberToday : ''}`.trim()}>
                   {cell.day}
@@ -211,7 +215,7 @@ export default function ContinuousCalendar({
 
                 {dayEvents.length > 0 ? (
                   <div className={styles.eventsLayer}>
-                    {dayEvents.slice(0, 3).map((event) => {
+                    {dayEvents.slice(0, 2).map((event) => {
                       const start = new Date(event.start);
                       const time = start.toLocaleTimeString('fr-FR', {
                         hour: '2-digit',
@@ -227,24 +231,11 @@ export default function ContinuousCalendar({
                           <span className={styles.eventLabel} title={`${time} ${event.title}`}>
                             {time} {event.title}
                           </span>
-                          {typeof onRemoveEvent === 'function' ? (
-                            <button
-                              type="button"
-                              className={styles.removeBtn}
-                              onClick={(eventClick) => {
-                                eventClick.stopPropagation();
-                                onRemoveEvent(event.id);
-                              }}
-                              aria-label={`Supprimer ${event.title}`}
-                            >
-                              ×
-                            </button>
-                          ) : null}
                         </div>
                       );
                     })}
-                    {dayEvents.length > 3 ? (
-                      <span className={styles.moreEvents}>+{dayEvents.length - 3}</span>
+                    {dayEvents.length > 2 ? (
+                      <span className={styles.moreEvents}>+{dayEvents.length - 2} autres</span>
                     ) : null}
                   </div>
                 ) : null}

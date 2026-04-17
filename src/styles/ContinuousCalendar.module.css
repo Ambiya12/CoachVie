@@ -1,24 +1,23 @@
 .wrapper {
   background: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 5;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: var(--space-sm);
-  padding: calc(0.9 * var(--space-md));
+  padding: calc(0.35 * var(--space-md)) calc(1 * var(--space-md));
   background: #fff;
   border-bottom: 1px solid var(--color-brand-border);
 }
 
-.toolbarLeft {
+.controlsGroup {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
@@ -29,20 +28,28 @@
   background: #fff;
   color: var(--color-brand-primary);
   font-family: inherit;
-  font-size: var(--font-ui-xs);
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
 .select {
-  padding: calc(0.45 * var(--space-md)) calc(1.6 * var(--space-md)) calc(0.45 * var(--space-md)) calc(0.65 * var(--space-md));
-  min-height: var(--control-min-hit);
+  padding: 0.2rem 1.75rem 0.2rem 0.5rem;
+  min-height: 32px;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%230C0C0C' stroke-width='1.25' fill='none' stroke-linecap='square'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  cursor: pointer;
 }
 
 .secondaryBtn {
-  padding: calc(0.45 * var(--space-md)) var(--space-sm);
+  padding: 0.2rem 0.6rem;
   cursor: pointer;
-  min-height: var(--control-min-hit);
+  min-height: 32px;
+  border-radius: 0;
 }
 
 .secondaryBtn:hover,
@@ -53,21 +60,22 @@
 .yearControls {
   display: flex;
   align-items: center;
-  gap: calc(0.35 * var(--space-md));
+  gap: 0.25rem;
 }
 
 .iconBtn {
-  width: var(--control-min-hit);
-  height: var(--control-min-hit);
+  width: 32px;
+  height: 32px;
   padding: 0;
   line-height: 1;
   cursor: pointer;
+  border-radius: 0;
 }
 
 .yearLabel {
-  min-width: calc(3 * var(--space-md));
+  min-width: 3rem;
   text-align: center;
-  font-size: var(--font-ui-md);
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-brand-primary);
@@ -76,7 +84,7 @@
 .weekHeader {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  padding: 0 calc(0.9 * var(--space-md));
+  padding: 0 calc(1 * var(--space-md));
   background: #fff;
 }
 
@@ -92,78 +100,87 @@
 }
 
 .calendarBody {
-  min-height: 500px;
-  padding: calc(0.9 * var(--space-md));
+  min-height: 0;
+  padding: calc(1 * var(--space-md));
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: calc(0.4 * var(--space-md));
+  gap: calc(0.35 * var(--space-md));
 }
 
 .dayCell {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: flex-start;
   gap: 0.35rem;
-  min-height: var(--calendar-day-min-height);
+  min-height: 5.5rem;
+  overflow: hidden;
   border: 1px solid var(--color-brand-border);
-  background: #fff;
-  padding: calc(0.45 * var(--space-md));
+  border-radius: 0;
+  background: color-mix(in srgb, #fff 82%, var(--color-brand-surface));
+  padding: 0.35rem;
   text-align: left;
   cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .dayCell:hover {
   border-color: var(--color-brand-primary);
-  transform: translateY(-1px);
+  background: #fff;
+}
+
+.dayCellSelected {
+  border-color: var(--color-brand-primary) !important;
+  background: color-mix(in srgb, var(--color-brand-primary) 6%, #fff) !important;
 }
 
 .dayCellPlaceholder {
-  min-height: var(--calendar-day-min-height);
-  border: 1px dashed var(--color-brand-border);
-  background: var(--color-brand-bg);
-  opacity: 0.35;
+  min-height: 5.5rem;
+  border-radius: 0;
+  background: transparent;
 }
 
 .dayNumber {
   display: inline-flex;
-  width: calc(1.3 * var(--space-md));
-  height: calc(1.3 * var(--space-md));
+  min-width: 1.5rem;
+  height: 1.5rem;
   align-items: center;
   justify-content: center;
-  border-radius: 9999px;
-  font-size: var(--font-ui-xs);
+  border-radius: 0;
+  font-size: 14px;
   color: var(--color-brand-primary);
+  border: 1px solid transparent;
+  align-self: flex-end;
 }
 
 .dayNumberToday {
-  background: var(--color-brand-primary);
-  color: #fff;
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-brand-primary);
 }
 
 .eventsLayer {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.25rem;
 }
 
 .eventRow {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.28rem;
-  padding: 0.2rem 0.25rem;
-  border: 1px solid var(--color-brand-border);
-  background: var(--color-brand-bg);
+  gap: 0.35rem;
+  padding: 0.2rem 0.3rem;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .eventDot {
-  width: calc(0.45 * var(--space-md));
-  height: calc(0.45 * var(--space-md));
+  width: calc(0.35 * var(--space-md));
+  height: calc(0.35 * var(--space-md));
   border-radius: 999px;
   flex-shrink: 0;
 }
@@ -183,55 +200,36 @@
 .eventLabel {
   flex: 1;
   min-width: 0;
-  font-size: var(--font-ui-2xs);
-  color: var(--color-brand-primary);
+  font-size: 12px;
+  color: #555;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.removeBtn {
-  border: none;
-  background: transparent;
-  color: var(--color-brand-secondary);
-  font-size: var(--font-ui-xs);
-  line-height: 1;
-  cursor: pointer;
-  padding: 0;
-}
-
-.removeBtn:hover {
-  color: var(--color-brand-primary);
-}
-
 .moreEvents {
-  font-size: calc(0.58rem * var(--ui-scale));
+  font-size: 12px;
   color: var(--color-brand-secondary);
+  padding: 0 0.2rem;
 }
 
 @media (max-width: 1024px) {
-  .calendarBody {
-    min-height: 440px;
-  }
-
   .dayCell {
-    min-height: calc(var(--calendar-day-min-height) - 0.7rem);
-    padding: calc(0.4 * var(--space-md));
+    min-height: 5rem;
   }
 
   .dayCellPlaceholder {
-    min-height: calc(var(--calendar-day-min-height) - 0.7rem);
+    min-height: 5rem;
   }
 }
 
 @media (max-width: 768px) {
   .toolbar {
-    padding: calc(0.7 * var(--space-md));
+    padding: calc(0.4 * var(--space-md));
   }
 
   .calendarBody {
-    padding: calc(0.65 * var(--space-md));
-    min-height: 380px;
+    padding: calc(0.5 * var(--space-md));
   }
 
   .grid {
@@ -239,11 +237,11 @@
   }
 
   .dayCell {
-    min-height: calc(var(--calendar-day-min-height) - 1.7rem);
+    min-height: 4.5rem;
   }
 
   .dayCellPlaceholder {
-    min-height: calc(var(--calendar-day-min-height) - 1.7rem);
+    min-height: 4.5rem;
   }
 
   .eventRow {
@@ -251,6 +249,6 @@
   }
 
   .eventLabel {
-    font-size: calc(0.58rem * var(--ui-scale));
+    font-size: 11px;
   }
 }

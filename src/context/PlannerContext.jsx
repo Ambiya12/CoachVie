@@ -14,7 +14,8 @@ export function usePlanner() {
  * scheduled_date is "YYYY-MM-DD" string; we turn it into a Date at 08:00 local time.
  */
 function itemToEvent(item) {
-  const [year, month, day] = item.scheduled_date.split('-').map(Number);
+  const normalizedDate = String(item.scheduled_date).slice(0, 10);
+  const [year, month, day] = normalizedDate.split('-').map(Number);
   const start = new Date(year, month - 1, day, 8, 0, 0, 0);
   const end = new Date(start);
   end.setMinutes(end.getMinutes() + (item.duration_minutes ?? 60));
@@ -29,7 +30,7 @@ function itemToEvent(item) {
     status: item.status ?? 'todo',
     pillar: item.pillar,
     contentId: item.content_id ?? null,
-    scheduledDate: item.scheduled_date,
+    scheduledDate: normalizedDate,
     source: 'api',
   };
 }
@@ -46,11 +47,13 @@ export function PlannerProvider({ children }) {
     setPlanError(null);
     try {
       const data = await apiGetCurrentPlan();
-      const planData = data?.plan ?? data;
+      const planData = data?.plan ?? null;
+      const items = data?.items ?? [];
+
       setPlan(planData);
-      const items = planData?.items ?? planData?.plan_items ?? [];
       setEvents(items.map(itemToEvent));
-      return planData;
+
+      return data;
     } catch (err) {
       setPlanError(err?.message ?? 'Erreur de chargement du plan.');
       throw err;

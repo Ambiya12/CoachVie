@@ -1,0 +1,120 @@
+.shell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 58vh;
+  padding: 0;
+}
+
+.block {
+  width: 100%;
+  max-width: 52rem;
+}
+
+.rule {
+  width: 100%;
+  height: 1px;
+  background: var(--color-brand-border);
+  border: none;
+  margin: 0;
+}
+
+.inner {
+  padding: 3rem 0 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* ─── Status row ──────────────────────────────────────────── */
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  background: var(--color-brand-accent);
+  animation: blink 2.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+.statusLabel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-brand-secondary);
+}
+
+/* ─── Title row ───────────────────────────────────────────── */
+.titleRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-brand-primary);
+  line-height: 0.95;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 0;
+  color: var(--color-brand-secondary);
+  flex-shrink: 0;
+  margin-bottom: 0.3rem;
+}
+
+/* ─── Description ─────────────────────────────────────────── */
+.description {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-brand-secondary);
+  line-height: 1.7;
+  max-width: 40ch;
+}
+
+/* ─── Animated sweep line ─────────────────────────────────── */
+.sweepTrack {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: var(--color-brand-border);
+  overflow: hidden;
+}
+
+.sweepLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-brand-accent);
+  animation: sweep 3.6s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+@keyframes sweep {
+  0%   { transform: scaleX(0); transform-origin: left center; }
+  45%  { transform: scaleX(1); transform-origin: left center; }
+  55%  { transform: scaleX(1); transform-origin: right center; }
+  100% { transform: scaleX(0); transform-origin: right center; }
+}
