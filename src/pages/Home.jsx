@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Brain, Activity, Flame, CheckCircle2, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { ArrowUpRight, Brain, Activity, Flame, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion as Motion, useReducedMotion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,36 +10,28 @@ import overrides from './HomeOverrides.module.css';
 
 const missionCards = [
   {
-    id: 'calme-interieur',
-    title: 'Retrouver le calme intérieur',
-    mediaType: 'image',
-    src: 'https://picsum.photos/seed/forest-calm/800/600',
-    posterAlt: 'Aperçu vidéo sur la clarté intérieure',
-    objectPosition: '50% 35%',
+    id: 'coaching-gratuit',
+    title: 'Coaching gratuit',
+    to: '/diagnostic',
+    ctaLabel: 'Découvrir',
   },
   {
-    id: 'passage-action',
-    title: "Passer à l'action",
-    mediaType: 'image',
-    src: 'https://picsum.photos/seed/action-move/800/600',
-    posterAlt: 'Aperçu vidéo sur la mise en action',
-    objectPosition: '50% 25%',
+    id: 'coaching-avance',
+    title: 'Coaching avancé',
+    to: '/signup',
+    ctaLabel: 'Explorer',
   },
   {
-    id: 'socle-solide',
-    title: 'Construire un socle solide',
-    mediaType: 'image',
-    src: 'https://picsum.photos/seed/foundation-build/800/600',
-    posterAlt: 'Construire un socle solide',
-    objectPosition: '50% 20%',
+    id: 'stage',
+    title: 'Stage',
+    to: '/signup',
+    ctaLabel: 'Découvrir',
   },
   {
-    id: 'tenir-duree',
-    title: 'Tenir dans la durée',
-    mediaType: 'image',
-    src: 'https://picsum.photos/seed/endurance-time/800/600',
-    posterAlt: 'Tenir dans la durée avec constance',
-    objectPosition: '50% 50%',
+    id: 'formation',
+    title: 'Formation',
+    to: '/signup',
+    ctaLabel: 'Explorer',
   },
 ];
 
@@ -146,21 +138,6 @@ function reveal(shouldReduceMotion, delay = 0) {
 
 const viewConfig = { once: true, amount: 0.22 };
 
-function VideoTrigger({ onClick, label, className = '' }) {
-  return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="sm"
-      className={`${overrides.mediaTrigger} ${className}`.trim()}
-      onClick={onClick}
-    >
-      <Play size={15} />
-      {label}
-    </Button>
-  );
-}
-
 function Hero({ shouldReduceMotion }) {
   return (
     <section className={overrides.hero}>
@@ -198,7 +175,7 @@ function Hero({ shouldReduceMotion }) {
   );
 }
 
-function Mission({ shouldReduceMotion, activeMissionVideoId, onActivateMissionVideo }) {
+function Mission({ shouldReduceMotion }) {
   return (
     <section className={`${overrides.sectionDark} ${overrides.sectionRhythmTight}`}>
       <div className={`${overrides.container} ${overrides.missionShell}`}>
@@ -209,7 +186,7 @@ function Mission({ shouldReduceMotion, activeMissionVideoId, onActivateMissionVi
           viewport={viewConfig}
           variants={reveal(shouldReduceMotion)}
         >
-          On ne vous change pas. On retire ce qui vous éloigne de vous-même.
+          Peu importe pourquoi vous voulez changer, Il faudra enlever le saboteur qui est en vous.
         </Motion.h2>
 
         <Motion.p
@@ -232,29 +209,13 @@ function Mission({ shouldReduceMotion, activeMissionVideoId, onActivateMissionVi
               viewport={viewConfig}
               variants={reveal(shouldReduceMotion, index * 0.06)}
             >
-              {card.mediaType === 'video' && activeMissionVideoId === card.id ? (
-                <video className={overrides.missionImage} controls autoPlay muted playsInline preload="metadata" poster={card.poster}>
-                  <source src={card.src} type="video/mp4" />
-                </video>
-              ) : (
-                <img
-                  src={card.mediaType === 'video' ? card.poster : card.src}
-                  alt={card.posterAlt}
-                  className={overrides.missionImage}
-                  loading="lazy"
-                  style={card.objectPosition ? { objectPosition: card.objectPosition } : undefined}
-                />
-              )}
-
-              {card.mediaType === 'video' && activeMissionVideoId !== card.id ? (
-                <VideoTrigger
-                  onClick={() => onActivateMissionVideo(card.id)}
-                  label="Lire la vidéo"
-                  className={overrides.missionVideoTrigger}
-                />
-              ) : null}
-
-              <h3 className={overrides.missionCardTitle}>{card.title}</h3>
+              <div className={overrides.missionCardCopy}>
+                <h3 className={overrides.missionCardTitle}>{card.title}</h3>
+                <Link to={card.to} className={overrides.missionCardLink}>
+                  <span>{card.ctaLabel}</span>
+                  <ArrowUpRight size={16} strokeWidth={2} />
+                </Link>
+              </div>
             </Motion.article>
           ))}
         </div>
@@ -579,16 +540,11 @@ function About({ shouldReduceMotion }) {
 
 export default function Home() {
   const shouldReduceMotion = useReducedMotion();
-  const [activeMissionVideoId, setActiveMissionVideoId] = useState(null);
 
   return (
     <main className={overrides.page}>
       <Hero shouldReduceMotion={shouldReduceMotion} />
-      <Mission
-        shouldReduceMotion={shouldReduceMotion}
-        activeMissionVideoId={activeMissionVideoId}
-        onActivateMissionVideo={setActiveMissionVideoId}
-      />
+      <Mission shouldReduceMotion={shouldReduceMotion} />
       <Methodology shouldReduceMotion={shouldReduceMotion} />
       <SocialMedia
         shouldReduceMotion={shouldReduceMotion}

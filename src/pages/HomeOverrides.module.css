@@ -474,13 +474,6 @@
   }
 }
 
-.missionVideoTrigger {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  z-index: 3;
-}
-
 .socialVideoTrigger {
   position: absolute;
   left: 0.6rem;
@@ -520,7 +513,7 @@
 
 .missionShell .sectionTitleDark {
   color: var(--color-text-primary);
-  max-width: 22ch;
+  max-width: 25ch;
 }
 
 .missionLead {
@@ -594,40 +587,99 @@
 
 .missionCard {
   position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 8.5rem;
+  max-width: 16rem;
+  justify-self: center;
+  align-items: stretch;
   border-radius: 0.9rem;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  aspect-ratio: 3 / 4;
+  border: 1px solid var(--color-border-default);
+  background:
+    radial-gradient(circle at top right, rgba(12, 12, 12, 0.08), transparent 48%),
+    var(--color-surface-page);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    background-color 0.22s ease;
 }
 
 @media (min-width: 768px) {
   .missionCard {
-    aspect-ratio: 4 / 5;
+    max-width: 14.75rem;
+    min-height: 10.5rem;
   }
 }
 
-.missionImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+.missionCard:hover,
+.missionCard:focus-within {
+  transform: translateY(-2px);
+  border-color: rgba(12, 12, 12, 0.3);
+  background:
+    radial-gradient(circle at top right, rgba(12, 12, 12, 0.12), transparent 52%),
+    var(--color-surface-page);
 }
 
-.missionCard:hover .missionImage {
-  transform: scale(1.05);
+.missionCardCopy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .missionCardTitle {
-  position: absolute;
-  inset: auto 0 0 0;
   margin: 0;
-  padding: 1rem 0.75rem 0.75rem;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 800;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  max-width: 9ch;
+  text-wrap: balance;
+  color: var(--color-text-primary);
+}
+
+.missionCardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
+  width: max-content;
+  position: relative;
+  color: var(--color-text-primary);
+  text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-inverted);
-  background: linear-gradient(to top, rgba(12, 12, 12, 0.84), transparent 85%);
+  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-weight: 700;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.missionCardLink svg {
+  transition: transform 0.2s ease;
+}
+
+.missionCard:hover .missionCardLink,
+.missionCard:focus-within .missionCardLink {
+  color: var(--color-text-primary);
+}
+
+.missionCard:hover .missionCardLink svg,
+.missionCard:focus-within .missionCardLink svg {
+  transform: translateX(0.18rem) translateY(-0.04rem);
+}
+
+.missionCardLink:focus-visible {
+  outline: none;
+}
+
+.missionCardLink:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: -0.22rem -0.34rem;
+  border-radius: 999px;
+  border: 1px solid rgba(12, 12, 12, 0.48);
 }
 
 /* ─── Methodology ────────────────────────────────────────── */
@@ -1272,14 +1324,16 @@
 
   .cta,
   .mediaTrigger,
-  .missionImage,
+  .missionCard,
+  .missionCardLink svg,
   .methodCard,
   .socialVideoWrap {
     transition: none;
   }
 
   .cta:hover,
-  .missionCard:hover .missionImage,
+  .missionCard:hover,
+  .missionCard:hover .missionCardLink svg,
   .methodCard:hover,
   .socialVideoWrap:hover {
     transform: none;
