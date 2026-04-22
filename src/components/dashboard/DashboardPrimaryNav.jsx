@@ -3,6 +3,7 @@ import { ChevronDown } from 'lucide-react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
   ALIMENTATION_PATH,
+  CONSULTATION_PATH,
   DASHBOARD_HOME_PATH,
   EXERCISE_PATH,
   PLANNING_PATH,
@@ -184,6 +185,13 @@ export default function DashboardPrimaryNav() {
         onClick={closeProgrammesMenu}
       >
         Planning
+      </DashboardNavLink>
+
+      <DashboardNavLink
+        to={CONSULTATION_PATH}
+        onClick={closeProgrammesMenu}
+      >
+        Consultation
       </DashboardNavLink>
     </nav>
   );

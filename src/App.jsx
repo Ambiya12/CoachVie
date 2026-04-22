@@ -10,6 +10,7 @@ import ExercisePage from './pages/ExercisePage';
 import AlimentationPage from './pages/AlimentationPage';
 import SportPage from './pages/SportPage';
 import PlanningPage from './pages/PlanningPage';
+import ConsultationPage from './pages/ConsultationPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './layouts/MainLayout';
 import ExperienceX from './pages/ExperienceX';
@@ -17,6 +18,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import {
   ALIMENTATION_PATH,
+  CONSULTATION_PATH,
   EXERCISE_PATH,
   PLANNING_PATH,
   PROGRAMMES_PATH,
@@ -65,6 +67,7 @@ export default function App() {
               <Route path={ALIMENTATION_PATH} element={<AlimentationPage />} />
               <Route path={SPORT_PATH} element={<SportPage />} />
               <Route path={PLANNING_PATH} element={<PlanningPage />} />
+              <Route path={CONSULTATION_PATH} element={<ConsultationPage />} />
             </Route>
 
             {/* Main shell — all other routes inherit Header + Footer */}

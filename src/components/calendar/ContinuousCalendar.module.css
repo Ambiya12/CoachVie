@@ -1,0 +1,217 @@
+.calendarCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+}
+
+.navBtn {
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.25rem;
+  color: #333;
+}
+.navBtn:hover {
+  background: #f9f9f9;
+  border-color: #ddd;
+}
+
+.headerCenter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.monthLabel {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #111;
+}
+
+.todayBtn {
+  background: white;
+  border: 1px solid #eaeaea;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 0.2s ease;
+}
+.todayBtn:hover {
+  background: #f9f9f9;
+}
+
+.dayRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  padding: 1rem 0;
+}
+
+.dayLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gridContainer {
+  padding: 1.5rem 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1rem;
+}
+
+.empty {
+  min-height: 80px;
+}
+
+.day {
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.day:hover {
+  border-color: #ccc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.dayNumWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dayNum {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.today {
+  background: #111;
+  border-color: #111;
+}
+.today .dayNum {
+  color: white;
+}
+
+.selectedDay {
+  border: 1.5px solid #b8905b;
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+  margin-top: auto;
+  align-self: flex-end;
+}
+
+.consultationMarker {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dfdfdf;
+  background: #f7f7f7;
+}
+
+.consultationIcon {
+  color: #1a1a1a;
+  stroke-width: 2.1;
+}
+
+.today .consultationMarker {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.today .consultationIcon {
+  color: #ffffff;
+}
+
+.dotTodo {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ccc;
+}
+.today .dotTodo {
+  background: rgba(255,255,255,0.4);
+}
+
+.dotDone {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #111;
+}
+.today .dotDone {
+  background: white;
+}
+
+.badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: #eaeaea;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #555;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.today .badge {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
