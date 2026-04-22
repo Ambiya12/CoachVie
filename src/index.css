@@ -7,14 +7,14 @@
 @theme {
   --color-brand-bg: #FFFFFF;
   --color-brand-surface: #F5F5F5;
-  --color-brand-primary: #0C0C0C;
+  --color-brand-primary: #1A1A1A;
   --color-brand-secondary: #555555;
   --color-brand-border: #E5E5E5;
-  --color-brand-accent: #C2A878; /* Muted Gold/Sandstone for spiritual warmth */
-  --color-brand-inverted-bg: #0C0C0C;
+  --color-brand-accent: #B18A47;
+  --color-brand-inverted-bg: #1A1A1A;
   --color-brand-inverted-text: #FFFFFF;
   --color-brand-inverted-secondary: #A0A0A0;
-  --color-brand-inverted-border: #2F2F2F;
+  --color-brand-inverted-border: #3B362E;
   --color-brand-muted: #696969;
   --color-brand-muted-soft: #8B8B8B;
 
@@ -25,6 +25,8 @@
 :root {
   /* Global visual scale: Massive headers, proportional body text */
   --ui-scale: 1;
+  --font-brand-heading: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", sans-serif;
+  --font-brand-body: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", sans-serif;
 
   --font-display-xl: calc(4.5rem * var(--ui-scale));
   --font-display-lg: calc(3.5rem * var(--ui-scale));
@@ -78,7 +80,35 @@
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
+  --radius-card: 0.75rem;
   --radius-pill: 9999px;
+
+  --color-system-bg: var(--color-brand-inverted-bg);
+  --color-system-surface: var(--color-brand-surface);
+  --color-system-surface-muted: color-mix(in oklch, var(--color-system-surface) 92%, var(--color-system-bg));
+  --color-system-primary: var(--color-brand-accent);
+  --color-system-text: var(--color-brand-primary);
+  --color-system-text-muted: color-mix(in oklch, var(--color-system-text) 68%, var(--color-system-surface));
+  --color-system-text-subtle: color-mix(in oklch, var(--color-system-text) 52%, var(--color-system-surface));
+  --color-system-border: color-mix(in oklch, var(--color-system-text) 18%, var(--color-system-surface));
+  --color-system-border-strong: color-mix(in oklch, var(--color-system-text) 28%, var(--color-system-surface));
+  --dash-page: var(--color-surface-page);
+  --dash-bg: color-mix(in oklch, var(--color-surface-card) 84%, white);
+  --dash-card: var(--color-surface-card);
+  --dash-card-shadow: 0 14px 28px rgba(10, 10, 10, 0.08);
+  --dash-card-shadow-strong: 0 20px 38px rgba(10, 10, 10, 0.12);
+  --dash-accent: var(--color-brand-accent);
+  --dash-accent-muted: color-mix(in oklch, var(--dash-accent) 16%, white);
+  --dash-border: var(--color-border-default);
+  --dash-text-1: var(--color-text-primary);
+  --dash-text-2: var(--color-text-secondary);
+  --dash-text-3: var(--color-text-muted);
+  --dash-green: oklch(56% 0.14 150);
+  --dash-gold: var(--color-brand-accent);
+  --dash-heading-font: var(--font-brand-heading);
+  --dash-body-font: var(--font-brand-body);
+  --dash-heading-weight: 800;
+  --dash-card-radius: var(--radius-card);
 
   --color-surface-page: var(--color-brand-bg);
   --color-surface-card: var(--color-brand-surface);
@@ -200,8 +230,8 @@ button {
 }
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-heading: var(--font-brand-heading);
+  --font-sans: var(--font-brand-body);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -286,4 +316,37 @@ button {
   html {
     @apply font-sans;
   }
+}
+
+/* ─── Dashboard theme (Twisty / Bento aesthetic) ──────────────── */
+/* Scoped to .dashboard-theme — never bleeds into landing / auth pages */
+.dashboard-theme {
+  --dash-page:         #F9F9F7;
+  --dash-bg:           #F2F2F0;
+  --dash-card:         #FFFFFF;
+  --dash-card-shadow:  0 4px 20px rgba(0, 0, 0, 0.03);
+  --dash-card-shadow-strong: 0 12px 30px rgba(0, 0, 0, 0.05);
+  --dash-accent:       #1A1A1A;
+  --dash-accent-muted: #EBEBE9;
+  --dash-border:       #E8E8E6;
+  --dash-border-strong: #D5D5D2;
+  --dash-text-1:       #1A1A1A;
+  --dash-text-2:       #4E4E4E;
+  --dash-text-3:       #8A8A8A;
+  --dash-green:        #1A1A1A;
+  --dash-gold:         #1A1A1A;
+  --dash-heading-font: var(--font-brand-heading);
+  --dash-body-font:    var(--font-brand-body);
+  --dash-heading-weight: 400;
+  --dash-card-radius:  1rem;
+  --dash-grid-gap:     clamp(1.25rem, 2vw, 2.5rem);
+  color: var(--dash-text-1);
+  font-family: var(--dash-body-font);
+}
+
+.dashboard-theme :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--dash-heading-font);
+  font-weight: var(--dash-heading-weight);
+  letter-spacing: var(--tracking-tight);
+  line-height: 0.98;
 }

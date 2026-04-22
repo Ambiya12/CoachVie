@@ -177,7 +177,7 @@ function Hero({ shouldReduceMotion }) {
 
 function Mission({ shouldReduceMotion }) {
   return (
-    <section className={`${overrides.sectionDark} ${overrides.sectionRhythmTight}`}>
+    <section className={`${overrides.sectionLight} ${overrides.sectionRhythmTight}`}>
       <div className={`${overrides.container} ${overrides.missionShell}`}>
         <Motion.h2
           className={overrides.sectionTitleDark}
@@ -226,7 +226,7 @@ function Mission({ shouldReduceMotion }) {
 
 function Methodology({ shouldReduceMotion }) {
   return (
-    <section className={`${overrides.sectionDark} ${overrides.sectionRhythmWide}`}>
+    <section className={`${overrides.sectionDarkSoft} ${overrides.sectionRhythmWide}`}>
       <div className={overrides.container}>
         <Motion.div
           className={overrides.aboutContent}
@@ -235,9 +235,9 @@ function Methodology({ shouldReduceMotion }) {
           viewport={viewConfig}
           variants={reveal(shouldReduceMotion)}
         >
-          <p className={overrides.kicker}>La méthode</p>
-          <h2 className={overrides.sectionTitleLight}>Trois dimensions inébranlables</h2>
-          <p className={overrides.sectionLeadLight}>
+          <p className={overrides.kickerDark}>La méthode</p>
+          <h2 className={overrides.sectionTitleDark}>Trois dimensions inébranlables</h2>
+          <p className={overrides.aboutText}>
             Une approche structurée pour reconnecter l'énergie, l'esprit et l'action dans un même élan.
           </p>
         </Motion.div>

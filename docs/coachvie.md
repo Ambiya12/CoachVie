@@ -108,6 +108,8 @@ Chaque semaine, l'utilisateur voit un **résumé simple** de ses 7 derniers jour
 | 1 check-in/jour (fin de journée) | 4 check-ins/jour | Réduit la friction, favorise la réflexion intentionnelle |
 | Rappels toutes les 3h pour l'exercice uniquement | Rappels fréquents pour tout | Les rappels food/sport restent légers pour ne pas saturer |
 | Récap hebdomadaire (pas journalier) | Vue réponse par réponse | Moins de culpabilité, vision de tendance plus saine |
+| Compteur caché au démarrage | Compteur en header | Évite l'anxiété de performance — l'action prime sur l'état |
+| Compteur visible après check-in uniquement | Toujours affiché | La progression est une récompense, pas un verdict |
 
 ---
 
@@ -128,6 +130,52 @@ Chaque semaine, l'utilisateur voit un **résumé simple** de ses 7 derniers jour
 
 ---
 
+## Architecture émotionnelle du dashboard
+
+### Principe directeur : Action d'abord, état ensuite
+
+L'utilisateur arrive sur le dashboard avec une seule vraie question : **"Qu'est-ce que je dois faire aujourd'hui ?"**
+
+Le compteur Penser/Conscience n'est **jamais** la première chose visible. C'est une récompense après avoir agi, pas un verdict à l'arrivée. Afficher un score de sabotage en header provoque de l'anxiété et décourage l'action.
+
+### Hiérarchie visuelle de l'écran principal
+
+```
+┌─────────────────────────────────────────┐
+│  1. EXERCICE DU JOUR          ← premier │
+│     Nom · intention · jour X/15          │
+│     [ Commencer l'exercice ]             │
+├─────────────────────────────────────────┤
+│  2. CHECK-IN DU JOUR          ← si dispo │
+│     As-tu pratiqué aujourd'hui ?         │
+│     [ Oui ]  [ Un peu ]  [ Non ]         │
+├─────────────────────────────────────────┤
+│  3. RAPPELS LÉGERS            ← discrets │
+│     Rappel hydratation · 12h00           │
+│     Rappel sport · 18h00                 │
+├─────────────────────────────────────────┤
+│  4. MA PROGRESSION →          ← à part  │
+│     Compteur + récap hebdomadaire        │
+└─────────────────────────────────────────┘
+```
+
+### Règles d'affichage du compteur
+
+- **Ne jamais** afficher le compteur en premier plan sur l'écran principal
+- Le compteur est visible dans **deux contextes seulement** :
+  1. **Juste après un check-in** — il se met à jour en direct, l'utilisateur voit l'effet concret de son action
+  2. **Dans l'onglet "Ma Progression"** — visible à la demande, avec le récap hebdomadaire
+- La progression devient une **conséquence** de l'action, pas un verdict imposé
+
+### Ce qu'il ne faut jamais faire sur l'écran principal
+
+- ❌ Un header avec un grand score de sabotage dès l'ouverture → anxiété
+- ❌ Plusieurs appels à l'action simultanés → paralysie de décision
+- ❌ Un calendrier vide qui rappelle les jours manqués → culpabilité
+- ❌ Le compteur comme message de bienvenue
+
+---
+
 ## Hors scope (pour l'instant)
 
 - Notifications push navigateur (service workers, VAPID, permissions)
@@ -139,8 +187,8 @@ Chaque semaine, l'utilisateur voit un **résumé simple** de ses 7 derniers jour
 
 ## Prochaine étape
 
-Répondre aux questions ouvertes ci-dessus, puis définir les wireframes des écrans :
-1. Vue principale du dashboard (compteur + exercice du jour)
-2. Écran de check-in (question + 3 réponses)
-3. Récap hebdomadaire
-4. Vue rappels Alimentation / Sport
+Répondre aux questions ouvertes ci-dessus, puis implémenter les écrans dans cet ordre :
+1. **Vue principale** — Exercice du jour + check-in + rappels légers (sans compteur)
+2. **Écran de check-in** — Question Oui / Un peu / Non + mise à jour du compteur visible
+3. **Onglet "Ma Progression"** — Compteur Penser/Conscience + récap hebdomadaire
+4. **Calibration initiale** — 5-6 questions (une seule fois, avant le premier exercice)

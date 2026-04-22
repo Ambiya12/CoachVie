@@ -85,48 +85,48 @@
 }
 
 .sectionDark {
-  background: var(--color-surface-inverted);
-  color: var(--color-text-inverted);
+  background: var(--color-surface-page);
+  color: var(--color-text-primary);
 }
 
 .sectionDarkSoft {
-  background: var(--color-surface-inverted-elevated);
-  color: var(--color-text-inverted);
+  background: color-mix(in oklch, var(--color-surface-card) 72%, white);
+  color: var(--color-text-primary);
 }
 
 /* ─── Hero ───────────────────────────────────────────────── */
 
 .hero {
   position: relative;
-  background: var(--color-surface-inverted);
+  background: var(--color-surface-page);
   overflow: hidden;
-  padding-block: clamp(0.55rem, 1.6vw, 1.35rem) clamp(1rem, 2.4vw, 2rem);
+  padding-block: 0;
 }
 
 .heroShell {
-  min-height: calc(100svh - var(--header-height) - clamp(1.6rem, 4vw, 3.4rem));
+  min-height: calc(100svh - var(--header-height));
   display: flex;
-  width: calc(100% - 1.2rem);
-  margin-inline: auto;
+  width: 100%;
+  margin-inline: 0;
 }
 
 @media (min-width: 640px) {
   .heroShell {
-    width: calc(100% - 1.8rem);
+    width: 100%;
   }
 }
 
 @media (min-width: 1024px) {
   .heroShell {
-    width: calc(100% - 2.4rem);
+    width: 100%;
   }
 }
 
 .heroFrame {
   position: relative;
   flex: 1;
-  min-height: clamp(520px, 82svh, 860px);
-  border-radius: 0.9rem;
+  min-height: calc(100svh - var(--header-height));
+  border-radius: 0;
   overflow: hidden;
   isolation: isolate;
   background: var(--color-surface-inverted);
@@ -134,7 +134,7 @@
 
 @media (min-width: 1024px) {
   .heroFrame {
-    border-radius: 1rem;
+    border-radius: 0;
   }
 }
 
@@ -178,17 +178,17 @@
   min-height: 100%;
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-start;
   padding: clamp(1.1rem, 3vw, 2.4rem);
+  padding-bottom: clamp(3rem, 15vh, 8rem);
 }
 
 .heroContent {
   width: min(100%, 40rem);
   display: grid;
   gap: 0.9rem;
-  justify-items: center;
-  text-align: center;
-  padding-bottom: clamp(0.15rem, 1.6svh, 1.1rem);
+  justify-items: start;
+  text-align: left;
 }
 
 @media (min-width: 768px) {
@@ -198,6 +198,7 @@
     align-items: end;
     justify-content: initial;
     padding: clamp(1.4rem, 3vw, 2.5rem);
+    padding-bottom: clamp(4rem, 20vh, 12rem);
   }
 
   .heroContent {
@@ -210,11 +211,11 @@
 
 @media (orientation: landscape) and (max-height: 560px) {
   .heroShell {
-    min-height: calc(100svh - var(--header-height) - 1rem);
+    min-height: calc(100svh - var(--header-height));
   }
 
   .heroFrame {
-    min-height: 460px;
+    min-height: calc(100svh - var(--header-height));
   }
 
   .heroLayout {
@@ -497,6 +498,7 @@
   border-radius: 1.25rem;
   padding: clamp(1.25rem, 3.5vw, 2.5rem);
   border: 1px solid var(--color-border-strong);
+  box-shadow: 0 18px 42px rgba(26, 26, 26, 0.08);
 }
 
 @media (min-width: 640px) {
@@ -700,25 +702,29 @@
 
 .methodCard {
   position: relative;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--color-text-inverted);
+  background: var(--color-surface-page);
+  color: var(--color-text-primary);
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--color-border-default);
   padding: 1.25rem;
-  transition: background 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 14px 30px rgba(26, 26, 26, 0.06);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .methodCard:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: #ffffff;
+  border-color: var(--color-border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(26, 26, 26, 0.09);
 }
 
 .methodIconWrap {
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 9999px;
-  background: var(--color-text-inverted);
-  color: var(--color-surface-inverted);
+  background: color-mix(in oklch, var(--color-brand-accent) 18%, white);
+  color: var(--color-brand-accent);
+  border: 1px solid color-mix(in oklch, var(--color-brand-accent) 22%, white);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -731,7 +737,7 @@
   margin: 0;
   font-size: 1.8rem;
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.12);
+  color: color-mix(in oklch, var(--color-brand-accent) 26%, white);
   letter-spacing: -0.04em;
   line-height: 1;
 }
@@ -742,13 +748,13 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-text-inverted);
+  color: var(--color-text-primary);
 }
 
 .methodText {
   margin: 0.6rem 0 0;
   line-height: 1.58;
-  color: var(--color-text-inverted-muted);
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
 
