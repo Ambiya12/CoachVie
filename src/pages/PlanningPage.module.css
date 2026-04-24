@@ -1,0 +1,13 @@
+.viewport {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (min-width: 1025px) {
+  .viewport {
+    height: 100%;
+    max-height: 100%;
+  }
+}

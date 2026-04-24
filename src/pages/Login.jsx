@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { DEMO_AUTH_EMAIL, DEMO_AUTH_PASSWORD } from '@/config/demoAuth';
 import styles from '../styles/Auth.module.css';
 
 export default function Login() {
@@ -39,7 +40,10 @@ export default function Login() {
       
       <h1 className={styles.title}>Connexion</h1>
       <p className={styles.subtitle}>Accédez à votre espace membre.</p>
-      
+      <p className={styles.helperText}>
+        Demo front-end: <strong>{DEMO_AUTH_EMAIL}</strong> / <strong>{DEMO_AUTH_PASSWORD}</strong>
+      </p>
+
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <Label className={styles.label} htmlFor="email">Email</Label>

@@ -33,10 +33,10 @@ function ConsultationPageContent() {
 
       {/* ── Page header ── */}
       <header style={{ paddingBottom: '2rem', paddingTop: '0.25rem' }}>
-        <p style={{ fontSize: '0.58rem', letterSpacing: '0.32em', color: 'var(--dash-text-3)', textTransform: 'uppercase' }}>
+        <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', color: 'var(--dash-text-3)', textTransform: 'uppercase' }}>
           Coaching Privé
         </p>
-        <h1 style={{ marginTop: '0.5rem', fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.035em', color: 'var(--dash-text-1)', lineHeight: 1.1 }}>
+        <h1 style={{ marginTop: '0.5rem', fontSize: '2rem', fontFamily: 'var(--font-brand-heading)', fontWeight: 600, letterSpacing: '-0.03em', color: 'var(--dash-text-1)', lineHeight: 1.1 }}>
           Mes Consultations
         </h1>
       </header>

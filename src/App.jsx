@@ -25,9 +25,9 @@ import {
   SPORT_PATH,
 } from '@/router/paths';
 
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/700.css';
+import '@fontsource-variable/geist';
+import '@fontsource/playfair-display/400.css';
+import '@fontsource/playfair-display/700.css';
 import './index.css';
 
 // Handles global auth expiry event (401 from any API call)
@@ -82,4 +82,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-

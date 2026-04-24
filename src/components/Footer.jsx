@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styles from '../styles/SharedFooter.module.css';
 
 function IconInstagram() {
@@ -36,14 +35,11 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <div className={styles.navRow}>
-          <span className={styles.brand}>Franck Chevalier</span>
-
-          <nav className={styles.nav} aria-label="Navigation principale">
-            <Link to="/" className={styles.navLink}>Accueil</Link>
-            <Link to="/plan" className={styles.navLink}>Programme</Link>
-            <Link to="/diagnostic" className={styles.navLink}>Diagnostic</Link>
-          </nav>
+        <div className={styles.topRow}>
+          <div className={styles.brandBlock}>
+            <span className={styles.brand}>Franck Chevalier</span>
+            <p className={styles.brandText}>Coaching individuel, structure claire, rythme durable.</p>
+          </div>
 
           <div className={styles.socials}>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Instagram">
@@ -57,8 +53,6 @@ export default function Footer() {
             </a>
           </div>
         </div>
-
-        <div className={styles.divider} />
 
         <div className={styles.bottom}>
           <span>© {new Date().getFullYear()} Franck Chevalier. Tous droits réservés.</span>

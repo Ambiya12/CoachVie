@@ -24,8 +24,8 @@ export default function HistoriqueList({ items, openId, onToggle }) {
       style={{
         background: 'var(--dash-card)',
         border: '1px solid var(--dash-border)',
-        borderRadius: '16px',
-        boxShadow: 'var(--dash-card-shadow)',
+        borderRadius: '24px',
+        boxShadow: 'none',
         overflow: 'hidden',
       }}
     >

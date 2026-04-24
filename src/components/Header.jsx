@@ -12,10 +12,10 @@ export default function Header() {
 
   if (isDashboardShell) {
     return (
-      <header className={styles.header} data-tone="light">
+      <header className={styles.header} data-shell="dashboard">
         <div className={`${styles.inner} ${styles.dashboardInner}`}>
           <Link to="/" className={`${styles.brand} ${styles.dashboardBrand}`}>
-            Franck Chevalier
+            <span className={styles.brandName}>Franck Chevalier</span>
           </Link>
 
           <div className={styles.dashboardNavRow}>
@@ -31,23 +31,28 @@ export default function Header() {
   }
 
   return (
-    <header className={styles.header} data-tone="dark">
+    <header className={styles.header} data-shell="marketing">
       <div className={styles.inner}>
         <Link to="/" className={styles.brand}>
-          Franck Chevalier
+          <span className={styles.brandName}>Franck Chevalier</span>
         </Link>
 
-        {!isAuthenticated ? (
-          <Link to="/login" className={styles.accountLink}>
-            Mon Compte
-          </Link>
-        ) : (
-          <div className={styles.connectedActions}>
+        <div className={styles.connectedActions}>
+          {!isAuthenticated ? (
+            <>
+              <Link to="/login" className={styles.subtleLink}>
+                Connexion
+              </Link>
+              <Link to="/signup" className={styles.accountLink}>
+                Commencer
+              </Link>
+            </>
+          ) : (
             <Link to={DASHBOARD_HOME_PATH} className={styles.accountLink}>
               Mon Espace
             </Link>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </header>
   );

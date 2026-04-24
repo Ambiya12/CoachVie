@@ -4,9 +4,9 @@ import { toDateKey, formatMiniDayLabel, formatDateChipLabel, formatSlotWindowLab
 
 const cardStyle = {
   background: 'var(--dash-card)',
-  border: '1px solid #f3f4f6',
-  borderRadius: '16px',
-  boxShadow: 'var(--dash-card-shadow)',
+  border: '1px solid var(--dash-border)',
+  borderRadius: '24px',
+  boxShadow: 'none',
   padding: '2.5rem',
   display: 'flex',
   flexDirection: 'column',

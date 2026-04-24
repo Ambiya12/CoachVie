@@ -2,6 +2,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background:
+    radial-gradient(circle at 12% 0%, #fefefe 0%, transparent 24%),
+    radial-gradient(circle at 88% 14%, #f9f9fa 0%, transparent 20%),
+    linear-gradient(180deg, #f4f4f5 0%, #ffffff 100%);
 }
 
 .routes {

@@ -5,34 +5,36 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-brand-bg: #FFFFFF;
-  --color-brand-surface: #F5F5F5;
-  --color-brand-primary: #1A1A1A;
-  --color-brand-secondary: #555555;
-  --color-brand-border: #E5E5E5;
-  --color-brand-accent: #B18A47;
-  --color-brand-inverted-bg: #1A1A1A;
+  --color-brand-bg: #FBFBFA;
+  --color-brand-surface: #FFFFFF;
+  --color-brand-primary: #111111;
+  --color-brand-secondary: #2F3437;
+  --color-brand-border: #EAEAEA;
+  --color-brand-accent: #111111;
+  --color-brand-inverted-bg: #111111;
   --color-brand-inverted-text: #FFFFFF;
-  --color-brand-inverted-secondary: #A0A0A0;
-  --color-brand-inverted-border: #3B362E;
-  --color-brand-muted: #696969;
-  --color-brand-muted-soft: #8B8B8B;
+  --color-brand-inverted-secondary: #787774;
+  --color-brand-inverted-border: #2F3437;
+  --color-brand-muted: #787774;
+  --color-brand-muted-soft: #9B9A97;
 
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", sans-serif;
+  --font-sans: "Geist Variable", "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Playfair Display", serif;
 }
 
 :root {
-  /* Global visual scale: Massive headers, proportional body text */
-  --ui-scale: 1;
-  --font-brand-heading: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", sans-serif;
-  --font-brand-body: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", sans-serif;
+  --font-brand-heading: "Geist Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-brand-body: "Geist Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-brand-serif: "Playfair Display", serif;
+  --font-brand-mono: "SF Mono", "JetBrains Mono", "Geist Mono", monospace;
 
-  --font-display-xl: calc(4.5rem * var(--ui-scale));
-  --font-display-lg: calc(3.5rem * var(--ui-scale));
-  --font-display-md: calc(2.5rem * var(--ui-scale));
-  --font-heading-xl: calc(2rem * var(--ui-scale));
-  --font-heading-lg: calc(1.5rem * var(--ui-scale));
+  --ui-scale: 1;
+
+  --font-display-xl: calc(4rem * var(--ui-scale));
+  --font-display-lg: calc(3rem * var(--ui-scale));
+  --font-display-md: calc(2.25rem * var(--ui-scale));
+  --font-heading-xl: calc(1.875rem * var(--ui-scale));
+  --font-heading-lg: calc(1.4rem * var(--ui-scale));
   --font-heading-md: calc(1.25rem * var(--ui-scale));
   --font-heading-sm: calc(1rem * var(--ui-scale));
 
@@ -78,9 +80,9 @@
   --control-min-hit: 48px;
 
   --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-card: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-card: 12px;
   --radius-pill: 9999px;
 
   --color-system-bg: var(--color-brand-inverted-bg);
@@ -95,8 +97,8 @@
   --dash-page: var(--color-surface-page);
   --dash-bg: color-mix(in oklch, var(--color-surface-card) 84%, white);
   --dash-card: var(--color-surface-card);
-  --dash-card-shadow: 0 14px 28px rgba(10, 10, 10, 0.08);
-  --dash-card-shadow-strong: 0 20px 38px rgba(10, 10, 10, 0.12);
+  --dash-card-shadow: none;
+  --dash-card-shadow-strong: none;
   --dash-accent: var(--color-brand-accent);
   --dash-accent-muted: color-mix(in oklch, var(--dash-accent) 16%, white);
   --dash-border: var(--color-border-default);
@@ -112,19 +114,19 @@
 
   --color-surface-page: var(--color-brand-bg);
   --color-surface-card: var(--color-brand-surface);
-  --color-surface-elevated: #FBFBFB;
+  --color-surface-elevated: #F9F9F8;
   --color-surface-inverted: var(--color-brand-inverted-bg);
   --color-surface-inverted-elevated: #171717;
 
   --color-text-primary: var(--color-brand-primary);
-  --color-text-secondary: #2D2D2D;
+  --color-text-secondary: #2F3437;
   --color-text-muted: var(--color-brand-muted);
   --color-text-inverted: var(--color-brand-inverted-text);
   --color-text-inverted-muted: #D1D1D1;
   --color-text-inverted-subtle: var(--color-brand-inverted-secondary);
 
   --color-border-default: var(--color-brand-border);
-  --color-border-strong: #D9D9D9;
+  --color-border-strong: #EAEAEA;
   --color-border-inverted: #E6E6E6;
   --color-border-inverted-soft: var(--color-brand-inverted-border);
 
@@ -160,12 +162,12 @@
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.72 0.075 72); /* brand-accent: #C2A878 warm gold */
+  --accent: oklch(0.96 0.01 95);
   --accent-foreground: oklch(0.145 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0); /* brand-border: #E5E5E5 */
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.72 0.075 72); /* brand-accent: focus ring matches gold */
+  --ring: oklch(0.2 0 0);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -214,6 +216,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 h1, h2, h3, h4, h5, h6 {
   letter-spacing: var(--tracking-tight);
   font-weight: 700;
@@ -221,7 +227,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 button {
-  border-radius: var(--radius-pill);
+  border-radius: 6px;
 }
 
 :where(a, button, input, select, textarea, summary, [role="menuitem"]):focus-visible {
@@ -321,24 +327,24 @@ button {
 /* ─── Dashboard theme (Twisty / Bento aesthetic) ──────────────── */
 /* Scoped to .dashboard-theme — never bleeds into landing / auth pages */
 .dashboard-theme {
-  --dash-page:         #F9F9F7;
-  --dash-bg:           #F2F2F0;
+  --dash-page:         #F9F9F9;
+  --dash-bg:           #F2F2F2;
   --dash-card:         #FFFFFF;
-  --dash-card-shadow:  0 4px 20px rgba(0, 0, 0, 0.03);
-  --dash-card-shadow-strong: 0 12px 30px rgba(0, 0, 0, 0.05);
-  --dash-accent:       #1A1A1A;
-  --dash-accent-muted: #EBEBE9;
-  --dash-border:       #E8E8E6;
-  --dash-border-strong: #D5D5D2;
-  --dash-text-1:       #1A1A1A;
-  --dash-text-2:       #4E4E4E;
-  --dash-text-3:       #8A8A8A;
-  --dash-green:        #1A1A1A;
-  --dash-gold:         #1A1A1A;
+  --dash-card-shadow:  none;
+  --dash-card-shadow-strong: none;
+  --dash-accent:       #000000;
+  --dash-accent-muted: #E0E0E0;
+  --dash-border:       #E0E0E0;
+  --dash-border-strong: #CCCCCC;
+  --dash-text-1:       #000000;
+  --dash-text-2:       #333333;
+  --dash-text-3:       #777777;
+  --dash-green:        #000000;
+  --dash-gold:         #000000;
   --dash-heading-font: var(--font-brand-heading);
   --dash-body-font:    var(--font-brand-body);
-  --dash-heading-weight: 400;
-  --dash-card-radius:  1rem;
+  --dash-heading-weight: 600;
+  --dash-card-radius:  24px;
   --dash-grid-gap:     clamp(1.25rem, 2vw, 2.5rem);
   color: var(--dash-text-1);
   font-family: var(--dash-body-font);
@@ -349,4 +355,7 @@ button {
   font-weight: var(--dash-heading-weight);
   letter-spacing: var(--tracking-tight);
   line-height: 0.98;
+}
+@layer utilities {
+  .grayscale-img { filter: grayscale(100%) contrast(1.1); }
 }

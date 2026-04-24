@@ -4,9 +4,9 @@ import { formatDateLabel, formatTimeLabel } from '@/lib/consultationUtils';
 
 const cardStyle = {
   background: 'var(--dash-card)',
-  borderRadius: '16px',
+  borderRadius: '24px',
   border: '1px solid var(--dash-border)',
-  boxShadow: 'var(--dash-card-shadow)',
+  boxShadow: 'none',
   padding: '2.5rem',
   display: 'flex',
   flexDirection: 'column',
