@@ -9,6 +9,7 @@ export default function Header() {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
   const isDashboardShell = isAuthenticated && isDashboardShellPath(location.pathname);
+  const isHomePage = location.pathname === '/';
 
   if (isDashboardShell) {
     return (
@@ -31,8 +32,8 @@ export default function Header() {
   }
 
   return (
-    <header className={styles.header} data-shell="marketing">
-      <div className={styles.inner}>
+    <header className={styles.header} data-shell="marketing" data-home={isHomePage ? 'true' : 'false'}>
+      <div className={`${styles.inner} ${styles.marketingInner}`}>
         <Link to="/" className={styles.brand}>
           <span className={styles.brandName}>Franck Chevalier</span>
         </Link>
@@ -43,13 +44,13 @@ export default function Header() {
               <Link to="/login" className={styles.subtleLink}>
                 Connexion
               </Link>
-              <Link to="/signup" className={styles.accountLink}>
-                Commencer
+              <Link to="/signup" className={styles.contactLink}>
+                Mon compte
               </Link>
             </>
           ) : (
-            <Link to={DASHBOARD_HOME_PATH} className={styles.accountLink}>
-              Mon Espace
+            <Link to={DASHBOARD_HOME_PATH} className={styles.contactLink}>
+              Mon compte
             </Link>
           )}
         </div>

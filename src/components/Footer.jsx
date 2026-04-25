@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from '../styles/SharedFooter.module.css';
 
 function IconInstagram() {
@@ -32,8 +33,11 @@ function IconTiktok() {
 }
 
 export default function Footer() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} data-home={isHomePage ? 'true' : 'false'}>
       <div className={styles.inner}>
         <div className={styles.topRow}>
           <div className={styles.brandBlock}>

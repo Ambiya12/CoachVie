@@ -1,85 +1,84 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import franckPhoto from '../assets/Franck.jpg';
 import styles from './HomeOverrides.module.css';
 
-const featureCards = [
+const audiencePoints = [
+  'Vous vous sentez bloque malgre votre envie d avancer.',
+  'Vous manquez d energie, de clarte ou de constance dans votre quotidien.',
+  'Vous ressentez le besoin de reprendre votre vie en main avec un cadre concret.',
+  'Vous cherchez un accompagnement a la fois humain, structure et profond.',
+];
+
+const missionCards = [
   {
-    id: 'cadre',
-    tone: 'graphite',
-    title: 'Cadre initial',
-    text: 'Un point de depart clair pour lire votre contexte, vos contraintes et ce qui doit vraiment bouger.',
-    variant: 'featureCard',
+    index: '01',
+    title: 'Appel decouverte',
+    text: 'Un premier echange pour comprendre votre situation, vos besoins et verifier si l accompagnement est juste pour vous.',
   },
   {
-    id: 'lecture',
-    tone: 'graphite',
-    title: 'Lecture simple',
-    text: 'Les priorites restent visibles, meme quand les semaines se chargent ou changent de rythme.',
-    variant: 'featureCard',
+    index: '02',
+    title: 'Coaching individuel',
+    text: 'Un suivi personnel pour remettre de la clarte dans votre quotidien et avancer avec une structure simple.',
   },
   {
-    id: 'suivi',
-    tone: 'graphite',
-    title: 'Suivi direct',
-    text: 'Chaque ajustement reste lie a une action concrete, sans couche de complexite en plus.',
-    variant: 'featureCard',
+    index: '03',
+    title: 'Stage immersif',
+    text: 'Un temps fort pour sortir du rythme habituel, prendre du recul et enclencher un mouvement plus net.',
   },
   {
-    id: 'tenue',
-    tone: 'graphite',
-    title: 'Tenue dans le temps',
-    text: 'Le coaching reste gratuit, disponible sur 6 ou 12 mois, avec un cadre fait pour durer.',
-    variant: 'featureCard',
+    index: '04',
+    title: 'Formation',
+    text: 'Des reperes concrets pour comprendre les mecanismes de changement et les integrer dans la duree.',
   },
 ];
 
-const principles = [
+const methodologyCards = [
   {
-    title: 'Observer sans dramatiser',
-    text: 'Vous voyez ce qui fatigue, ce qui disperse et ce qui tient vraiment.',
+    index: '01',
+    title: 'Energie et alimentation',
+    text: 'Retrouver une base physique stable grace a une alimentation plus juste et a des habitudes durables.',
   },
   {
-    title: 'Choisir un seul axe a la fois',
-    text: 'Chaque semaine garde une priorite, pour avancer proprement sans bruit visuel ni mental.',
+    index: '02',
+    title: 'Liberation de l esprit',
+    text: 'Identifier les schemas limitants pour avancer avec plus de lucidite, de calme et de constance.',
   },
   {
-    title: 'Ajuster sans recommencer',
-    text: 'Le cadre s adapte a votre contexte au lieu de casser des qu une semaine devient dense.',
-  },
-];
-
-const faqs = [
-  {
-    question: 'A qui s adresse cet accompagnement ?',
-    answer:
-      'A des personnes qui veulent remettre de l ordre dans leur energie, leur corps et leur rythme de travail sans entrer dans un systeme trop demonstratif.',
-  },
-  {
-    question: 'Que se passe-t-il pendant le premier echange ?',
-    answer:
-      'Vous exposez votre contexte, vos blocages actuels et ce que vous essayez deja. Le but est de savoir si un diagnostic court suffit ou si un suivi continu est plus juste.',
-  },
-  {
-    question: 'Est-ce que le cadre est tres strict ?',
-    answer:
-      'Non. Il est net, mais il reste humain. La structure sert a rendre vos decisions plus simples, pas a vous enfermer.',
+    index: '03',
+    title: 'Activation du corps',
+    text: 'Transformer l intention en action avec une progression simple, concrete et mesurable.',
   },
 ];
 
-const testimonials = [
+const steps = [
   {
-    name: 'Nora Bensaid',
-    role: 'Fondatrice, studio de creation',
-    quote:
-      'J avais surtout besoin d une structure plus calme. Le travail a remis de l ordre dans mes semaines, pas seulement dans mon agenda.',
+    index: '01',
+    title: 'Premier echange',
+    text: 'Nous faisons le point sur votre situation, vos blocages et vos objectifs.',
   },
   {
-    name: 'Sarah El Atri',
-    role: 'Consultante independante',
-    quote:
-      'Le changement n a pas ete spectaculaire. Il a surtout ete tenable, et c est la premiere fois que ca dure.',
+    index: '02',
+    title: 'Clarification',
+    text: 'Nous identifions ensemble les leviers prioritaires pour avancer.',
   },
+  {
+    index: '03',
+    title: 'Accompagnement personnalise',
+    text: 'Vous avancez avec un cadre clair, adapte a votre rythme.',
+  },
+  {
+    index: '04',
+    title: 'Transformation durable',
+    text: 'Vous installez de nouveaux reperes dans votre corps, votre esprit et votre quotidien.',
+  },
+];
+
+const reassurancePoints = [
+  'Accompagnement individuel',
+  'Espace confidentiel',
+  'Approche structuree',
+  'Progression a votre rythme',
 ];
 
 function ArrowIcon() {
@@ -91,51 +90,8 @@ function ArrowIcon() {
   );
 }
 
-function WindowChrome() {
-  return (
-    <div className={styles.windowChrome} aria-hidden="true">
-      <span />
-      <span />
-      <span />
-    </div>
-  );
-}
-
-function QuoteSwitcher() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeQuote = testimonials[activeIndex];
-
-  return (
-    <section className={styles.quotePanel} data-reveal>
-      <div className={styles.sectionHeaderCompact}>
-        <p className={styles.sectionEyebrow}>Retour d experience</p>
-        <h2 className={styles.sectionTitleSmall}>Un cadre plus calme donne souvent de meilleurs resultats.</h2>
-      </div>
-
-      <blockquote className={styles.quoteCard}>
-        <p className={styles.quoteText}>&ldquo;{activeQuote.quote}&rdquo;</p>
-        <footer className={styles.quoteFooter}>
-          <div>
-            <div className={styles.quoteName}>{activeQuote.name}</div>
-            <div className={styles.quoteRole}>{activeQuote.role}</div>
-          </div>
-
-          <div className={styles.quoteTabs}>
-            {testimonials.map((item, index) => (
-              <button
-                key={item.name}
-                type="button"
-                className={`${styles.quoteTab} ${index === activeIndex ? styles.quoteTabActive : ''}`.trim()}
-                onClick={() => setActiveIndex(index)}
-              >
-                {String(index + 1).padStart(2, '0')}
-              </button>
-            ))}
-          </div>
-        </footer>
-      </blockquote>
-    </section>
-  );
+function SectionEyebrow({ children }) {
+  return <p className={styles.sectionEyebrow}>{children}</p>;
 }
 
 export default function Home() {
@@ -156,9 +112,9 @@ export default function Home() {
         });
       },
       {
-        threshold: 0.16,
-        rootMargin: '0px 0px -8% 0px',
-      },
+        threshold: 0.12,
+        rootMargin: '0px 0px -6% 0px',
+      }
     );
 
     elements.forEach((element) => observer.observe(element));
@@ -168,128 +124,136 @@ export default function Home() {
 
   return (
     <main className={styles.page}>
-      <div className={styles.ambientLayer} aria-hidden="true" />
-
-      <section className={styles.hero}>
+      <section className={styles.heroSection}>
         <div className={styles.shell}>
           <div className={`${styles.heroLayout} ${styles.reveal}`} data-reveal>
-            <div className={styles.heroCopy}>
-              <h1 className={styles.heroTitle}>Le meme calme que votre dashboard, des la premiere page.</h1>
+            <div className={styles.heroContent}>
+              <SectionEyebrow>Accompagnement individuel</SectionEyebrow>
+              <h1 className={styles.heroTitle}>
+                Reprenez votre vie en main, avec <span className={styles.accent}>clarte</span>, structure et profondeur.
+              </h1>
               <p className={styles.heroLead}>
-                Un accompagnement structure comme un espace de travail propre: lisible, direct, et pense pour avancer sans friction inutile.
+                Un accompagnement individuel pour sortir des blocages, retrouver votre elan et construire un changement durable dans votre quotidien.
               </p>
 
               <div className={styles.heroActions}>
-                <Link to="/signup" className={styles.primaryAction}>
-                  Commencer
+                <Link to="/signup" className={styles.primaryButton}>
+                  Reserver un appel decouverte
                   <ArrowIcon />
                 </Link>
               </div>
             </div>
 
-            <aside className={styles.heroWorkbench}>
-              <WindowChrome />
-              <div className={styles.workbenchBody}>
-                <figure className={styles.heroPortrait}>
-                  <img src={franckPhoto} alt="Franck Chevalier" className={styles.heroPortraitImage} />
-                  <figcaption className={styles.heroPortraitCaption}>
-                    <span className={styles.heroPortraitName}>Franck Chevalier</span>
-                    <span className={styles.heroPortraitRole}>Coaching individuel. Structure claire. Rythme durable.</span>
-                    <p className={styles.heroPortraitBio}>
-                      Il accompagne des routines denses avec une methode sobre, concrete et assez stable pour tenir dans la vraie vie.
-                    </p>
-                  </figcaption>
-                </figure>
-
-                <div className={styles.workbenchSection}>
-                  <p className={styles.workbenchLabel}>Cadre de travail</p>
-                  <h2 className={styles.workbenchTitle}>Une structure lisible pour des semaines chargees.</h2>
-                </div>
-
-                <div className={styles.workbenchGrid}>
-                  <article className={styles.workbenchCard}>
-                    <p className={styles.cardMeta}>Rythme</p>
-                    <p className={styles.cardValue}>1 priorite par semaine</p>
-                    <p className={styles.cardCopy}>On retire le surplus avant de chercher plus d intensite.</p>
-                  </article>
-
-                  <article className={styles.workbenchCard}>
-                    <p className={styles.cardMeta}>Points de controle</p>
-                    <ul className={styles.workbenchList}>
-                      <li>energie</li>
-                      <li>alimentation</li>
-                      <li>mouvement</li>
-                    </ul>
-                  </article>
-                </div>
-
-                <div className={styles.shortcutRow}>
-                  <span className={styles.shortcutLabel}>Repere quotidien</span>
-                  <div className={styles.kbdRow}>
-                    <kbd>R</kbd>
-                    <kbd>E</kbd>
-                    <kbd>V</kbd>
-                    <span>respirer, evaluer, valider</span>
-                  </div>
-                </div>
+            <aside className={styles.heroProfileCard}>
+              <div className={styles.heroImageFrame}>
+                <img src={franckPhoto} alt="Franck Chevalier" className={styles.heroImage} />
+              </div>
+              <div className={styles.heroBioBlock}>
+                <p className={styles.profileName}>Franck Chevalier</p>
+                <p className={styles.profileText}>
+                  Franck Chevalier accompagne les personnes qui veulent retrouver de l energie, apaiser leur esprit et remettre du mouvement dans leur vie. Son approche repose sur trois dimensions complementaires : l alimentation, la liberation de l esprit et l activation du corps.
+                </p>
               </div>
             </aside>
           </div>
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section className={styles.section} id="mission">
         <div className={styles.shell}>
-          <div className={`${styles.sectionHeader} ${styles.reveal}`} data-reveal>
-            <p className={styles.sectionEyebrow}>Method</p>
-            <h2 className={styles.sectionTitle}>Une methode compacte, sobre et facile a tenir.</h2>
-            <p className={styles.sectionLead}>
-              Quatre blocs suffisent pour expliquer le fonctionnement: un cadre net, une lecture simple, un suivi direct, puis une tenue dans le temps.
-            </p>
-          </div>
+          <div className={`${styles.sectionStack} ${styles.reveal}`} data-reveal>
+            <div className={styles.sectionHeadingRow}>
+              <div className={styles.sectionHeadingText}>
+                <SectionEyebrow>Pour qui</SectionEyebrow>
+                <h2 className={styles.sectionTitle}>Cet accompagnement est fait pour vous si...</h2>
+              </div>
+            </div>
 
-          <div className={styles.bentoGrid}>
-            {featureCards.map((card, index) => (
-              <article
-                key={card.id}
-                className={`${styles.bentoCard} ${styles[card.variant]} ${styles.reveal}`.trim()}
-                data-reveal
-                style={{ '--index': index }}
-              >
-                <span className={`${styles.tag} ${styles[`tag${card.tone.charAt(0).toUpperCase()}${card.tone.slice(1)}`]}`}>
-                  {card.title}
-                </span>
-                <h3 className={styles.cardTitle}>{card.title}</h3>
-                <p className={styles.cardText}>{card.text}</p>
-              </article>
-            ))}
+            <div className={styles.audienceList}>
+              {audiencePoints.map((point, index) => (
+                <article key={point} className={styles.audienceRow}>
+                  <span className={styles.listIndex}>{String(index + 1).padStart(2, '0')}</span>
+                  <p className={styles.listText}>{point}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.processSection}`}>
+      <section className={styles.section} id="deroulement">
         <div className={styles.shell}>
-          <div className={styles.processLayout}>
-            <div className={`${styles.processIntro} ${styles.reveal}`} data-reveal>
-              <p className={styles.sectionEyebrow}>Methode</p>
-              <h2 className={styles.sectionTitle}>Un systeme simple a lire, puis facile a tenir.</h2>
+          <div className={`${styles.sectionStack} ${styles.reveal}`} data-reveal>
+            <div className={styles.sectionHeadingRow}>
+              <div className={styles.sectionHeadingText}>
+                <SectionEyebrow>Mission</SectionEyebrow>
+                <h2 className={styles.sectionTitle}>
+                  Derriere chaque envie de changement, il y a souvent un frein interieur a comprendre et a depasser.
+                </h2>
+              </div>
               <p className={styles.sectionLead}>
-                Chaque section garde une densite proche du dashboard: moins d air perdu, des blocs mieux relies, et une lecture qui reste stable du debut a la fin.
+                L objectif n est pas de vous brusquer, mais de vous aider a retrouver un equilibre solide, un esprit plus clair et une capacite d action plus stable.
               </p>
             </div>
 
-            <div className={styles.principlesList}>
-              {principles.map((item, index) => (
-                <article
-                  key={item.title}
-                  className={`${styles.principleItem} ${styles.reveal}`.trim()}
-                  data-reveal
-                  style={{ '--index': index }}
-                >
-                  <div className={styles.principleNumber}>{String(index + 1).padStart(2, '0')}</div>
-                  <div>
-                    <h3 className={styles.principleTitle}>{item.title}</h3>
-                    <p className={styles.principleText}>{item.text}</p>
+            <div className={styles.missionGrid}>
+              {missionCards.map((card) => (
+                <article key={card.title} className={styles.missionCard}>
+                  <span className={styles.cardMeta}>{card.index}</span>
+                  <h3 className={styles.cardTitle}>{card.title}</h3>
+                  <p className={styles.cardText}>{card.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.section} id="methodologie">
+        <div className={styles.shell}>
+          <div className={`${styles.methodSection} ${styles.reveal}`} data-reveal>
+            <div className={styles.methodIntro}>
+              <SectionEyebrow>Methodologie</SectionEyebrow>
+              <h2 className={styles.methodTitleDisplay}>
+                Trois dimensions
+                <br />
+                pour une transformation <span className={styles.methodAccent}>durable</span>
+              </h2>
+              <p className={styles.methodLead}>
+                Une methode simple, profonde et concrete pour retrouver votre stabilite, votre clarte et votre capacite d action.
+              </p>
+            </div>
+
+            <div className={styles.methodGrid}>
+              {methodologyCards.map((card) => (
+                <article key={card.title} className={styles.methodCard}>
+                  <span className={styles.cardMeta}>{card.index}</span>
+                  <h3 className={styles.methodCardTitle}>{card.title}</h3>
+                  <p className={styles.methodText}>{card.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <div className={styles.shell}>
+          <div className={`${styles.sectionStack} ${styles.reveal}`} data-reveal>
+            <div className={styles.sectionHeadingRow}>
+              <div className={styles.sectionHeadingText}>
+                <SectionEyebrow>Deroulement</SectionEyebrow>
+                <h2 className={styles.sectionTitle}>Comment se deroule l accompagnement ?</h2>
+              </div>
+            </div>
+
+            <div className={styles.stepsList}>
+              {steps.map((step) => (
+                <article key={step.title} className={styles.stepRow}>
+                  <span className={styles.listIndex}>{step.index}</span>
+                  <div className={styles.stepContent}>
+                    <h3 className={styles.stepTitle}>{step.title}</h3>
+                    <p className={styles.cardText}>{step.text}</p>
                   </div>
                 </article>
               ))}
@@ -300,69 +264,43 @@ export default function Home() {
 
       <section className={styles.section}>
         <div className={styles.shell}>
-          <div className={styles.editorialGrid}>
-            <figure className={`${styles.imagePanel} ${styles.reveal}`.trim()} data-reveal>
-              <img src={franckPhoto} alt="Franck Chevalier pendant une seance de coaching" className={styles.editorialImage} />
-              <figcaption className={styles.imageCaption}>
-                L accompagnement cherche une forme de stabilite, pas une demonstration visuelle.
-              </figcaption>
-            </figure>
+          <div className={`${styles.reassuranceSection} ${styles.reveal}`} data-reveal>
+            <div className={styles.sectionHeadingText}>
+              <SectionEyebrow>Cadre</SectionEyebrow>
+              <h2 className={styles.sectionTitle}>Un cadre clair, humain et sans jugement.</h2>
+            </div>
 
-            <QuoteSwitcher />
-          </div>
-        </div>
-      </section>
-
-      <section id="formats" className={styles.section}>
-        <div className={styles.shell}>
-          <div className={`${styles.offerPanel} ${styles.reveal}`} data-reveal>
-            <div className={styles.sectionHeaderCompact}>
-                <p className={styles.sectionEyebrow}>Formats</p>
-                <h2 className={styles.sectionTitleSmall}>Deux points d entree nets, dans la meme logique produit.</h2>
-              </div>
-
-            <div className={styles.offerGrid}>
-              <article className={styles.offerCard}>
-                <p className={styles.cardMeta}>Format libre</p>
-                <h3 className={styles.offerTitle}>Accompagnement 6 mois</h3>
-                <p className={styles.offerText}>Un cadre gratuit pour installer des bases nettes, retrouver du rythme et stabiliser les habitudes essentielles.</p>
-                <Link to="/signup" className={styles.inlineLink}>
-                  Rejoindre
-                  <ArrowIcon />
-                </Link>
-              </article>
-
-              <article className={styles.offerCard}>
-                <p className={styles.cardMeta}>Format libre</p>
-                <h3 className={styles.offerTitle}>Accompagnement 12 mois</h3>
-                <p className={styles.offerText}>Une version gratuite plus longue pour garder un cap stable, affiner les ajustements et tenir la progression dans le temps.</p>
-                <Link to="/signup" className={styles.inlineLink}>
-                  Commencer
-                  <ArrowIcon />
-                </Link>
-              </article>
+            <div className={styles.reassuranceGrid}>
+              {reassurancePoints.map((item, index) => (
+                <article key={item} className={styles.reassuranceCard}>
+                  <span className={styles.cardMeta}>{String(index + 1).padStart(2, '0')}</span>
+                  <p className={styles.reassuranceText}>{item}</p>
+                </article>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.faqSection}`}>
-        <div className={styles.shellNarrow}>
-          <div className={`${styles.sectionHeaderCompact} ${styles.reveal}`} data-reveal>
-            <p className={styles.sectionEyebrow}>Questions</p>
-            <h2 className={styles.sectionTitleSmall}>Les points a clarifier avant de prendre rendez-vous.</h2>
-          </div>
+      <section className={styles.ctaSection}>
+        <div className={styles.shell}>
+          <div className={`${styles.ctaPanel} ${styles.reveal}`} data-reveal>
+            <div className={styles.ctaContent}>
+              <SectionEyebrow>Premier echange</SectionEyebrow>
+              <h2 className={styles.ctaTitle}>
+                Vous n avez pas besoin d en faire plus. Vous avez besoin d avancer autrement.
+              </h2>
+              <p className={styles.ctaLead}>
+                Si vous sentez qu il est temps de retrouver votre direction, votre energie et votre stabilite, commencons par un premier echange.
+              </p>
+            </div>
 
-          <div className={styles.faqList}>
-            {faqs.map((item, index) => (
-              <details key={item.question} className={`${styles.faqItem} ${styles.reveal}`.trim()} data-reveal style={{ '--index': index }}>
-                <summary className={styles.faqSummary}>
-                  <span>{item.question}</span>
-                  <span className={styles.faqToggle} aria-hidden="true" />
-                </summary>
-                <p className={styles.faqAnswer}>{item.answer}</p>
-              </details>
-            ))}
+            <div className={styles.ctaActions}>
+              <Link to="/signup" className={`${styles.primaryButton} ${styles.primaryButtonDark}`}>
+                Prendre rendez-vous
+                <ArrowIcon />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  padding-top: 0;
+  padding: 0.8rem 0 0;
   background: transparent;
 }
 
@@ -25,19 +25,32 @@
 }
 
 .header[data-shell='dashboard'] .inner {
-  width: min(1380px, calc(100% - 2rem));
-  margin-top: 0.8rem;
+  width: min(1240px, calc(100% - 1.35rem));
+  margin-top: 0;
 }
 
 .header[data-shell='marketing'] .inner {
   width: min(1240px, calc(100% - 1.35rem));
-  margin-top: 0.8rem;
-  min-height: 58px;
-  padding: 0.45rem 0.5rem 0.45rem 1rem;
-  border-radius: 14px;
-  border-color: rgba(26, 26, 26, 0.08);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 247, 244, 0.98) 100%);
-  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  margin-top: 0;
+  min-height: 64px;
+  padding: 0.45rem 0.7rem 0.45rem 0.95rem;
+  border-radius: 999px;
+  border-color: rgba(30, 30, 30, 0.08);
+  background: rgba(242, 242, 242, 0.9);
+  box-shadow: 0 14px 36px rgba(17, 17, 17, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+}
+
+.header[data-shell='marketing'][data-home='true'] .inner {
+  border: 1px solid rgba(30, 30, 30, 0.08);
+}
+
+.marketingInner {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: var(--space-md);
+  justify-content: space-between;
 }
 
 .header[data-shell='marketing'] .inner::after {
@@ -54,17 +67,36 @@
   color: #141414;
 }
 
+.header[data-shell='marketing'][data-home='true'] .brand,
+.header[data-shell='marketing'][data-home='true'] .brandName {
+  color: #141414;
+}
+
+.header[data-shell='marketing'] .brand {
+  min-height: 44px;
+}
+
 .header[data-shell='marketing'] .subtleLink {
-  min-height: 40px;
-  padding-inline: 0.85rem;
-  border-radius: 10px;
-  color: rgba(20, 20, 20, 0.68);
+  min-height: 34px;
+  padding-inline: 0.65rem;
+  border-radius: 999px;
+  color: #1e1e1e;
+}
+
+.header[data-shell='marketing'][data-home='true'] .subtleLink {
+  color: #1e1e1e;
 }
 
 .header[data-shell='marketing'] .subtleLink:hover,
 .header[data-shell='marketing'] .subtleLink:focus-visible {
-  color: #111111;
-  background: rgba(17, 17, 17, 0.04);
+  color: #b6b5b5;
+  background: transparent;
+}
+
+.header[data-shell='marketing'][data-home='true'] .subtleLink:hover,
+.header[data-shell='marketing'][data-home='true'] .subtleLink:focus-visible {
+  color: #b6b5b5;
+  background: transparent;
 }
 
 .header[data-shell='marketing'] .accountLink {
@@ -77,6 +109,23 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+.header[data-shell='marketing'][data-home='true'] .accountLink {
+  min-height: 42px;
+  padding-inline: 0.95rem;
+  border-color: #111111;
+  border-radius: 10px;
+  background: #111111;
+  color: #f7f6f3;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.header[data-shell='marketing'][data-home='true'] .brandName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
 .header[data-shell='marketing'] .accountLink:hover,
 .header[data-shell='marketing'] .accountLink:focus-visible {
   background: #1d1d1d;
@@ -84,18 +133,52 @@
   color: #ffffff;
 }
 
+.header[data-shell='marketing'][data-home='true'] .accountLink:hover,
+.header[data-shell='marketing'][data-home='true'] .accountLink:focus-visible {
+  background: #333333;
+  border-color: #333333;
+  color: #ffffff;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0.35rem 0.82rem;
+  border: 1px solid #1e1e1e;
+  border-radius: 999px;
+  background: transparent;
+  color: #1e1e1e;
+  text-decoration: none;
+  font-family: "Satoshi", var(--font-brand-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.contactLink:hover,
+.contactLink:focus-visible {
+  background: #1e1e1e;
+  color: #f2f2f2;
+  outline: none;
+  transform: translateY(-1px);
+}
+
 .dashboardInner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  gap: var(--space-md);
-  min-height: var(--header-height);
-  padding: 0.5rem 1rem;
-  border-radius: 22px;
-  border: 1px solid var(--dash-border);
-  background: color-mix(in oklch, var(--dash-card) 92%, white);
-  box-shadow: none;
-  backdrop-filter: blur(14px);
+  gap: 0.7rem;
+  min-height: 64px;
+  padding: 0.45rem 0.7rem 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(30, 30, 30, 0.08);
+  background: rgba(242, 242, 242, 0.9);
+  box-shadow: 0 14px 36px rgba(17, 17, 17, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
 }
 
 .dashboardBrand {
@@ -152,46 +235,28 @@
   letter-spacing: -0.015em;
 }
 
-.marketingNav {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  padding: 0.25rem;
-  border-radius: 999px;
-  background: #f6f5f2;
-  border: 1px solid #eaeaea;
-}
-
-.navLink,
 .subtleLink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
-  padding: 0.5rem 0.9rem;
-  border-radius: 12px;
-  color: #787774;
+  min-height: 34px;
+  padding: 0.35rem 0.68rem;
+  border-radius: 999px;
+  color: #1e1e1e;
   text-decoration: none;
-  font-size: 0.76rem;
+  font-family: "Satoshi", var(--font-brand-body);
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  transition: color 120ms ease, background-color 180ms ease, transform 180ms ease;
 }
 
-.navLink:hover,
-.navLink:focus-visible,
 .subtleLink:hover,
 .subtleLink:focus-visible {
-  color: #111111;
-  background: #ffffff;
+  color: #b6b5b5;
+  background: transparent;
   outline: none;
-}
-
-.navLinkActive {
-  color: #111111;
-  background: #ffffff;
 }
 
 .accountLink {
@@ -224,7 +289,7 @@
 .connectedActions {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.2rem;
 }
 
 .dashboardCenterNav {
@@ -243,21 +308,22 @@
   }
 
   .header[data-shell='dashboard'] .inner {
-    width: min(1380px, calc(100% - 1.5rem));
-    margin-top: 0.7rem;
+    width: min(1280px, calc(100% - 1rem));
+    margin-top: 0;
   }
 
   .header[data-shell='marketing'] .inner {
     width: min(1280px, calc(100% - 1rem));
-    margin-top: 0.7rem;
+    margin-top: 0;
+  }
+
+  .header[data-shell='marketing'][data-home='true'] .inner {
+    width: min(1280px, calc(100% - 1rem));
+    margin-top: 0;
   }
 
   .dashboardInner {
     gap: var(--space-sm);
-  }
-
-  .marketingNav {
-    display: none;
   }
 }
 
@@ -268,13 +334,20 @@
   }
 
   .header[data-shell='dashboard'] .inner {
-    width: min(1380px, calc(100% - 1rem));
-    margin-top: 0.6rem;
+    width: min(1280px, calc(100% - 0.8rem));
+    margin-top: 0;
   }
 
   .header[data-shell='marketing'] .inner {
     width: min(1280px, calc(100% - 0.8rem));
-    margin-top: 0.6rem;
+    margin-top: 0;
+  }
+
+  .header[data-shell='marketing'][data-home='true'] .inner {
+    width: min(1280px, calc(100% - 0.8rem));
+    min-height: 58px;
+    margin-top: 0;
+    padding-inline: 0.7rem;
   }
 
   .dashboardInner {
@@ -287,15 +360,25 @@
     grid-column: 1 / -1;
     justify-content: flex-start;
   }
+
+  .header[data-shell='marketing'] .connectedActions {
+    justify-self: end;
+  }
 }
 
 @media (max-width: 640px) {
   .header[data-shell='marketing'] .inner {
-    margin-top: 0.5rem;
+    margin-top: 0;
+  }
+
+  .header[data-shell='marketing'][data-home='true'] .inner {
+    min-height: 54px;
+    margin-top: 0;
+    padding: 0.35rem 0.5rem 0.35rem 0.7rem;
   }
 
   .header[data-shell='dashboard'] .inner {
-    margin-top: 0.5rem;
+    margin-top: 0;
   }
 
   .brand {
@@ -304,10 +387,11 @@
   }
 
   .connectedActions {
-    gap: 0.45rem;
+    gap: 0.2rem;
   }
 
   .subtleLink {
     display: none;
   }
+
 }
