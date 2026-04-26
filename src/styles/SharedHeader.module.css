@@ -146,23 +146,25 @@
   justify-content: center;
   min-height: 34px;
   padding: 0.35rem 0.82rem;
-  border: 1px solid #1e1e1e;
-  border-radius: 999px;
+  border: 1px solid rgba(19, 81, 170, 0.36);
+  border-radius: 10px;
   background: transparent;
-  color: #1e1e1e;
+  color: #1351aa;
   text-decoration: none;
   font-family: "Satoshi", var(--font-brand-body);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
 .contactLink:hover,
 .contactLink:focus-visible {
-  background: #1e1e1e;
-  color: #f2f2f2;
+  background: rgba(19, 81, 170, 0.08);
+  color: #0d3774;
+  border-color: #0d3774;
+  box-shadow: 0 12px 24px rgba(19, 81, 170, 0.08);
   outline: none;
   transform: translateY(-1px);
 }

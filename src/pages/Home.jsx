@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Brain, Check, Compass, Zap } from 'lucide-react';
 import franckPhoto from '../assets/Franck.jpg';
 import styles from './HomeOverrides.module.css';
 
@@ -36,18 +37,42 @@ const missionCards = [
 const methodologyCards = [
   {
     index: '01',
+    Icon: Zap,
     title: 'Energie et alimentation',
     text: 'Retrouver une base physique stable grace a une alimentation plus juste et a des habitudes durables.',
   },
   {
     index: '02',
+    Icon: Brain,
     title: 'Liberation de l esprit',
     text: 'Identifier les schemas limitants pour avancer avec plus de lucidite, de calme et de constance.',
   },
   {
     index: '03',
+    Icon: Compass,
     title: 'Activation du corps',
     text: 'Transformer l intention en action avec une progression simple, concrete et mesurable.',
+  },
+];
+
+const testimonials = [
+  {
+    quote: 'J ai retrouve un cadre simple pour reprendre de l energie sans me juger a chaque faux pas.',
+    name: 'Claire M.',
+    role: 'Entrepreneure',
+    avatar: 'https://i.pravatar.cc/120?img=32',
+  },
+  {
+    quote: 'Chaque rendez-vous m a aide a clarifier mes priorites et a remettre du mouvement dans mon quotidien.',
+    name: 'Thomas R.',
+    role: 'Chef de projet',
+    avatar: 'https://i.pravatar.cc/120?img=14',
+  },
+  {
+    quote: 'Je me sens plus stable, plus lucide et surtout capable de tenir dans la duree.',
+    name: 'Sarah L.',
+    role: 'Consultante',
+    avatar: 'https://i.pravatar.cc/120?img=47',
   },
 ];
 
@@ -137,7 +162,7 @@ export default function Home() {
               </p>
 
               <div className={styles.heroActions}>
-                <Link to="/signup" className={styles.primaryButton}>
+                <Link to="/signup" className={`${styles.primaryButton} ${styles.heroPrimaryButton}`}>
                   Reserver un appel decouverte
                   <ArrowIcon />
                 </Link>
@@ -161,7 +186,7 @@ export default function Home() {
 
       <section className={styles.section} id="mission">
         <div className={styles.shell}>
-          <div className={`${styles.sectionStack} ${styles.reveal}`} data-reveal>
+          <div className={`${styles.sectionStack} ${styles.audienceSection} ${styles.reveal}`} data-reveal>
             <div className={styles.sectionHeadingRow}>
               <div className={styles.sectionHeadingText}>
                 <SectionEyebrow>Pour qui</SectionEyebrow>
@@ -169,10 +194,15 @@ export default function Home() {
               </div>
             </div>
 
-            <div className={styles.audienceList}>
+            <div className={styles.audienceGrid}>
               {audiencePoints.map((point, index) => (
-                <article key={point} className={styles.audienceRow}>
-                  <span className={styles.listIndex}>{String(index + 1).padStart(2, '0')}</span>
+                <article key={point} className={styles.audienceCard}>
+                  <div className={styles.audienceCardHeader}>
+                    <span className={styles.audienceCheck}>
+                      <Check size={16} strokeWidth={2.2} aria-hidden="true" />
+                    </span>
+                    <span className={styles.cardMeta}>{String(index + 1).padStart(2, '0')}</span>
+                  </div>
                   <p className={styles.listText}>{point}</p>
                 </article>
               ))}
@@ -225,11 +255,60 @@ export default function Home() {
             </div>
 
             <div className={styles.methodGrid}>
-              {methodologyCards.map((card) => (
-                <article key={card.title} className={styles.methodCard}>
-                  <span className={styles.cardMeta}>{card.index}</span>
-                  <h3 className={styles.methodCardTitle}>{card.title}</h3>
-                  <p className={styles.methodText}>{card.text}</p>
+              {methodologyCards.map((card) => {
+                const Icon = card.Icon;
+
+                return (
+                  <article key={card.title} className={styles.methodCard}>
+                    <div className={styles.methodCardTop}>
+                      <span className={styles.methodIcon}>
+                        <Icon size={22} strokeWidth={2.35} aria-hidden="true" />
+                      </span>
+                      <span className={styles.cardMeta}>{card.index}</span>
+                    </div>
+                    <h3 className={styles.methodCardTitle}>{card.title}</h3>
+                    <p className={styles.methodText}>{card.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <div className={styles.shell}>
+          <div className={`${styles.testimonialsSection} ${styles.reveal}`} data-reveal>
+            <div className={styles.sectionHeadingRow}>
+              <div className={styles.sectionHeadingText}>
+                <SectionEyebrow>Temoignages</SectionEyebrow>
+                <h2 className={styles.sectionTitle}>Ce que mes clients retrouvent quand le cadre devient enfin clair.</h2>
+              </div>
+              <p className={styles.sectionLead}>
+                Des retours simples, humains et directs sur ce qui change quand le travail devient durable dans le corps, l esprit et l action.
+              </p>
+            </div>
+
+            <div className={styles.testimonialsGrid}>
+              <blockquote className={styles.impactQuote}>
+                "J ai arrete de chercher a en faire plus. J ai recommence a avancer avec calme, clarte et constance."
+              </blockquote>
+
+              {testimonials.map((testimonial) => (
+                <article key={testimonial.name} className={styles.testimonialCard}>
+                  <div className={styles.testimonialIdentity}>
+                    <img
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      className={styles.testimonialAvatar}
+                      loading="lazy"
+                    />
+                    <div className={styles.testimonialPerson}>
+                      <p className={styles.testimonialName}>{testimonial.name}</p>
+                      <p className={styles.testimonialRole}>{testimonial.role}</p>
+                    </div>
+                  </div>
+                  <p className={styles.testimonialQuote}>{testimonial.quote}</p>
                 </article>
               ))}
             </div>
@@ -296,7 +375,7 @@ export default function Home() {
             </div>
 
             <div className={styles.ctaActions}>
-              <Link to="/signup" className={`${styles.primaryButton} ${styles.primaryButtonDark}`}>
+              <Link to="/signup" className={`${styles.primaryButton} ${styles.ctaButton}`}>
                 Prendre rendez-vous
                 <ArrowIcon />
               </Link>
