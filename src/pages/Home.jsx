@@ -4,33 +4,49 @@ import { Brain, Check, Compass, Zap } from 'lucide-react';
 import franckPhoto from '../assets/Franck.jpg';
 import styles from './HomeOverrides.module.css';
 
-const audiencePoints = [
-  'Vous vous sentez bloque malgre votre envie d avancer.',
-  'Vous manquez d energie, de clarte ou de constance dans votre quotidien.',
-  'Vous ressentez le besoin de reprendre votre vie en main avec un cadre concret.',
-  'Vous cherchez un accompagnement a la fois humain, structure et profond.',
+const audienceBlocks = [
+  {
+    index: 'Bloc 1',
+    title: 'Les blocages interieurs',
+    paragraphs: [
+      `Vous sentez qu'il y a un frein en vous, sans vraiment pouvoir l'identifier.`,
+      `Ce blocage n'est pas exterieur. Il vient d'un conflit interieur constant.`,
+      `D'un cote, ce que vous ressentez profondement. De l'autre, la voix dans votre tete, construite par votre passe, vos peurs et vos experiences.`,
+      `Ce mental cree une opposition permanente : il juge, il doute, il freine. Tant qu'il n'est pas vu clairement, il se repete automatiquement.`,
+    ],
+  },
+  {
+    index: 'Bloc 2',
+    title: 'Pourquoi la methode fonctionne',
+    paragraphs: [
+      `Une methode simple qui agit directement a la racine du probleme.`,
+      `La methode fonctionne parce qu'elle ne corrige pas la surface. Elle vous amene a voir le mecanisme interieur : la confusion entre vous et votre mental.`,
+      `Les exercices permettent d'observer cette voix. En la voyant clairement, vous cessez de vous identifier a elle.`,
+      `Le changement devient naturel, sans effort.`,
+    ],
+  },
 ];
 
 const missionCards = [
   {
     index: '01',
-    title: 'Appel decouverte',
-    text: 'Un premier echange pour comprendre votre situation, vos besoins et verifier si l accompagnement est juste pour vous.',
+    title: 'Prendre rendez-vous pour une consultation',
+    text: `Je vous donnerai vos blocages interieur, conscient et inconscients afin d'avancer au plus vite votre liberation.`,
   },
   {
     index: '02',
-    title: 'Coaching individuel',
-    text: 'Un suivi personnel pour remettre de la clarte dans votre quotidien et avancer avec une structure simple.',
+    title: 'Coaching complet et autonome',
+    text: `Nous avons cree un site et une application vous permettant de creer votre modification interieure sans aide exterieure.`,
   },
   {
     index: '03',
-    title: 'Stage immersif',
-    text: 'Un temps fort pour sortir du rythme habituel, prendre du recul et enclencher un mouvement plus net.',
+    title: 'Coaching et accompagnement',
+    text: `Je vais vous donner toutes les cles pour vous delivrer de vos entraves interieures.`,
   },
   {
     index: '04',
-    title: 'Formation',
-    text: 'Des reperes concrets pour comprendre les mecanismes de changement et les integrer dans la duree.',
+    title: 'Stage formation',
+    text: `Stage sur plusieurs jours en France et a l'etranger.`,
   },
 ];
 
@@ -187,23 +203,36 @@ export default function Home() {
       <section className={styles.section} id="mission">
         <div className={styles.shell}>
           <div className={`${styles.sectionStack} ${styles.audienceSection} ${styles.reveal}`} data-reveal>
-            <div className={styles.sectionHeadingRow}>
+            <div className={styles.audienceIntro}>
               <div className={styles.sectionHeadingText}>
                 <SectionEyebrow>Pour qui</SectionEyebrow>
-                <h2 className={styles.sectionTitle}>Cet accompagnement est fait pour vous si...</h2>
+                <h2 className={`${styles.sectionTitle} ${styles.audienceTitle}`}>
+                  Quelque chose vous empeche d'avancer, de vous sentir epanoui... mais vous ne savez pas quoi.
+                </h2>
+              </div>
+
+              <div className={styles.audienceCopy}>
+                <p className={styles.audienceLead}>
+                  Peu importe le probleme que vous pensez avoir, ou ce que vous voulez realiser. Le probleme de fond est toujours le meme : vous vous etes oublie.
+                </p>
+                <p className={styles.audienceLead}>
+                  Vous vous etes neglige... et aujourd'hui, vous cherchez a vous realiser.
+                </p>
               </div>
             </div>
 
-            <div className={styles.audienceGrid}>
-              {audiencePoints.map((point, index) => (
-                <article key={point} className={styles.audienceCard}>
-                  <div className={styles.audienceCardHeader}>
-                    <span className={styles.audienceCheck}>
-                      <Check size={16} strokeWidth={2.2} aria-hidden="true" />
-                    </span>
-                    <span className={styles.cardMeta}>{String(index + 1).padStart(2, '0')}</span>
+            <div className={styles.audienceNarrativeGrid}>
+              {audienceBlocks.map((block) => (
+                <article key={block.title} className={styles.audienceNarrativeCard}>
+                  <p className={styles.audienceBlockMeta}>{block.index}</p>
+                  <h3 className={styles.audienceBlockTitle}>{block.title}</h3>
+                  <div className={styles.audienceParagraphs}>
+                    {block.paragraphs.map((paragraph) => (
+                      <p key={paragraph} className={styles.audienceParagraph}>
+                        {paragraph}
+                      </p>
+                    ))}
                   </div>
-                  <p className={styles.listText}>{point}</p>
                 </article>
               ))}
             </div>
@@ -213,16 +242,16 @@ export default function Home() {
 
       <section className={styles.section} id="deroulement">
         <div className={styles.shell}>
-          <div className={`${styles.sectionStack} ${styles.reveal}`} data-reveal>
-            <div className={styles.sectionHeadingRow}>
+          <div className={`${styles.missionSection} ${styles.reveal}`} data-reveal>
+            <div className={styles.missionHero}>
               <div className={styles.sectionHeadingText}>
                 <SectionEyebrow>Mission</SectionEyebrow>
-                <h2 className={styles.sectionTitle}>
-                  Derriere chaque envie de changement, il y a souvent un frein interieur a comprendre et a depasser.
+                <h2 className={styles.missionDisplay}>
+                  Je vais pouvoir vous donner toutes les indications pour vous transformer, mais c'est vous qui pourrez faire la transformation. Celui qui dit qu'il peut vous changer vous manque deja.
                 </h2>
               </div>
-              <p className={styles.sectionLead}>
-                L objectif n est pas de vous brusquer, mais de vous aider a retrouver un equilibre solide, un esprit plus clair et une capacite d action plus stable.
+              <p className={styles.missionIntro}>
+                Je vous offre quatre moyens differents essentiels pour vous transformer.
               </p>
             </div>
 
@@ -230,6 +259,9 @@ export default function Home() {
               {missionCards.map((card) => (
                 <article key={card.title} className={styles.missionCard}>
                   <span className={styles.cardMeta}>{card.index}</span>
+                  <span className={styles.missionCheck}>
+                    <Check size={18} strokeWidth={2.2} aria-hidden="true" />
+                  </span>
                   <h3 className={styles.cardTitle}>{card.title}</h3>
                   <p className={styles.cardText}>{card.text}</p>
                 </article>

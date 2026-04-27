@@ -31,7 +31,7 @@ function DashboardRouteLinkCard({ description, Icon, title, to }) {
             <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--dash-text-3)]">
               Programme
             </p>
-            <h2 className="mt-2 text-lg font-extrabold tracking-[-0.03em] text-[var(--dash-text-1)]">
+            <h2 className="mt-2 text-lg font-extrabold tracking-[-0.045em] text-[var(--dash-text-1)]" style={{ lineHeight: 0.98 }}>
               {title}
             </h2>
             <p className="mt-2 text-sm leading-6 text-[var(--dash-text-2)]">
@@ -94,7 +94,7 @@ export default function DashboardRoutePage({
                 <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--dash-text-3)]">
                   Statut
                 </p>
-                <h2 className="mt-2 text-xl font-extrabold tracking-[-0.03em] text-[var(--dash-text-1)] md:text-2xl">
+                <h2 className="mt-2 text-xl font-extrabold tracking-[-0.045em] text-[var(--dash-text-1)] md:text-2xl" style={{ lineHeight: 0.98 }}>
                   Structure prête pour la navigation
                 </h2>
                 <p className="mt-3 text-sm leading-6 text-[var(--dash-text-2)] md:text-base">

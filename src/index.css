@@ -327,23 +327,24 @@ button {
 /* ─── Dashboard theme (Twisty / Bento aesthetic) ──────────────── */
 /* Scoped to .dashboard-theme — never bleeds into landing / auth pages */
 .dashboard-theme {
-  --dash-page:         #F9F9F9;
-  --dash-bg:           #F2F2F2;
+  --dash-page:         #F9FAFB;
+  --dash-bg:           #EEF3FA;
   --dash-card:         #FFFFFF;
   --dash-card-shadow:  none;
   --dash-card-shadow-strong: none;
-  --dash-accent:       #000000;
-  --dash-accent-muted: #E0E0E0;
-  --dash-border:       #E0E0E0;
-  --dash-border-strong: #CCCCCC;
-  --dash-text-1:       #000000;
-  --dash-text-2:       #333333;
-  --dash-text-3:       #777777;
-  --dash-green:        #000000;
-  --dash-gold:         #000000;
+  --dash-accent:       #1351AA;
+  --dash-accent-strong:#0D3774;
+  --dash-accent-muted: rgba(19, 81, 170, 0.12);
+  --dash-border:       #D9E1EE;
+  --dash-border-strong: #BFD0EA;
+  --dash-text-1:       #1F2937;
+  --dash-text-2:       #4B5563;
+  --dash-text-3:       #6B7280;
+  --dash-green:        #1351AA;
+  --dash-gold:         #1351AA;
   --dash-heading-font: var(--font-brand-heading);
   --dash-body-font:    var(--font-brand-body);
-  --dash-heading-weight: 600;
+  --dash-heading-weight: 800;
   --dash-card-radius:  24px;
   --dash-grid-gap:     clamp(1.25rem, 2vw, 2.5rem);
   color: var(--dash-text-1);

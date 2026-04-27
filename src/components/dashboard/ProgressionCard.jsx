@@ -3,7 +3,7 @@ import React from 'react';
 const DEFAULT_STATS = { oui: 4, un_peu: 2, non: 1 };
 
 const COLS = [
-  { key: 'oui',    label: 'Oui',    tone: '#000000' },
+  { key: 'oui',    label: 'Oui',    tone: 'var(--dash-accent)' },
   { key: 'un_peu', label: 'Un peu', tone: '#777777' },
   { key: 'non',    label: 'Non',    tone: '#cccccc' },
 ];

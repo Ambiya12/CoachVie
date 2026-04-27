@@ -27,6 +27,7 @@
 .header[data-shell='dashboard'] .inner {
   width: min(1240px, calc(100% - 1.35rem));
   margin-top: 0;
+  overflow: visible;
 }
 
 .header[data-shell='marketing'] .inner {

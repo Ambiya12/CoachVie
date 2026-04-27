@@ -56,15 +56,15 @@ export default function ExerciceCard({
       {/* ── Exercise title ───────────────────────────── */}
       <h2
         className="shrink-0"
-        style={{
-          fontFamily: 'var(--dash-heading-font)',
-          fontSize: 'clamp(1.75rem, 2.75vw, 2.875rem)',
-          fontWeight: 300,
-          lineHeight: 1.05,
-          letterSpacing: '-0.02em',
-          color: 'var(--dash-text-1)',
-          margin: '0 0 1.25rem',
-          maxWidth: '12ch',
+          style={{
+            fontFamily: 'var(--dash-heading-font)',
+            fontSize: 'clamp(1.75rem, 2.75vw, 2.875rem)',
+            fontWeight: 'var(--dash-heading-weight)',
+            lineHeight: 0.98,
+            letterSpacing: '-0.045em',
+            color: 'var(--dash-text-1)',
+            margin: '0 0 1.25rem',
+            maxWidth: '12ch',
           textWrap: 'balance',
         }}
       >
@@ -86,18 +86,20 @@ export default function ExerciceCard({
           onClick={onStart}
           className="group w-full max-w-md flex items-center justify-between px-6 h-12 rounded-lg transition-all"
           style={{
-            background: 'var(--dash-text-1)',
-            color: 'var(--dash-page)',
-            fontWeight: 500,
+            background: 'var(--dash-accent)',
+            color: '#f7f4ee',
+            fontWeight: 600,
             fontSize: '0.95rem',
             border: '1px solid transparent',
-            boxShadow: '0 4px 12px rgba(26,26,26,0.08)',
+            boxShadow: '0 12px 26px rgba(19, 81, 170, 0.18)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 6px 16px rgba(26, 26, 26, 0.12)';
+            e.currentTarget.style.background = 'var(--dash-accent-strong)';
+            e.currentTarget.style.boxShadow = '0 16px 30px rgba(19, 81, 170, 0.24)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(26, 26, 26, 0.08)';
+            e.currentTarget.style.background = 'var(--dash-accent)';
+            e.currentTarget.style.boxShadow = '0 12px 26px rgba(19, 81, 170, 0.18)';
           }}
         >
           <span>Commencer l'exercice</span>
@@ -112,4 +114,3 @@ export default function ExerciceCard({
     </div>
   );
 }
-

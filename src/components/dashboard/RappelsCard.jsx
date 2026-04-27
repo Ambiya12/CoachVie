@@ -94,7 +94,7 @@ export default function RappelsCard() {
             >
               <button className="w-full flex items-center gap-3 py-4 text-left group box-border hover:opacity-90">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-[var(--dash-bg)]">
-                  {React.createElement(Icon, { size: 14, className: "text-[var(--dash-text-2)]", style: { color: 'var(--dash-text-2)' } })}
+                  {React.createElement(Icon, { size: 14, className: "text-[var(--dash-accent)]", style: { color: 'var(--dash-accent)' } })}
                 </div>
 
                 <div className="flex-1 min-w-0">
@@ -110,8 +110,8 @@ export default function RappelsCard() {
                   className="shrink-0 font-medium rounded-full px-2.5 py-0.5"
                   style={{
                     fontSize: '0.6875rem',
-                    background: '#f4f4f5',
-                    color: '#555555'
+                    background: 'color-mix(in oklch, var(--dash-accent-muted) 74%, white)',
+                    color: 'var(--dash-accent-strong)'
                   }}
                 >
                   {time}

@@ -15,7 +15,8 @@ export default function DashboardHomeContent() {
         style={{
           fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)',
           color: 'var(--dash-text-1)',
-          letterSpacing: 'var(--tracking-tight)'
+          letterSpacing: '-0.045em',
+          lineHeight: 0.98,
         }}
       >
         <span style={{ fontWeight: 300 }}>Bonjour,</span>{' '}

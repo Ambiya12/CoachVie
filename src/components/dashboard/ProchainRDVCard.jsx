@@ -22,7 +22,7 @@ const iconBoxStyle = {
   alignItems: 'center',
   justifyContent: 'center',
   background: 'var(--dash-bg)',
-  color: 'var(--dash-text-1)',
+  color: 'var(--dash-accent)',
   flexShrink: 0,
 };
 
@@ -51,7 +51,7 @@ export default function ProchainRDVCard({ consultation }) {
         {/* ── Body ── */}
         {consultation ? (
           <>
-            <h2 style={{ fontFamily: 'var(--dash-heading-font)', fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1, color: 'var(--dash-text-1)', margin: 0 }}>
+            <h2 style={{ fontFamily: 'var(--dash-heading-font)', fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 0.96, color: 'var(--dash-text-1)', margin: 0 }}>
               {formatTimeLabel(consultation.start)}
             </h2>
             <p style={{ marginTop: '1rem', fontSize: '0.82rem', lineHeight: 1.7, color: 'var(--dash-text-2)', fontWeight: 400 }}>
@@ -75,9 +75,9 @@ export default function ProchainRDVCard({ consultation }) {
               target="_blank"
               rel="noreferrer"
               className="group"
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', height: '3rem', padding: '0 1.5rem', fontSize: '0.95rem', fontWeight: 500, textDecoration: 'none', borderRadius: '8px', border: '1px solid transparent', color: 'var(--dash-page)', background: 'var(--dash-text-1)', width: '100%', boxSizing: 'border-box', boxShadow: '0 4px 12px rgba(26,26,26,0.10)', transition: 'box-shadow 200ms ease' }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 16px rgba(26,26,26,0.16)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 4px 12px rgba(26,26,26,0.10)'; }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', height: '3rem', padding: '0 1.5rem', fontSize: '0.95rem', fontWeight: 600, textDecoration: 'none', borderRadius: '8px', border: '1px solid transparent', color: '#f7f4ee', background: 'var(--dash-accent)', width: '100%', boxSizing: 'border-box', boxShadow: '0 12px 26px rgba(19, 81, 170, 0.18)', transition: 'background-color 200ms ease, box-shadow 200ms ease' }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--dash-accent-strong)'; e.currentTarget.style.boxShadow = '0 16px 30px rgba(19, 81, 170, 0.24)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--dash-accent)'; e.currentTarget.style.boxShadow = '0 12px 26px rgba(19, 81, 170, 0.18)'; }}
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Video size={16} strokeWidth={1.5} />

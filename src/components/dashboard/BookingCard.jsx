@@ -60,7 +60,7 @@ export default function BookingCard({
 
         {/* ── Title ── */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--dash-text-1)', margin: 0 }}>
+          <p style={{ fontSize: '1rem', fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 0.98, color: 'var(--dash-text-1)', margin: 0, fontFamily: 'var(--dash-heading-font)' }}>
             Prendre un rendez-vous
           </p>
           <p style={{ marginTop: '0.4rem', fontSize: '0.82rem', color: 'var(--dash-text-2)', margin: 0 }}>
@@ -111,8 +111,8 @@ export default function BookingCard({
                       width: '2.5rem',
                       height: '2.5rem',
                       borderRadius: '8px',
-                      background: isActive ? 'var(--dash-text-1)' : 'var(--dash-bg)',
-                      color: isActive ? 'var(--dash-page)' : 'var(--dash-text-2)',
+                      background: isActive ? 'var(--dash-accent)' : 'var(--dash-bg)',
+                      color: isActive ? '#f7f4ee' : 'var(--dash-text-2)',
                       fontSize: '0.9rem',
                       fontWeight: isActive ? 700 : 400,
                       transition: 'background 150ms ease, color 150ms ease',
@@ -127,7 +127,7 @@ export default function BookingCard({
                         width: '3px',
                         height: '3px',
                         borderRadius: '50%',
-                        background: isActive ? 'var(--dash-text-1)' : 'var(--dash-text-3)',
+                        background: isActive ? 'var(--dash-accent)' : 'var(--dash-text-3)',
                       }}
                     />
                   )}
@@ -158,9 +158,9 @@ export default function BookingCard({
                       fontWeight: 400,
                       textAlign: 'center',
                       border: '1px solid',
-                      borderColor: isSelected ? 'var(--dash-text-1)' : 'var(--dash-border)',
-                      background: isSelected ? 'var(--dash-text-1)' : 'transparent',
-                      color: isSelected ? 'var(--dash-page)' : 'var(--dash-text-1)',
+                      borderColor: isSelected ? 'color-mix(in oklch, var(--dash-accent) 30%, white)' : 'var(--dash-border)',
+                      background: isSelected ? 'color-mix(in oklch, var(--dash-accent-muted) 86%, white)' : 'transparent',
+                      color: isSelected ? 'var(--dash-accent-strong)' : 'var(--dash-text-1)',
                       cursor: 'pointer',
                       borderRadius: '8px',
                       transition: 'all 150ms ease',
@@ -192,13 +192,25 @@ export default function BookingCard({
             disabled={!selectedSlot}
             className="group w-full flex items-center justify-between px-6 h-12 rounded-lg transition-all"
             style={{
-              background: selectedSlot ? 'var(--dash-text-1)' : 'transparent',
-              color: selectedSlot ? 'var(--dash-page)' : 'var(--dash-text-3)',
-              fontWeight: 500,
+              background: selectedSlot ? 'var(--dash-accent)' : 'transparent',
+              color: selectedSlot ? '#f7f4ee' : 'var(--dash-text-3)',
+              fontWeight: 600,
               fontSize: '0.875rem',
               border: `1px solid ${selectedSlot ? 'transparent' : 'var(--dash-border)'}`,
               cursor: selectedSlot ? 'pointer' : 'not-allowed',
-              boxShadow: selectedSlot ? '0 4px 12px rgba(26,26,26,0.08)' : 'none',
+              boxShadow: selectedSlot ? '0 12px 26px rgba(19, 81, 170, 0.18)' : 'none',
+            }}
+            onMouseEnter={(e) => {
+              if (selectedSlot) {
+                e.currentTarget.style.background = 'var(--dash-accent-strong)';
+                e.currentTarget.style.boxShadow = '0 16px 30px rgba(19, 81, 170, 0.24)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (selectedSlot) {
+                e.currentTarget.style.background = 'var(--dash-accent)';
+                e.currentTarget.style.boxShadow = '0 12px 26px rgba(19, 81, 170, 0.18)';
+              }
             }}
           >
             <span>

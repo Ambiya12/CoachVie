@@ -226,9 +226,17 @@ export default function DashboardSettingsContent() {
               type="button"
               className="rounded-full px-4 py-2 text-sm font-semibold"
               style={{
-                color: 'var(--dash-page)',
+                color: '#f7f4ee',
                 background: 'var(--dash-accent)',
-                boxShadow: '0 14px 28px rgba(177, 138, 71, 0.24)',
+                boxShadow: '0 14px 28px rgba(19, 81, 170, 0.2)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--dash-accent-strong)';
+                e.currentTarget.style.boxShadow = '0 18px 34px rgba(19, 81, 170, 0.24)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--dash-accent)';
+                e.currentTarget.style.boxShadow = '0 14px 28px rgba(19, 81, 170, 0.2)';
               }}
               onClick={handleSavePreferences}
             >
@@ -265,7 +273,7 @@ export default function DashboardSettingsContent() {
               <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em]" style={{ color: 'var(--dash-text-3)' }}>
                 Compte
               </p>
-              <h2 className="text-xl font-extrabold tracking-[-0.03em]" style={{ color: 'var(--dash-text-1)' }}>
+              <h2 className="text-xl font-extrabold tracking-[-0.045em]" style={{ color: 'var(--dash-text-1)', lineHeight: 0.98 }}>
                 Informations de session
               </h2>
             </div>
@@ -295,7 +303,7 @@ export default function DashboardSettingsContent() {
               <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em]" style={{ color: 'var(--dash-text-3)' }}>
                 Préférences locales
               </p>
-              <h2 className="text-xl font-extrabold tracking-[-0.03em]" style={{ color: 'var(--dash-text-1)' }}>
+              <h2 className="text-xl font-extrabold tracking-[-0.045em]" style={{ color: 'var(--dash-text-1)', lineHeight: 0.98 }}>
                 Ajustez le fonctionnement de votre dashboard
               </h2>
             </div>
@@ -321,7 +329,7 @@ export default function DashboardSettingsContent() {
             <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em]" style={{ color: 'var(--dash-text-3)' }}>
               Sécurité
             </p>
-            <h2 className="mt-1 text-xl font-extrabold tracking-[-0.03em]" style={{ color: 'var(--dash-text-1)' }}>
+            <h2 className="mt-1 text-xl font-extrabold tracking-[-0.045em]" style={{ color: 'var(--dash-text-1)', lineHeight: 0.98 }}>
               Terminer la session ou revenir au tableau de bord
             </h2>
             <p className="mt-2 text-sm leading-6" style={{ color: 'var(--dash-text-2)' }}>

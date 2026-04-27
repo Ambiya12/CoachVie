@@ -2,33 +2,9 @@ import React, { useState } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 
 const OPTIONS = [
-  {
-    value: 'oui',
-    label: 'Oui',
-    activeStyle: {
-      color: 'var(--dash-text-1)',
-      fontWeight: 600,
-      borderBottom: '2px solid var(--dash-text-1)',
-    },
-  },
-  {
-    value: 'un_peu',
-    label: 'Un peu',
-    activeStyle: {
-      color: 'var(--dash-text-1)',
-      fontWeight: 600,
-      borderBottom: '2px solid var(--dash-text-2)',
-    },
-  },
-  {
-    value: 'non',
-    label: 'Non',
-    activeStyle: {
-      color: 'var(--dash-text-1)',
-      fontWeight: 600,
-      borderBottom: '2px solid var(--dash-text-3)',
-    },
-  },
+  { value: 'oui', label: 'Oui' },
+  { value: 'un_peu', label: 'Un peu' },
+  { value: 'non', label: 'Non' },
 ];
 
 export default function CheckInCard({ isAvailable = true, onSubmit }) {
@@ -96,10 +72,12 @@ export default function CheckInCard({ isAvailable = true, onSubmit }) {
               style={
                 selected === opt.value
                   ? {
-                      background: 'var(--dash-border)',
-                      color: 'var(--dash-text-1)',
-                      border: '1px solid var(--dash-text-1)',
+                      background: 'color-mix(in oklch, var(--dash-accent-muted) 88%, white)',
+                      color: 'var(--dash-accent-strong)',
+                      border: '1px solid color-mix(in oklch, var(--dash-accent) 35%, white)',
+                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.7)',
                       fontSize: '0.85rem',
+                      fontWeight: 600,
                     }
                   : {
                       background: 'transparent',
@@ -129,19 +107,25 @@ export default function CheckInCard({ isAvailable = true, onSubmit }) {
                 fontSize: '0.95rem',
               }
             : {
-                background: 'var(--dash-text-1)',
-                color: 'var(--dash-page)',
+                background: 'var(--dash-accent)',
+                color: '#f7f4ee',
                 border: '1px solid transparent',
                 cursor: 'pointer',
                 fontSize: '0.95rem',
-                boxShadow: '0 4px 12px rgba(26,26,26,0.08)',
+                boxShadow: '0 12px 26px rgba(19, 81, 170, 0.18)',
               }
           }
           onMouseEnter={(e) => {
-            if (!isSubmitDisabled) e.currentTarget.style.boxShadow = '0 6px 16px rgba(26, 26, 26, 0.12)';
+            if (!isSubmitDisabled) {
+              e.currentTarget.style.background = 'var(--dash-accent-strong)';
+              e.currentTarget.style.boxShadow = '0 16px 30px rgba(19, 81, 170, 0.24)';
+            }
           }}
           onMouseLeave={(e) => {
-            if (!isSubmitDisabled) e.currentTarget.style.boxShadow = '0 4px 12px rgba(26,26,26,0.08)';
+            if (!isSubmitDisabled) {
+              e.currentTarget.style.background = 'var(--dash-accent)';
+              e.currentTarget.style.boxShadow = '0 12px 26px rgba(19, 81, 170, 0.18)';
+            }
           }}
         >
           Valider

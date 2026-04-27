@@ -3,9 +3,9 @@
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(circle at 12% 0%, #fefefe 0%, transparent 24%),
-    radial-gradient(circle at 88% 14%, #f9f9fa 0%, transparent 20%),
-    linear-gradient(180deg, #f4f4f5 0%, #ffffff 100%);
+    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.96) 0%, transparent 24%),
+    radial-gradient(circle at 88% 14%, rgba(237, 242, 249, 0.96) 0%, transparent 20%),
+    linear-gradient(180deg, #f4f6fa 0%, #f9fafb 100%);
 }
 
 .routes {

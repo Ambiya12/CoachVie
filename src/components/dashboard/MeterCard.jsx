@@ -34,9 +34,9 @@ export default function MeterCard({ score = DEFAULT_SCORE, className = '' }) {
           className="shrink-0 font-semibold tabular-nums rounded-full px-3 py-1 border"
           style={{
             fontSize: '0.75rem',
-            color: 'var(--dash-accent)',
-            background: 'var(--dash-bg)',
-            borderColor: 'var(--dash-border)',
+            color: 'var(--dash-accent-strong)',
+            background: 'color-mix(in oklch, var(--dash-accent-muted) 78%, white)',
+            borderColor: 'color-mix(in oklch, var(--dash-accent) 18%, white)',
           }}
         >
           {score}%
@@ -60,12 +60,12 @@ export default function MeterCard({ score = DEFAULT_SCORE, className = '' }) {
       </div>
 
       {/* Two-zone bar */}
-      <div className="flex h-3 rounded-full overflow-hidden" style={{ background: 'color-mix(in oklch, var(--dash-bg) 76%, white)' }}>
+      <div className="flex h-3 rounded-full overflow-hidden" style={{ background: 'color-mix(in oklch, var(--dash-accent-muted) 52%, white)' }}>
         <div
           className="transition-all duration-700"
           style={{
             width: `${100 - score}%`,
-            background: 'var(--dash-bg)',
+            background: 'color-mix(in oklch, var(--dash-accent-muted) 68%, white)',
             transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         />

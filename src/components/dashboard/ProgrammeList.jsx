@@ -37,7 +37,7 @@ const PROGRAMMES = [
 ];
 
 const STATUS = {
-  en_cours:     { label: 'En cours',     bg: 'rgba(0,0,0,0.06)', color: 'var(--dash-text-1)' },
+  en_cours:     { label: 'En cours',     bg: 'color-mix(in oklch, var(--dash-accent-muted) 82%, white)', color: 'var(--dash-accent-strong)', border: 'color-mix(in oklch, var(--dash-accent) 22%, white)' },
   termine:      { label: 'Terminé',      bg: 'rgba(0,0,0,0.03)', color: 'var(--dash-text-2)' },
   non_commence: { label: 'Non commencé', bg: 'rgba(0,0,0,0.03)', color: 'var(--dash-text-2)' },
 };
@@ -55,7 +55,7 @@ function ProgrammeRow({ prog, isExpanded, onToggle, isLast }) {
         onClick={onToggle}
       >
         <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-[var(--dash-bg)]">
-          <Icon size={14} className="text-[var(--dash-text-2)]" style={{ color: 'var(--dash-text-2)' }} />
+          <Icon size={14} className="text-[var(--dash-accent)]" style={{ color: prog.status === 'en_cours' ? 'var(--dash-accent)' : 'var(--dash-text-2)' }} />
         </div>
 
         <div className="flex-1 min-w-0">
@@ -65,7 +65,7 @@ function ProgrammeRow({ prog, isExpanded, onToggle, isLast }) {
           <p className="text-[var(--dash-text-3)]" style={{ fontSize: '0.75rem', marginTop: 1 }}>{prog.meta}</p>
         </div>
 
-        <span className="shrink-0 font-medium rounded-full px-3 py-1" style={{ fontSize: '0.625rem', letterSpacing: '0.05em', textTransform: 'uppercase', background: status.bg, color: status.color, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.05)' }}>
+        <span className="shrink-0 font-medium rounded-full px-3 py-1" style={{ fontSize: '0.625rem', letterSpacing: '0.05em', textTransform: 'uppercase', background: status.bg, color: status.color, boxShadow: `inset 0 0 0 1px ${status.border ?? 'rgba(0,0,0,0.05)'}` }}>
           {status.label}
         </span>
 
@@ -99,7 +99,7 @@ export default function ProgrammeList({ className = '' }) {
     >
       {/* Header */}
       <div className="flex items-center justify-between shrink-0 mb-2">
-        <h2 className="font-extrabold tracking-tight text-[var(--dash-text-1)] text-[1.25rem] m-0">
+        <h2 className="font-extrabold tracking-tight text-[var(--dash-text-1)] text-[1.25rem] m-0" style={{ letterSpacing: '-0.045em' }}>
           Vos Programmes
         </h2>
         <button

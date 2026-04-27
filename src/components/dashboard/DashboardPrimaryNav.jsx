@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
@@ -105,6 +105,7 @@ export default function DashboardPrimaryNav() {
   const location = useLocation();
   const [isProgrammesOpen, setIsProgrammesOpen] = useState(false);
   const isProgrammesRoute = isProgrammesPath(location.pathname);
+  const programmesMenuId = useMemo(() => 'dashboard-programmes-menu', []);
 
   const closeProgrammesMenu = useCallback(() => {
     setIsProgrammesOpen(false);
@@ -112,10 +113,6 @@ export default function DashboardPrimaryNav() {
 
   const toggleProgrammesMenu = useCallback(() => {
     setIsProgrammesOpen((current) => !current);
-  }, []);
-
-  const openProgrammesMenu = useCallback(() => {
-    setIsProgrammesOpen(true);
   }, []);
 
   const menuRef = useDismissibleLayer(isProgrammesOpen, closeProgrammesMenu);
@@ -133,8 +130,6 @@ export default function DashboardPrimaryNav() {
           ...dropdownShellStyle,
           ...(isProgrammesRoute || isProgrammesOpen ? activeDropdownShellStyle : {}),
         }}
-        onMouseEnter={openProgrammesMenu}
-        onMouseLeave={closeProgrammesMenu}
       >
         <NavLink
           to={PROGRAMMES_PATH}
@@ -155,14 +150,14 @@ export default function DashboardPrimaryNav() {
           aria-label="Afficher les sous-pages Programmes"
           aria-expanded={isProgrammesOpen}
           aria-haspopup="menu"
-          aria-controls="dashboard-programmes-menu"
+          aria-controls={isProgrammesOpen ? programmesMenuId : undefined}
         >
           <ChevronDown size={15} className={isProgrammesOpen ? 'rotate-180 transition-transform duration-200' : 'transition-transform duration-200'} />
         </button>
 
         {isProgrammesOpen ? (
           <div
-            id="dashboard-programmes-menu"
+            id={programmesMenuId}
             className="absolute left-0 top-[calc(100%+0.75rem)] z-30 flex min-w-[17rem] flex-col gap-1 rounded-[1.25rem] border p-2"
             style={submenuStyle}
             role="menu"

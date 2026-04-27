@@ -225,21 +225,23 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  border: 1px solid #111111;
-  background: var(--dash-text-1);
-  color: var(--dash-page);
+  border: 1px solid transparent;
+  background: var(--dash-accent);
+  color: #f7f4ee;
   text-decoration: none;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.48rem 0.88rem;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  box-shadow: 0 12px 26px rgba(19, 81, 170, 0.18);
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
 }
 
 .dayDetailJoinBtn:hover {
+  background: var(--dash-accent-strong);
   transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(26, 26, 26, 0.16);
+  box-shadow: 0 16px 30px rgba(19, 81, 170, 0.24);
 }
 
 /* ── Day events list ───────────────────────────────── */
