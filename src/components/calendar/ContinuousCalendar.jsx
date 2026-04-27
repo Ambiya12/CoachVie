@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Video } from 'lucide-react';
 import styles from './ContinuousCalendar.module.css';
 
 const DAY_LABELS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
@@ -137,9 +136,8 @@ export default function ContinuousCalendar({ events = [], onDayClick, selectedDa
             const dayEvents = eventsByDay.get(key) ?? [];
             const isToday = key === todayKey;
             const isSelected = key === selectedKey;
-            const hasDone = dayEvents.some((e) => e.status === 'done');
-            const hasTodo = dayEvents.some((e) => e.status !== 'done');
             const hasConsultation = dayEvents.some((e) => e.type === 'consultation');
+            const hasMultipleEvents = dayEvents.length > 1;
 
             return (
               <button
@@ -159,22 +157,19 @@ export default function ContinuousCalendar({ events = [], onDayClick, selectedDa
                 <span className={styles.dayNumWrapper}>
                   <span className={styles.dayNum}>{date.getDate()}</span>
                 </span>
-                
+
                 {dayEvents.length > 0 && (
-                  <span className={styles.dots}>
-                    {hasTodo && <span className={styles.dotTodo} />}
-                    {hasDone && <span className={styles.dotDone} />}
+                  <span className={styles.indicatorRail}>
+                    <span
+                      className={[
+                        styles.eventIndicator,
+                        hasConsultation ? styles.eventIndicatorConsultation : '',
+                        hasMultipleEvents ? styles.eventIndicatorHalo : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+                    />
                   </span>
-                )}
-
-                {hasConsultation ? (
-                  <span className={styles.consultationMarker} aria-hidden="true">
-                    <Video size={12} className={styles.consultationIcon} />
-                  </span>
-                ) : null}
-
-                {dayEvents.length > 1 && (
-                  <span className={styles.badge}>{dayEvents.length}</span>
                 )}
               </button>
             );

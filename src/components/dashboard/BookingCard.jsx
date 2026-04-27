@@ -22,23 +22,6 @@ const sectionLabelStyle = {
   marginBottom: '1rem',
 };
 
-/**
- * @param {{
- *   bookingDates: Date[],
- *   availableSlotsByDate: Map<string, any[]>,
- *   activeDateKey: string,
- *   slotsForSelectedDate: any[],
- *   selectedDate: Date,
- *   selectedDateHeadline: string,
- *   selectedSlot: any | null,
- *   selectedSlotLabel: string,
- *   hasAnyAvailability: boolean,
- *   bookingNotice: string,
- *   onDateSelect: (dateKey: string) => void,
- *   onSlotSelect: (slotId: any) => void,
- *   onBook: () => void,
- * }} props
- */
 export default function BookingCard({
   bookingDates,
   availableSlotsByDate,
@@ -57,21 +40,18 @@ export default function BookingCard({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
       <div style={cardStyle}>
-
-        {/* ── Title ── */}
         <div style={{ marginBottom: '1.5rem' }}>
           <p style={{ fontSize: '1rem', fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 0.98, color: 'var(--dash-text-1)', margin: 0, fontFamily: 'var(--dash-heading-font)' }}>
             Prendre un rendez-vous
           </p>
-          <p style={{ marginTop: '0.4rem', fontSize: '0.82rem', color: 'var(--dash-text-2)', margin: 0 }}>
-            S&eacute;lectionnez une date et un cr&eacute;neau disponibles.
+          <p style={{ marginTop: '0.45rem', fontSize: '0.82rem', color: 'var(--dash-text-2)', margin: 0, lineHeight: 1.6 }}>
+            Une semaine compacte, puis un scroll horizontal pour explorer les dates disponibles sans alourdir la page.
           </p>
         </div>
 
-        {/* ── Date scroller ── */}
         <div>
           <p style={sectionLabelStyle}>Date</p>
-          <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>
+          <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem', scrollSnapType: 'x proximity' }}>
             {bookingDates.map((date) => {
               const dateKey = toDateKey(date);
               const isActive = dateKey === activeDateKey;
@@ -85,20 +65,25 @@ export default function BookingCard({
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: '0.35rem',
-                    padding: '0.5rem 0.25rem',
-                    minWidth: '2.75rem',
-                    background: 'transparent',
-                    border: 'none',
+                    gap: '0.42rem',
+                    padding: '0.7rem 0.55rem 0.65rem',
+                    minWidth: '4.25rem',
+                    background: isActive ? 'rgba(240, 246, 255, 0.96)' : 'rgba(255,255,255,0.72)',
+                    border: `1px solid ${isActive ? 'color-mix(in oklch, var(--dash-accent) 18%, white)' : 'color-mix(in oklch, var(--dash-text-1) 8%, white)'}`,
+                    borderRadius: '18px',
                     cursor: 'pointer',
+                    scrollSnapAlign: 'start',
+                    boxShadow: isActive ? '0 14px 28px rgba(19, 81, 170, 0.08)' : 'none',
+                    transition: 'transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease',
                   }}
                 >
                   <span
                     style={{
-                      fontSize: '0.5rem',
-                      letterSpacing: '0.1em',
+                      fontSize: '0.54rem',
+                      letterSpacing: '0.14em',
                       textTransform: 'uppercase',
                       color: isActive ? 'var(--dash-text-1)' : 'var(--dash-text-3)',
+                      fontWeight: 600,
                     }}
                   >
                     {formatMiniDayLabel(date)}
@@ -108,14 +93,15 @@ export default function BookingCard({
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      width: '2.5rem',
-                      height: '2.5rem',
-                      borderRadius: '8px',
-                      background: isActive ? 'var(--dash-accent)' : 'var(--dash-bg)',
-                      color: isActive ? '#f7f4ee' : 'var(--dash-text-2)',
-                      fontSize: '0.9rem',
-                      fontWeight: isActive ? 700 : 400,
-                      transition: 'background 150ms ease, color 150ms ease',
+                      width: '2.7rem',
+                      height: '2.7rem',
+                      borderRadius: '999px',
+                      background: isActive ? 'linear-gradient(180deg, rgba(201, 223, 255, 0.95), rgba(173, 203, 244, 0.96))' : 'transparent',
+                      color: isActive ? 'var(--dash-accent-strong)' : 'var(--dash-text-2)',
+                      fontSize: '1rem',
+                      fontWeight: isActive ? 700 : 500,
+                      transition: 'background 150ms ease, color 150ms ease, box-shadow 150ms ease',
+                      boxShadow: isActive ? '0 10px 20px rgba(19, 81, 170, 0.12)' : 'none',
                     }}
                   >
                     {date.getDate()}
@@ -124,8 +110,8 @@ export default function BookingCard({
                     <span
                       style={{
                         display: 'block',
-                        width: '3px',
-                        height: '3px',
+                        width: '4px',
+                        height: '4px',
                         borderRadius: '50%',
                         background: isActive ? 'var(--dash-accent)' : 'var(--dash-text-3)',
                       }}
@@ -137,10 +123,9 @@ export default function BookingCard({
           </div>
         </div>
 
-        {/* ── Slot grid ── */}
         <div style={{ marginTop: '2rem' }}>
           <p style={sectionLabelStyle}>
-            Cr&eacute;neau &mdash; {selectedDateHeadline}
+            Creneau - {selectedDateHeadline}
           </p>
           {slotsForSelectedDate.length > 0 ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
@@ -159,10 +144,10 @@ export default function BookingCard({
                       textAlign: 'center',
                       border: '1px solid',
                       borderColor: isSelected ? 'color-mix(in oklch, var(--dash-accent) 30%, white)' : 'var(--dash-border)',
-                      background: isSelected ? 'color-mix(in oklch, var(--dash-accent-muted) 86%, white)' : 'transparent',
+                      background: isSelected ? 'color-mix(in oklch, var(--dash-accent-muted) 86%, white)' : 'rgba(255,255,255,0.72)',
                       color: isSelected ? 'var(--dash-accent-strong)' : 'var(--dash-text-1)',
                       cursor: 'pointer',
-                      borderRadius: '8px',
+                      borderRadius: '12px',
                       transition: 'all 150ms ease',
                     }}
                   >
@@ -173,18 +158,17 @@ export default function BookingCard({
             </div>
           ) : (
             <p style={{ fontSize: '0.82rem', color: 'var(--dash-text-3)' }}>
-              Aucun cr&eacute;neau pour le {formatDateChipLabel(selectedDate)}.
+              Aucun creneau pour le {formatDateChipLabel(selectedDate)}.
             </p>
           )}
         </div>
 
         {!hasAnyAvailability && (
           <p style={{ marginTop: '1.5rem', fontSize: '0.82rem', color: 'var(--dash-text-3)' }}>
-            Aucun cr&eacute;neau disponible sur les 14 prochains jours.
+            Aucun creneau disponible sur les 14 prochains jours.
           </p>
         )}
 
-        {/* ── CTA ── */}
         <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
           <button
             type="button"
@@ -192,31 +176,31 @@ export default function BookingCard({
             disabled={!selectedSlot}
             className="group w-full flex items-center justify-between px-6 h-12 rounded-lg transition-all"
             style={{
-              background: selectedSlot ? 'var(--dash-accent)' : 'transparent',
-              color: selectedSlot ? '#f7f4ee' : 'var(--dash-text-3)',
+              background: selectedSlot ? 'color-mix(in oklch, var(--dash-accent-muted) 88%, white)' : 'rgba(255,255,255,0.72)',
+              color: selectedSlot ? 'var(--dash-accent-strong)' : 'var(--dash-text-3)',
               fontWeight: 600,
               fontSize: '0.875rem',
-              border: `1px solid ${selectedSlot ? 'transparent' : 'var(--dash-border)'}`,
+              border: `1px solid ${selectedSlot ? 'color-mix(in oklch, var(--dash-accent) 22%, white)' : 'var(--dash-border)'}`,
               cursor: selectedSlot ? 'pointer' : 'not-allowed',
-              boxShadow: selectedSlot ? '0 12px 26px rgba(19, 81, 170, 0.18)' : 'none',
+              boxShadow: selectedSlot ? '0 12px 26px rgba(19, 81, 170, 0.08)' : 'none',
             }}
             onMouseEnter={(e) => {
               if (selectedSlot) {
-                e.currentTarget.style.background = 'var(--dash-accent-strong)';
-                e.currentTarget.style.boxShadow = '0 16px 30px rgba(19, 81, 170, 0.24)';
+                e.currentTarget.style.background = 'color-mix(in oklch, var(--dash-accent-muted) 96%, white)';
+                e.currentTarget.style.boxShadow = '0 16px 30px rgba(19, 81, 170, 0.12)';
               }
             }}
             onMouseLeave={(e) => {
               if (selectedSlot) {
-                e.currentTarget.style.background = 'var(--dash-accent)';
-                e.currentTarget.style.boxShadow = '0 12px 26px rgba(19, 81, 170, 0.18)';
+                e.currentTarget.style.background = 'color-mix(in oklch, var(--dash-accent-muted) 88%, white)';
+                e.currentTarget.style.boxShadow = '0 12px 26px rgba(19, 81, 170, 0.08)';
               }
             }}
           >
             <span>
               {selectedSlotLabel
-                ? `Confirmer · ${selectedSlotLabel}`
-                : 'S\u00e9lectionner un cr\u00e9neau'}
+                ? `Confirmer - ${selectedSlotLabel}`
+                : 'Selectionner un creneau'}
             </span>
             <ArrowRight
               size={18}

@@ -94,7 +94,12 @@ export default function RappelsCard() {
             >
               <button className="w-full flex items-center gap-3 py-4 text-left group box-border hover:opacity-90">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-[var(--dash-bg)]">
-                  {React.createElement(Icon, { size: 14, className: "text-[var(--dash-accent)]", style: { color: 'var(--dash-accent)' } })}
+                  {React.createElement(Icon, {
+                    size: 15,
+                    strokeWidth: 1.5,
+                    className: 'text-[var(--dash-accent)]',
+                    style: { color: 'var(--dash-accent)' },
+                  })}
                 </div>
 
                 <div className="flex-1 min-w-0">

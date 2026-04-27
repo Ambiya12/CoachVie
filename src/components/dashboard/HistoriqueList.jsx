@@ -3,13 +3,6 @@ import { CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { formatDateLabel } from '@/lib/consultationUtils';
 
-/**
- * @param {{
- *   items: Array<{ id: any, start: Date, sessionSummary?: string, aiSummary?: string }>,
- *   openId: any | null,
- *   onToggle: (id: any) => void,
- * }} props
- */
 export default function HistoriqueList({ items, openId, onToggle }) {
   if (items.length === 0) {
     return (
@@ -20,36 +13,51 @@ export default function HistoriqueList({ items, openId, onToggle }) {
   }
 
   return (
-    <div
-      style={{
-        background: 'var(--dash-card)',
-        border: '1px solid var(--dash-border)',
-        borderRadius: '24px',
-        boxShadow: 'none',
-        overflow: 'hidden',
-      }}
-    >
+    <div style={{ position: 'relative', paddingLeft: '1.25rem' }}>
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          left: '0.4rem',
+          top: '0.4rem',
+          bottom: '0.4rem',
+          width: '1px',
+          background: 'linear-gradient(180deg, rgba(19,81,170,0.18), rgba(19,81,170,0.04))',
+        }}
+      />
+
       {items.map((item, index) => {
         const isOpen = openId === item.id;
-        const isLast = index === items.length - 1;
         const summary = item.sessionSummary || item.aiSummary;
 
         return (
-          <div
-            key={item.id}
-            style={{ borderBottom: isLast ? 'none' : '1px solid rgba(0,0,0,0.05)' }}
-          >
-            {/* ── Row button ── */}
+          <div key={item.id} style={{ position: 'relative', paddingBottom: index === items.length - 1 ? 0 : '1rem' }}>
+            <span
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                left: '-0.95rem',
+                top: '1.35rem',
+                width: '0.65rem',
+                height: '0.65rem',
+                borderRadius: '999px',
+                background: isOpen ? 'var(--dash-accent)' : 'rgba(19,81,170,0.18)',
+                boxShadow: isOpen ? '0 0 0 6px rgba(19, 81, 170, 0.08)' : 'none',
+              }}
+            />
+
             <button
               type="button"
               onClick={() => onToggle(item.id)}
               className="w-full flex items-center gap-3 text-left group hover:opacity-90 box-border"
               style={{
-                padding: '1rem 1.5rem',
-                background: 'transparent',
-                border: 'none',
+                padding: '1.1rem 1.2rem',
+                background: 'rgba(255,255,255,0.82)',
+                border: '1px solid color-mix(in oklch, var(--dash-text-1) 8%, white)',
+                borderRadius: '18px',
                 cursor: 'pointer',
                 width: '100%',
+                boxShadow: isOpen ? '0 18px 34px rgba(19, 81, 170, 0.08)' : 'none',
               }}
             >
               <div style={{ flex: 1 }}>
@@ -92,26 +100,13 @@ export default function HistoriqueList({ items, openId, onToggle }) {
                 </div>
               </div>
 
-              <div
-                style={{
-                  width: '2rem',
-                  height: '2rem',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'var(--dash-bg)',
-                  flexShrink: 0,
-                }}
-              >
+              <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--dash-bg)', flexShrink: 0 }}>
                 {isOpen
                   ? <ChevronUp size={14} style={{ color: 'var(--dash-text-2)' }} />
-                  : <ChevronDown size={14} style={{ color: 'var(--dash-text-2)' }} />
-                }
+                  : <ChevronDown size={14} style={{ color: 'var(--dash-text-2)' }} />}
               </div>
             </button>
 
-            {/* ── Expanded panel ── */}
             <AnimatePresence initial={false}>
               {isOpen && (
                 <motion.div
@@ -121,7 +116,7 @@ export default function HistoriqueList({ items, openId, onToggle }) {
                   transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                   style={{ overflow: 'hidden' }}
                 >
-                  <div style={{ padding: '0 1.5rem 1.5rem' }}>
+                  <div style={{ padding: '0.8rem 1.2rem 1.6rem 1.2rem' }}>
                     <p
                       style={{
                         fontSize: '0.56rem',
@@ -160,7 +155,7 @@ export default function HistoriqueList({ items, openId, onToggle }) {
                           color: 'var(--dash-text-3)',
                         }}
                       >
-                        Session Termin&eacute;e
+                        Session terminee
                       </span>
                     </div>
                   </div>

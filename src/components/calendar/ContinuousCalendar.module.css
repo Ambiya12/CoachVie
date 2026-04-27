@@ -2,216 +2,228 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: white;
-  border: 1px solid #eaeaea;
-  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 250, 255, 0.92));
+  border: 1px solid color-mix(in oklch, var(--dash-accent) 10%, white);
+  border-radius: 28px;
   margin: 0;
+  box-shadow: 0 24px 60px rgba(19, 81, 170, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 2rem;
+  padding: 1.75rem 2rem 1rem;
 }
 
 .navBtn {
-  background: white;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  width: 32px;
-  height: 32px;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(208, 220, 238, 0.9);
+  border-radius: 999px;
+  width: 2.6rem;
+  height: 2.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 1.25rem;
-  color: #333;
+  color: var(--dash-text-2);
+  backdrop-filter: blur(12px);
 }
+
 .navBtn:hover {
-  background: #f9f9f9;
-  border-color: #ddd;
+  background: rgba(232, 241, 253, 0.9);
+  border-color: color-mix(in oklch, var(--dash-accent) 20%, white);
+  color: var(--dash-accent-strong);
+  transform: translateY(-1px);
 }
 
 .headerCenter {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .monthLabel {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
+  letter-spacing: -0.04em;
   text-transform: capitalize;
-  color: #111;
+  color: var(--dash-text-1);
 }
 
 .todayBtn {
-  background: white;
-  border: 1px solid #eaeaea;
-  font-size: 0.65rem;
+  background: transparent;
+  border: 1px solid color-mix(in oklch, var(--dash-text-1) 10%, white);
+  font-size: 0.64rem;
   font-weight: 600;
-  padding: 0.35rem 0.75rem;
+  padding: 0.42rem 0.82rem;
   border-radius: 20px;
   cursor: pointer;
-  color: #555;
+  color: var(--dash-text-3);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: background 0.2s ease;
+  letter-spacing: 0.12em;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
+
 .todayBtn:hover {
-  background: #f9f9f9;
+  background: rgba(255, 255, 255, 0.75);
+  border-color: color-mix(in oklch, var(--dash-accent) 20%, white);
+  color: var(--dash-accent-strong);
 }
 
 .dayRow {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
-  border-top: 1px solid #eaeaea;
-  border-bottom: 1px solid #eaeaea;
-  padding: 1rem 0;
+  padding: 0.25rem 2rem 0.9rem;
 }
 
 .dayLabel {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  color: #888;
+  color: var(--dash-text-3);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.14em;
 }
 
 .gridContainer {
-  padding: 1.5rem 2rem;
+  padding: 0 2rem 2rem;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1rem;
+  gap: 0.45rem 0.2rem;
 }
 
 .empty {
-  min-height: 80px;
+  min-height: 5.8rem;
 }
 
 .day {
-  background: white;
-  border: 1px solid #eaeaea;
-  border-radius: 12px;
-  min-height: 80px;
+  background: transparent;
+  border: none;
+  border-radius: 26px;
+  min-height: 5.8rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
-  padding: 1rem;
+  padding: 0.8rem 0.3rem 0.55rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
   position: relative;
 }
 
 .day:hover {
-  border-color: #ccc;
+  background: rgba(255, 255, 255, 0.48);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .dayNumWrapper {
-  width: 100%;
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
 .dayNum {
-  font-size: 0.85rem;
+  font-size: 0.96rem;
   font-weight: 600;
-  color: #333;
+  color: var(--dash-text-1);
 }
 
 .today {
-  background: #111;
-  border-color: #111;
+  background: rgba(232, 241, 253, 0.56);
+  box-shadow: inset 0 0 0 1px rgba(165, 193, 232, 0.35);
 }
+
+.today .dayNumWrapper {
+  background: linear-gradient(180deg, rgba(202, 224, 255, 0.95), rgba(166, 200, 244, 0.96));
+  box-shadow: 0 14px 28px rgba(19, 81, 170, 0.14);
+}
+
 .today .dayNum {
-  color: white;
+  color: var(--dash-accent-strong);
 }
 
 .selectedDay {
-  border: 1.5px solid #b8905b;
+  background: rgba(240, 246, 255, 0.9);
 }
 
-.dots {
+.selectedDay .dayNumWrapper {
+  background: linear-gradient(180deg, rgba(92, 144, 221, 0.16), rgba(19, 81, 170, 0.18));
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--dash-accent) 24%, white), 0 10px 20px rgba(19, 81, 170, 0.1);
+}
+
+.indicatorRail {
   display: flex;
-  gap: 4px;
-  margin-top: auto;
-  align-self: flex-end;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.55rem;
 }
 
-.consultationMarker {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 20px;
-  height: 20px;
+.eventIndicator {
+  width: 0.33rem;
+  height: 0.33rem;
   border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #dfdfdf;
-  background: #f7f7f7;
+  background: color-mix(in oklch, var(--dash-text-3) 72%, white);
+  position: relative;
 }
 
-.consultationIcon {
-  color: #1a1a1a;
-  stroke-width: 2.1;
+.eventIndicatorConsultation {
+  background: var(--dash-accent);
 }
 
-.today .consultationMarker {
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.16);
-}
-
-.today .consultationIcon {
-  color: #ffffff;
-}
-
-.dotTodo {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ccc;
-}
-.today .dotTodo {
-  background: rgba(255,255,255,0.4);
-}
-
-.dotDone {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #111;
-}
-.today .dotDone {
-  background: white;
-}
-
-.badge {
+.eventIndicatorHalo::before {
+  content: '';
   position: absolute;
-  bottom: 8px;
-  right: 8px;
-  background: #eaeaea;
-  font-size: 0.6rem;
-  font-weight: 700;
-  color: #555;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  inset: 50% auto auto 50%;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(19, 81, 170, 0.12), rgba(19, 81, 170, 0));
 }
-.today .badge {
-  background: rgba(255,255,255,0.2);
-  color: white;
+
+.today .eventIndicator,
+.selectedDay .eventIndicator {
+  background: var(--dash-accent-strong);
+}
+
+@media (max-width: 900px) {
+  .header,
+  .gridContainer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dayRow {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .grid {
+    gap: 0.3rem 0.1rem;
+  }
+
+  .day {
+    min-height: 5.1rem;
+    padding-top: 0.6rem;
+  }
+
+  .dayNumWrapper {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .dayNum {
+    font-size: 0.88rem;
+  }
 }

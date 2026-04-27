@@ -30,23 +30,23 @@ function ConsultationPageContent() {
 
   return (
     <div className="antialiased" style={{ color: 'var(--dash-text-1)', minHeight: 0 }}>
-
-      {/* ── Page header ── */}
-      <header style={{ paddingBottom: '2rem', paddingTop: '0.25rem' }}>
+      <header style={{ paddingBottom: '2.4rem', paddingTop: '0.25rem' }}>
         <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', color: 'var(--dash-text-3)', textTransform: 'uppercase' }}>
-          Coaching Privé
+          Coaching Prive
         </p>
         <h1 style={{ marginTop: '0.5rem', fontSize: '2rem', fontFamily: 'var(--font-brand-heading)', fontWeight: 600, letterSpacing: '-0.03em', color: 'var(--dash-text-1)', lineHeight: 1.1 }}>
           Mes Consultations
         </h1>
+        <p style={{ margin: '0.85rem 0 0', maxWidth: '52ch', fontSize: '0.94rem', lineHeight: 1.75, color: 'var(--dash-text-2)' }}>
+          Une vue plus calme pour preparer la prochaine session, reserver un creneau sans friction et relire le parcours deja accompli.
+        </p>
       </header>
 
-      {/* ── Two columns ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: '1.5rem', alignItems: 'stretch' }}>
-        <div className="order-2" style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)]" style={{ gap: '1.5rem', alignItems: 'stretch' }}>
+        <div className="order-1" style={{ display: 'flex', flexDirection: 'column' }}>
           <ProchainRDVCard consultation={upcomingConsultation} />
         </div>
-        <div className="order-1" style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="order-2" style={{ display: 'flex', flexDirection: 'column' }}>
           <BookingCard
             bookingDates={bookingDates}
             availableSlotsByDate={availableSlotsByDate}
@@ -65,7 +65,6 @@ function ConsultationPageContent() {
         </div>
       </div>
 
-      {/* ── Historique ── */}
       <section style={{ marginTop: '3rem', paddingBottom: '2rem' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <p style={{ fontSize: '0.58rem', letterSpacing: '0.32em', color: 'var(--dash-text-3)', textTransform: 'uppercase' }}>
